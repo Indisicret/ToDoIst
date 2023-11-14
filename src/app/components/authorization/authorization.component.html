@@ -1,1 +1,17 @@
-<p>authorization works!</p>
+<div class="AuthWindow">
+  <form class="login" [formGroup]="authorForm">
+    <h1>Авторизация</h1>
+    <div class = "form-control">
+        <label>Email</label>
+        <input type = "text" placeholder="Email">
+        <div class="validation"></div>
+    </div>
+    <div class = "form-control">
+        <label>Пароль</label>
+        <input type = "password" placeholder="Пароль">
+        <div class="validation"></div>
+        <button class="btn" type="button">Войти</button>
+        <button class="btn" type="button">Регистрация</button>
+    </div>
+  </form>
+</div>

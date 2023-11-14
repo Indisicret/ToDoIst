@@ -4,7 +4,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 export const routes: Routes = [
     {
-        path:'login', component:AuthorizationComponent
+        path:'authorization', component:AuthorizationComponent
     },
     {
         path:'registration', component:RegistrationComponent

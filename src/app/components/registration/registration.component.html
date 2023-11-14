@@ -1,1 +1,26 @@
-<p>registration works!</p>
+<div class="regWindow">
+    <form class="reg" [formGroup]="regForm" (ngSubmit)="submit()">
+      <h1>Регистрация</h1>
+      <div class = "form-control">
+        
+        <label>Email</label>
+          <input type = "text" placeholder="Email">
+          <div class="validation"></div>
+      </div>
+      <div class = "form-control">
+          <label>Пароль</label>
+          <input type = "password" placeholder="Пароль">
+          <div class="validation"></div>
+
+          <label>Имя</label>
+          <input type = "text" placeholder="Имя">
+          <div class="validation"></div>
+      
+          <select>
+            <option value="м">Мужской</option>
+            <option value="ж">Женский</option>
+          </select>  
+          <button class="btn" type="submit">Отправить</button>
+      </div>
+    </form>
+  </div>
