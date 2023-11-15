@@ -4,3 +4,11 @@
     justify-content: center;
     height: 100%;
 }
+input{
+    &.ng-inalid.ng-touched {
+        border: 1px solid red
+    }
+    &.ng-valid.ng-touched {
+        border: 1px solid green
+    }
+}

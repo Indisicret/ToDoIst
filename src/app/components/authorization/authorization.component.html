@@ -9,7 +9,18 @@
         type="text"
         placeholder="Email"
       />
-      <div class="validation"></div>
+      <!-- <pre>{{ authorForm.get("login")?.errors | json }}</pre> -->
+      <div
+        *ngIf="
+          authorForm.get('login')?.invalid && authorForm.get('login')?.touched
+        "
+        class="validation"
+      >
+        <small *ngIf="authorForm.get('login')?.errors">
+          Поле email не может быть пустым
+        </small>
+        <small> Введите корректный email </small>
+      </div>
     </div>
     <div class="form-control">
       <label>Пароль</label>
@@ -19,11 +30,27 @@
         type="password"
         placeholder="Пароль"
       />
-      <div class="validation"></div>
+      <!-- <div 
+      *ngIf="
+          authorForm.get('password')?.invalid && authorForm.get('password')?.touched"
+          class="validation"
+      >
+      <small *ngIf="authorForm">
+        Пароль не может быть пустым
+      </small>
+      <small *ngIf="authorForm.get('password')?.errors.minLength">
+        пароль не может быть меньше 6 символов{{
+          authorForm.get('password')?.errors.minLength.requiredLength}}
+      </small>
+    </div>-->
     </div>
     <!-- <button class="btn" type="button">Войти</button>
     <button class="btn" type="button">Регистрация</button> -->
-    <p-button label="Войти"></p-button>
+    <p-button
+      type="submit"
+      [disabled]="authorForm.invalid"
+      label="Войти"
+    ></p-button>
     <p-button label="Регистрация"></p-button>
   </form>
 </div>
