@@ -1,5 +1,5 @@
 <div class="authorization">
-  <form class="login" [formGroup]="authorForm">
+  <form [formGroup]="authorForm">
     <h1>Авторизация</h1>
     <div class="form-control">
       <label>Email</label>
@@ -9,12 +9,10 @@
         type="text"
         placeholder="Email"
       />
-      <!-- <pre>{{ authorForm.get("login")?.errors | json }}</pre> -->
       <div
         *ngIf="
           authorForm.get('login')?.invalid && authorForm.get('login')?.touched
         "
-        class="validation"
       >
         <small *ngIf="authorForm.get('login')?.errors">
           Поле email не может быть пустым
@@ -30,26 +28,12 @@
         type="password"
         placeholder="Пароль"
       />
-      <!-- <div 
-      *ngIf="
-          authorForm.get('password')?.invalid && authorForm.get('password')?.touched"
-          class="validation"
-      >
-      <small *ngIf="authorForm">
-        Пароль не может быть пустым
-      </small>
-      <small *ngIf="authorForm.get('password')?.errors.minLength">
-        пароль не может быть меньше 6 символов{{
-          authorForm.get('password')?.errors.minLength.requiredLength}}
-      </small>
-    </div>-->
     </div>
-    <!-- <button class="btn" type="button">Войти</button>
-    <button class="btn" type="button">Регистрация</button> -->
     <p-button
       type="submit"
       [disabled]="authorForm.invalid"
       label="Войти"
+      (onClick)="authClick()"
     ></p-button>
     <p-button label="Регистрация"></p-button>
   </form>
