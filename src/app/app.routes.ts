@@ -3,10 +3,12 @@ import { AuthorizationComponent } from './components/authorization/authorization
 import { RegistrationComponent } from './components/registration/registration.component';
 
 export const routes: Routes = [
-    {
-        path:'authorization', component:AuthorizationComponent
-    },
-    {
-        path:'registration', component:RegistrationComponent
-    }
+  {
+    path: 'authorization',
+    component: AuthorizationComponent,
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
+  },
 ];
