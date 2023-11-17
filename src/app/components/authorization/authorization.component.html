@@ -1,8 +1,8 @@
 <div class="authorization">
+  <h1>Авторизация</h1>
   <form [formGroup]="authorForm">
-    <h1>Авторизация</h1>
     <div class="form-control">
-      <label>Email</label>
+      <div>Email:</div>
       <input
         pInputText
         formControlName="login"
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="form-control">
-      <label>Пароль</label>
+      <div>Пароль:</div>
       <input
         pInputText
         formControlName="password"
@@ -29,12 +29,15 @@
         placeholder="Пароль"
       />
     </div>
+    <!-- <div class="buttons-block"> -->
     <p-button
+      [ngStyle]="{ 'margin-right': '10px' }"
       type="submit"
       [disabled]="authorForm.invalid"
       label="Войти"
       (onClick)="authClick()"
     ></p-button>
     <p-button label="Регистрация"></p-button>
+    <!-- </div> -->
   </form>
 </div>

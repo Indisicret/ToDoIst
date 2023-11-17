@@ -1,14 +1,22 @@
-.authorization{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+.authorization {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  .form-control {
+    margin-bottom: 12px;
+  }
+//   .buttons-block{
+//     display: flex;
+//     justify-content: space-between;
+//   }
 }
-input{
-    &.ng-inalid.ng-touched {
-        border: 1px solid red
-    }
-    &.ng-valid.ng-touched {
-        border: 1px solid green
-    }
+input {
+  &.ng-inalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
 }

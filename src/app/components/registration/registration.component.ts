@@ -51,4 +51,7 @@ export class RegistrationComponent {
       //открыть страницу тасков
     }
   }
+  authClick(){
+    //открыть авторизауию
+  }
 }

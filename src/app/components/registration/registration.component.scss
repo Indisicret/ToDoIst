@@ -1,8 +1,25 @@
-input{
-    &.ng-inalid.ng-touched {
-        border: 1px solid red
-    }
-    &.ng-valid.ng-touched {
-        border: 1px solid green
-    }
+.registration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+  .form-control {
+    margin-bottom: 12px;
+  }
+  .buttons-block {
+    width: 360px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+input {
+    width: 100%;
+  &.ng-inalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
 }
