@@ -7,6 +7,13 @@ export type AuthorizationForm = {
 export type RegistrationForm = {
   login: FormControl<string | null>;
   password: FormControl<string | null>;
-  name: FormControl<string |null>
-  gender: FormControl<string|null>;
+  name: FormControl<string | null>;
+  gender: FormControl<string | null>;
+};
+
+export type User = {
+  login: string;
+  password: string;
+  name: string;
+  gender: string;
 };
