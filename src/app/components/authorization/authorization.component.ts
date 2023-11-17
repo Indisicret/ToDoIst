@@ -11,6 +11,7 @@ import { FormGroup } from '@angular/forms';
 import { AuthorizationForm } from '../../config/types';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { UserService } from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -28,7 +29,7 @@ import { ButtonModule } from 'primeng/button';
 export class AuthorizationComponent {
   authorForm: FormGroup<AuthorizationForm>;
 
-  constructor() {
+  constructor(private userService: UserService) {
     this.authorForm = new FormGroup<AuthorizationForm>({
       login: new FormControl<string | null>(null, [
         Validators.email,
@@ -42,6 +43,10 @@ export class AuthorizationComponent {
   }
 
   authClick() {
-    console.log(this.authorForm);
+    const login = this.authorForm.getRawValue().login;
+    const password = this.authorForm.getRawValue().password;
+    if (login && password) {
+      this.userService.authorization(login, password);
+    }
   }
 }

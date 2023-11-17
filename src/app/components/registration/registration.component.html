@@ -12,11 +12,11 @@
     </div>
     <div class="form-control">
       <label>Пароль</label>
-      <input pInputText type="password" placeholder="Пароль" />
+      <input pInputText type="password" formControlName="password" placeholder="Пароль" />
     </div>
     <div class="form-control">
       <label>Имя</label>
-      <input pInputText type="text" placeholder="Имя" />
+      <input pInputText formControlName="name" type="text" placeholder="Имя" />
     </div>
 
     <div class="form-control">
@@ -26,6 +26,6 @@
       ></p-dropdown>
     </div>
 
-    <p-button type="submit">Отправить</p-button>
+    <p-button [disabled]="regForm.invalid" (onClick)="regClick()">Отправить</p-button>
   </form>
 </div>
