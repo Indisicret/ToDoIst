@@ -1,6 +1,18 @@
 <h1>Tasks</h1>
-
-<!-- <p-table [value]="tasks" [tableStyle]="{'min-width':'60rem'}"
-<ng-template pTemplate="caption">
-    <div class=""
-</ng-template> -->
+<div>
+    <p-table
+      [columns]="cols"
+      [value]="tasks"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">{{ col.header }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  
