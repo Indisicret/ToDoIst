@@ -3,7 +3,7 @@
 
   <form [formGroup]="regForm">
     <div class="form-control">
-      <div>Email</div>
+      <div>Email:</div>
       <input
         pInputText
         formControlName="login"
@@ -12,16 +12,16 @@
       />
     </div>
     <div class="form-control">
-      <div>Пароль</div>
+      <div>Пароль:</div>
       <input pInputText type="password" formControlName="password" placeholder="Пароль" />
     </div>
     <div class="form-control">
-      <div>Имя</div>
+      <div>Имя:</div>
       <input pInputText formControlName="name" type="text" placeholder="Имя" />
     </div>
 
     <div class="form-control">
-      <div>Пол</div>
+      <div>Пол:</div>
       <p-dropdown
         formControlName="gender"
         [options]="optionsGender"

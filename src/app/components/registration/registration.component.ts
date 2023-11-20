@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -33,7 +33,8 @@ export class RegistrationComponent {
   regForm: FormGroup<RegistrationForm>; 
   optionsGender = [{ label: 'Мужской', value: 'man' },{label: 'Женский', value: 'woman'}];
 
-  constructor(private userService:UserService) {
+  constructor(private userService:UserService,
+    private router:Router) {
     this.regForm = new FormGroup<RegistrationForm>({
       login: new FormControl<string | null>(null,[
         Validators.email,
@@ -47,11 +48,14 @@ export class RegistrationComponent {
 
   regClick(){
     const result = this.userService.registration(this.regForm.getRawValue() as User);
-    if(result){
+    if(result){ 
       //открыть страницу тасков
     }
   }
   authClick(){
+    this.router.navigate([
+    '/authorization'
+    ])
     //открыть авторизауию
   }
 }

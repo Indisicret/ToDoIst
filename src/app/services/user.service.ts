@@ -13,13 +13,16 @@ export class UserService {
 
     const userauth = users.find((item) => item.login === login);
     if (!userauth){
-      alert ('Пользователь не найден')
+      alert ('Пользователь не найден');
+      return false
     }
     else{
       if (userauth.password===password){
+        return true
 
       }
-      else alert ('Неверный пароль')
+      else alert ('Неверный пароль');
+      
     }
   }
 

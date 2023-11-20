@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormControl,
   FormsModule,
@@ -29,7 +29,8 @@ import { UserService } from '../../services/user.service';
 export class AuthorizationComponent {
   authorForm: FormGroup<AuthorizationForm>;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+    private router:Router) {
     this.authorForm = new FormGroup<AuthorizationForm>({
       login: new FormControl<string | null>(null, [
         Validators.email,
@@ -48,5 +49,10 @@ export class AuthorizationComponent {
     if (login && password) {
       this.userService.authorization(login, password);
     }
+  }
+  regClick(){
+    this.router.navigate([
+      '/registration'
+    ]) 
   }
 }
