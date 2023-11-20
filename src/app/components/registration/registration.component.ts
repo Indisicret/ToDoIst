@@ -23,39 +23,40 @@ import { UserService } from '../../services/user.service';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent {
+  regForm: FormGroup<RegistrationForm>;
+  optionsGender = [
+    { label: 'Мужской', value: 'man' },
+    { label: 'Женский', value: 'woman' },
+  ];
 
-  regForm: FormGroup<RegistrationForm>; 
-  optionsGender = [{ label: 'Мужской', value: 'man' },{label: 'Женский', value: 'woman'}];
-
-  constructor(private userService:UserService,
-    private router:Router) {
+  constructor(private userService: UserService, private router: Router) {
     this.regForm = new FormGroup<RegistrationForm>({
-      login: new FormControl<string | null>(null,[
+      login: new FormControl<string | null>(null, [
         Validators.email,
         Validators.required,
       ]),
-      password: new FormControl<string | null>(null,[Validators.required]),
-      name: new FormControl<string | null>(null,[Validators.required]),
-      gender: new FormControl<string | null>(null,[Validators.required]),
+      password: new FormControl<string | null>(null, [Validators.required]),
+      name: new FormControl<string | null>(null, [Validators.required]),
+      gender: new FormControl<string | null>(null, [Validators.required]),
     });
   }
 
-  regClick(){
-    const result = this.userService.registration(this.regForm.getRawValue() as User);
-    if(result){ 
-      //открыть страницу тасков
+  regClick() {
+    const result = this.userService.registration(
+      this.regForm.getRawValue() as User
+    );
+    if (result) {
+      this.router.navigate(['/tasks']);
     }
   }
-  authClick(){
-    this.router.navigate([
-    '/authorization'
-    ])
+  authClick() {
+    this.router.navigate(['/authorization']);
     //открыть авторизауию
   }
 }

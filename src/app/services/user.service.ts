@@ -7,26 +7,26 @@ import { User } from '../config/types';
 export class UserService {
   constructor() {}
 
-  authorization(login: string, password: string) {
-  
-    const users: User[] = JSON.parse( localStorage.getItem('usersTodoIst')??'[]')
+  authorization(login: string, password: string): boolean {
+    const users: User[] = JSON.parse(
+      localStorage.getItem('usersTodoIst') ?? '[]'
+    );
 
     const userauth = users.find((item) => item.login === login);
-    if (!userauth){
-      alert ('Пользователь не найден');
-      return false
-    }
-    else{
-      if (userauth.password===password){
-        return true
-
+    if (!userauth) {
+      alert('Пользователь не найден');
+      return false;
+    } else {
+      if (userauth.password === password) {
+        return true;
+      } else {
+        alert('Неверный пароль');
+        return false
       }
-      else alert ('Неверный пароль');
-      
     }
   }
 
-  registration(user: User):boolean {
+  registration(user: User): boolean {
     const users: User[] = JSON.parse(
       localStorage.getItem('usersTodoIst') ?? '[]'
     );

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 export const routes: Routes = [
   {
@@ -11,4 +12,8 @@ export const routes: Routes = [
     path: 'registration',
     component: RegistrationComponent,
   },
+  {
+    path: 'tasks',
+    component : TaskListComponent
+  }
 ];

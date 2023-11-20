@@ -29,8 +29,7 @@ import { UserService } from '../../services/user.service';
 export class AuthorizationComponent {
   authorForm: FormGroup<AuthorizationForm>;
 
-  constructor(private userService: UserService,
-    private router:Router) {
+  constructor(private userService: UserService, private router: Router) {
     this.authorForm = new FormGroup<AuthorizationForm>({
       login: new FormControl<string | null>(null, [
         Validators.email,
@@ -47,12 +46,13 @@ export class AuthorizationComponent {
     const login = this.authorForm.getRawValue().login;
     const password = this.authorForm.getRawValue().password;
     if (login && password) {
-      this.userService.authorization(login, password);
+      const result = this.userService.authorization(login, password);
+      if (result) {
+        this.router.navigate(['/tasks']);
+      }
     }
   }
-  regClick(){
-    this.router.navigate([
-      '/registration'
-    ]) 
+  regClick() {
+    this.router.navigate(['/registration']);
   }
 }
