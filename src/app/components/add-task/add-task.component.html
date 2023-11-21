@@ -1,19 +1,43 @@
-<p>add-task works!</p>
-
-
-<form [formGroup]="addTaskForm">
+<div class="add-task-container">
+  <form [formGroup]="addTaskForm">
     <div class="form-control">
-      <div>Название задачи:</div>
+      <div>Название:</div>
       <input
         pInputText
-        formControlName="taskName"
+        formControlName="nameTask"
         type="text"
-        placeholder="Название "
+        placeholder="Название"
       />
     </div>
 
-    <div class="card flex justiflu-content-center">
-        <textarea rows="5" cols="30" pInputTextarea ></textarea>
+    <div class="form-control">
+      <div>Приоритет:</div>
+      <p-dropdown
+        formControlName="priorety"
+        [options]="optionsPriority"
+        placeholder="Приоретет"
+      ></p-dropdown>
     </div>
 
-    
+    <div class="form-control">
+      <div>Категория:</div>
+      <p-dropdown
+        formControlName="category"
+        [options]="optionsCategory"
+        placeholder="Категория"
+      ></p-dropdown>
+    </div>
+
+    <div class="form-control">
+      <div>Описание:</div>
+      <textarea
+        rows="5"
+        formControlName="description"
+        cols="30"
+        pInputTextarea
+        placeholder="Описание"
+      >
+      </textarea>
+    </div>
+  </form>
+</div>
