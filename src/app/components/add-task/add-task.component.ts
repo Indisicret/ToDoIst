@@ -5,7 +5,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddTaskForm } from '../../config/types';
-
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-add-task',
@@ -16,8 +16,8 @@ import { AddTaskForm } from '../../config/types';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    InputTextModule
-    
+    InputTextModule,
+    CalendarModule,
   ],
   templateUrl: './add-task.component.html',
   providers:[],
@@ -51,6 +51,7 @@ export class AddTaskComponent {
       ]),
       priority: new FormControl<string | null>(null, [Validators.required]),
     });
+    
   }
 
   

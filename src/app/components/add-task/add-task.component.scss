@@ -1,0 +1,14 @@
+input {
+    width: 100%;
+  &.ng-inalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+}
+p-dropdawn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;}

@@ -1,5 +1,6 @@
 <div class="add-task-container">
   <form [formGroup]="addTaskForm">
+   
     <div class="form-control">
       <div>Название:</div>
       <input
@@ -13,7 +14,7 @@
     <div class="form-control">
       <div>Приоритет:</div>
       <p-dropdown
-        formControlName="priorety"
+        formControlName="priority"
         [options]="optionsPriority"
         placeholder="Приоретет"
       ></p-dropdown>
@@ -27,7 +28,7 @@
         placeholder="Категория"
       ></p-dropdown>
     </div>
-
+    
     <div class="form-control">
       <div>Описание:</div>
       <textarea
@@ -38,6 +39,15 @@
         placeholder="Описание"
       >
       </textarea>
+      <div> deadLine
+
+        <p-calendar formControlName="deadLineDate"
+          [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+
+      </div>
+
     </div>
+    <p-button label="Добавить"></p-button>
+
   </form>
 </div>

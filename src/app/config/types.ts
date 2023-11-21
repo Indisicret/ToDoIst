@@ -14,7 +14,7 @@ export type RegistrationForm = {
 export type AddTaskForm={
   nameTask:FormControl <string | null>;
   category:FormControl <string | null>;
-  deadLineDate:FormControl <string | null>;
+  deadLineDate:FormControl <Date | string | null>;
   description:FormControl <string | null>;
   priority: FormControl <string | null>;
 }
