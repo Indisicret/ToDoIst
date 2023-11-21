@@ -28,6 +28,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
+
 export class RegistrationComponent {
   regForm: FormGroup<RegistrationForm>;
   optionsGender = [

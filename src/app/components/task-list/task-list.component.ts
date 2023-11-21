@@ -2,13 +2,24 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Column, Task } from '../../config/types';
+import { Button, ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TableModule],
+  imports: [
+    CommonModule,
+    TableModule,
+    ButtonModule,
+    DynamicDialogModule,
+    ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
+  providers: [
+    DialogService
+  ]
 })
 export class TaskListComponent {
   tasks: Task[] = [
@@ -18,6 +29,7 @@ export class TaskListComponent {
       description: 'Налить воды в чайник',
       deadLineDate: '07.11.2033',
       category: 'Дом',
+      priority: 'Важное',
     },
     {
       id: 2,
@@ -25,6 +37,7 @@ export class TaskListComponent {
       description: 'заказать корм в доставке, поменять воду',
       deadLineDate: '07.11.2033',
       category: 'Дом',
+      priority: 'срочное',
     },
     {
       id: 3,
@@ -32,13 +45,25 @@ export class TaskListComponent {
       description: 'создать таск менеджер, согласно тз',
       deadLineDate: '23.12.2023',
       category: 'Работа',
+      priority: 'важное',
     },
   ];
+
   cols: Column[] = [
     { field: 'id', header: '№' },
     { field: 'name', header: 'Название' },
     { field: 'description', header: 'Описание' },
     { field: 'deadLineDate', header: 'Срок выполнения' },
     { field: 'category', header: 'Категория' },
+    { field: 'priority', header: 'Приоритет' }
   ];
+  constructor(public dialogService: DialogService) {}
+
+  addTask(){
+    this.dialogService.open(AddTaskComponent,{
+      header:'Добавить задачу'
+    });
+
+  }
 }
+ 

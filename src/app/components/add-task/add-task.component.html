@@ -1,1 +1,19 @@
 <p>add-task works!</p>
+
+
+<form [formGroup]="addTaskForm">
+    <div class="form-control">
+      <div>Название задачи:</div>
+      <input
+        pInputText
+        formControlName="taskName"
+        type="text"
+        placeholder="Название "
+      />
+    </div>
+
+    <div class="card flex justiflu-content-center">
+        <textarea rows="5" cols="30" pInputTextarea ></textarea>
+    </div>
+
+    
