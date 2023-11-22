@@ -11,19 +11,20 @@ export type RegistrationForm = {
   name: FormControl<string | null>;
   gender: FormControl<string | null>;
 };
-export type AddTaskForm={
-  nameTask:FormControl <string | null>;
-  category:FormControl <string | null>;
-  deadLineDate:FormControl <Date | string | null>;
-  description:FormControl <string | null>;
-  priority: FormControl <string | null>;
-}
+export type AddTaskForm = {
+  nameTask: FormControl<string | null>;
+  category: FormControl<string | null>;
+  deadLineDate: FormControl<Date | string | null>;
+  description: FormControl<string | null>;
+  priority: FormControl<string | null>;
+};
 
 export type User = {
   login: string;
   password: string;
   name: string;
   gender: string;
+  id?: number;
 };
 
 export type Task = {
@@ -33,9 +34,8 @@ export type Task = {
   deadLineDate: string;
   description: string;
   priority: string;
-}
+};
 export type Column = {
   field: string;
   header: string;
-}
-
+};

@@ -21,7 +21,7 @@ export class UserService {
         return true;
       } else {
         alert('Неверный пароль');
-        return false
+        return false;
       }
     }
   }
@@ -35,6 +35,17 @@ export class UserService {
       alert('такой пользователь уже зарегистрирован');
       return false;
     } else {
+      if (users.length === 0) {
+        user.id = 1;
+      } else {
+        let max = 0;
+        users.forEach((item) => {
+          if (item.id && max < item.id) {
+            max = item.id;
+          }
+        });
+        user.id = max + 1;
+      }
       users.push(user);
       localStorage.setItem('usersTodoIst', JSON.stringify(users));
       return true;
