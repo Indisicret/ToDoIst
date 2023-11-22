@@ -1,8 +1,7 @@
 <div class="add-task-container">
   <form [formGroup]="addTaskForm">
-   
     <div class="form-control">
-      <div>Название:</div>
+      <div class="form-label">Название:</div>
       <input
         pInputText
         formControlName="nameTask"
@@ -10,27 +9,27 @@
         placeholder="Название"
       />
     </div>
+    <div class="drop-container">
+      <div class="form-control">
+        <div class="form-label">Приоритет:</div>
+        <p-dropdown
+          formControlName="priority"
+          [options]="optionsPriority"
+          placeholder="Приоретет"
+        ></p-dropdown>
+      </div>
 
-    <div class="form-control">
-      <div>Приоритет:</div>
-      <p-dropdown
-        formControlName="priority"
-        [options]="optionsPriority"
-        placeholder="Приоретет"
-      ></p-dropdown>
+      <div class="form-control">
+        <div class="form-label">Категория:</div>
+        <p-dropdown
+          formControlName="category"
+          [options]="optionsCategory"
+          placeholder="Категория"
+        ></p-dropdown>
+      </div>
     </div>
-
     <div class="form-control">
-      <div>Категория:</div>
-      <p-dropdown
-        formControlName="category"
-        [options]="optionsCategory"
-        placeholder="Категория"
-      ></p-dropdown>
-    </div>
-    
-    <div class="form-control">
-      <div>Описание:</div>
+      <div class="form-label">Описание:</div>
       <textarea
         rows="5"
         formControlName="description"
@@ -39,15 +38,15 @@
         placeholder="Описание"
       >
       </textarea>
-      <div> deadLine
-
-        <p-calendar formControlName="deadLineDate"
-          [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
-
-      </div>
-
+    </div>
+    <div class="form-control">
+      <div class="form-label">deadLine</div>
+      <p-calendar
+        formControlName="deadLineDate"
+        [showIcon]="true"
+        dateFormat="dd.mm.yy"
+      ></p-calendar>
     </div>
     <p-button label="Добавить"></p-button>
-
   </form>
 </div>

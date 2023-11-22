@@ -1,5 +1,5 @@
 input {
-    width: 100%;
+  width: 100%;
   &.ng-inalid.ng-touched {
     border: 1px solid red;
   }
@@ -7,8 +7,20 @@ input {
     border: 1px solid green;
   }
 }
-p-dropdawn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;}
+
+textarea, .p-calendar{
+  width: 100%;
+}
+
+.drop-container{
+  display: flex;
+  .form-control:first-child{
+    margin-right: 15px;
+  }
+}
+.form-control{
+  margin-bottom: 12px;
+  .form-label{
+    margin-bottom: 4px;
+  }
+}

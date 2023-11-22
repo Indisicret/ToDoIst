@@ -5,6 +5,8 @@ import { User } from '../config/types';
   providedIn: 'root',
 })
 export class UserService {
+  userId: number | null = null;
+
   constructor() {}
 
   authorization(login: string, password: string): boolean {
@@ -12,12 +14,13 @@ export class UserService {
       localStorage.getItem('usersTodoIst') ?? '[]'
     );
 
-    const userauth = users.find((item) => item.login === login);
-    if (!userauth) {
+    const userAuth = users.find((item) => item.login === login);
+    if (!userAuth) {
       alert('Пользователь не найден');
       return false;
     } else {
-      if (userauth.password === password) {
+      if (userAuth.password === password) {
+        this.userId = userAuth.id ?? null;
         return true;
       } else {
         alert('Неверный пароль');
@@ -45,6 +48,7 @@ export class UserService {
           }
         });
         user.id = max + 1;
+        this.userId = user.id;
       }
       users.push(user);
       localStorage.setItem('usersTodoIst', JSON.stringify(users));

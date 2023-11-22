@@ -6,20 +6,12 @@ import { Button, ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
 
-
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    TableModule,
-    ButtonModule,
-    DynamicDialogModule,
-    ],
+  imports: [CommonModule, TableModule, ButtonModule, DynamicDialogModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
-  providers: [
-    DialogService
-  ]
+  providers: [DialogService],
 })
 export class TaskListComponent {
   tasks: Task[] = [
@@ -30,6 +22,7 @@ export class TaskListComponent {
       deadLineDate: '07.11.2033',
       category: 'Дом',
       priority: 'Важное',
+      userId: 1,
     },
     {
       id: 2,
@@ -38,6 +31,7 @@ export class TaskListComponent {
       deadLineDate: '07.11.2033',
       category: 'Дом',
       priority: 'срочное',
+      userId: 1,
     },
     {
       id: 3,
@@ -46,6 +40,7 @@ export class TaskListComponent {
       deadLineDate: '23.12.2023',
       category: 'Работа',
       priority: 'важное',
+      userId: 1,
     },
   ];
 
@@ -55,15 +50,14 @@ export class TaskListComponent {
     { field: 'description', header: 'Описание' },
     { field: 'deadLineDate', header: 'Срок выполнения' },
     { field: 'category', header: 'Категория' },
-    { field: 'priority', header: 'Приоритет' }
+    { field: 'priority', header: 'Приоритет' },
   ];
   constructor(public dialogService: DialogService) {}
 
-  addTask(){
-    this.dialogService.open(AddTaskComponent,{
-      header:'Добавить задачу'
+  addTask() {
+    this.dialogService.open(AddTaskComponent, {
+      header: 'Добавить задачу',
+      width: '500px',
     });
-
   }
 }
- 

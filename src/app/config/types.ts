@@ -34,6 +34,7 @@ export type Task = {
   deadLineDate: string;
   description: string;
   priority: string;
+  userId: number;
 };
 export type Column = {
   field: string;
