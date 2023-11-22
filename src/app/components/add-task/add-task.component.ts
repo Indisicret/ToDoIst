@@ -40,6 +40,7 @@ export class AddTaskComponent {
   optionsCategory = [
     { label: 'Дом', value: 'Home' },
     { label: 'Работа', value: 'Work' },
+    
   ];
 
   constructor(private taskService: TaskService) {

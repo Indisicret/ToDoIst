@@ -40,3 +40,8 @@ export type Column = {
   field: string;
   header: string;
 };
+
+export type Category ={
+  name: string;
+  id: number;
+}

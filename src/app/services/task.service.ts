@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Task, User } from '../config/types';
+import { Category, Task, User } from '../config/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  taskId: number | null = null;
   constructor() {}
 
   addTask(task: Task) {
     const globalTask: Task[] = JSON.parse(
       localStorage.getItem('tasks') ?? '[]'
     );
-    globalTask.push(task);
-    localStorage.setItem('tasks', JSON.stringify(globalTask));
-
     if (globalTask.length === 0) {
       task.id = 1;
     } else {
@@ -25,24 +21,45 @@ export class TaskService {
         }
       });
       task.id = max + 1;
-      this.taskId = task.id;
     }
     globalTask.push(task);
     localStorage.setItem('tasks', JSON.stringify(globalTask));
-    console.log(localStorage.getItem('tasks'));
   }
 
   readTask() {}
 
+  createCategory(categoryName: string) {
+    const categories: Category[] = JSON.parse(
+      localStorage.getItem('categories') ?? '[]'
+    );
+    const newCategory: Category = {
+      id: 0,
+      name: categoryName,
+    };
+    if (categories.length === 0) {
+      newCategory.id = 1;
+    } else {
+      let max = 0;
+      categories.forEach((item) => {
+        if (max < item.id) {
+          max = item.id;
+        }
+      });
+      newCategory.id = max + 1;
+    }
+    categories.push(newCategory);
+    localStorage.setItem('categories', JSON.stringify(categories));
+  }
+
   editTask() {}
 
   deleteTask(id: number) {
-    localStorage.removeItem('tasks')
+    localStorage.removeItem('tasks');
     const allTask: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
     const index = allTask.findIndex((item) => item.id === id);
     if (index !== -1) {
       allTask.splice(index, 1);
-      localStorage.setItem('tasks',JSON.stringify(allTask))
+      localStorage.setItem('tasks', JSON.stringify(allTask));
     }
   }
 }
