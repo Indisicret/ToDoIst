@@ -4,7 +4,7 @@
       <div class="form-label">Название:</div>
       <input
         pInputText
-        formControlName="nameTask"
+        formControlName="name"
         type="text"
         placeholder="Название"
       />
@@ -47,6 +47,6 @@
         dateFormat="dd.mm.yy"
       ></p-calendar>
     </div>
-    <p-button label="Добавить"></p-button>
+    <p-button label="Добавить" (onClick)="saveTask()"></p-button>
   </form>
 </div>

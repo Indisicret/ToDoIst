@@ -12,7 +12,7 @@ export type RegistrationForm = {
   gender: FormControl<string | null>;
 };
 export type AddTaskForm = {
-  nameTask: FormControl<string | null>;
+  name: FormControl<string | null>;
   category: FormControl<string | null>;
   deadLineDate: FormControl<Date | string | null>;
   description: FormControl<string | null>;
@@ -28,7 +28,7 @@ export type User = {
 };
 
 export type Task = {
-  id: number;
+  id?: number;
   name: string;
   category: string;
   deadLineDate: string;
