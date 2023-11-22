@@ -25,7 +25,6 @@ import { TaskService } from '../../services/task.service';
     DropdownModule,
     InputTextModule,
     CalendarModule,
-    
   ],
   templateUrl: './add-task.component.html',
   providers: [TaskService],
@@ -43,7 +42,7 @@ export class AddTaskComponent {
     { label: 'Работа', value: 'Work' },
   ];
 
-  constructor(private taskService:TaskService) {
+  constructor(private taskService: TaskService) {
     this.addTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(null, [
         Validators.required,
@@ -62,6 +61,6 @@ export class AddTaskComponent {
   saveTask() {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
     console.log(task);
-    this.taskService.addTask(task)
+    this.taskService.addTask(task);
   }
 }
