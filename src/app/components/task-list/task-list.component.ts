@@ -33,9 +33,13 @@ export class TaskListComponent {
   }
 
   addTask() {
-    this.dialogService.open(AddTaskComponent, {
-      header: 'Добавить задачу',
-      width: '500px',
-    });
+    this.dialogService
+      .open(AddTaskComponent, {
+        header: 'Добавить задачу',
+        width: '500px',
+      })
+      .onClose.subscribe(() => {
+          this.tasks = this.taskService.getTask();
+      });
   }
 }

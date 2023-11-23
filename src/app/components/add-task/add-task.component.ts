@@ -14,6 +14,7 @@ import { AddTaskForm, Task } from '../../config/types';
 import { CalendarModule } from 'primeng/calendar';
 import { TaskService } from '../../services/task.service';
 import {LOCALE_ID} from '@angular/core'
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -48,7 +49,7 @@ export class AddTaskComponent {
     
   ];
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,private dialogRef: DynamicDialogRef) {
     this.addTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(null, [
         Validators.required,
@@ -67,6 +68,8 @@ export class AddTaskComponent {
   saveTask() {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
     this.taskService.addTask(task);
-    
+    this.dialogRef.close();
+
   }
+  
 }
