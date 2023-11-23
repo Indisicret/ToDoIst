@@ -13,7 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddTaskForm, Task } from '../../config/types';
 import { CalendarModule } from 'primeng/calendar';
 import { TaskService } from '../../services/task.service';
-
+import {LOCALE_ID} from '@angular/core'
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -25,9 +25,14 @@ import { TaskService } from '../../services/task.service';
     DropdownModule,
     InputTextModule,
     CalendarModule,
+  
   ],
   templateUrl: './add-task.component.html',
-  providers: [TaskService],
+  providers: [TaskService,
+  {
+    provide: LOCALE_ID,
+    useValue:'ru'
+  }],
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
@@ -61,7 +66,7 @@ export class AddTaskComponent {
 
   saveTask() {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
-    console.log(task);
     this.taskService.addTask(task);
+    
   }
 }

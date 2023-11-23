@@ -40,11 +40,13 @@
       </textarea>
     </div>
     <div class="form-control">
-      <div class="form-label">deadLine</div>
+      <div class="form-label">Срок выполнения</div>
       <p-calendar
         formControlName="deadLineDate"
         [showIcon]="true"
         dateFormat="dd.mm.yy"
+        [firstDayOfWeek]="1"
+        
       ></p-calendar>
     </div>
     <p-button label="Добавить" (onClick)="saveTask()"></p-button>
