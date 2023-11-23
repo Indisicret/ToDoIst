@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Category, Task, User } from '../config/types';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  constructor() {}
+  constructor(private userService: UserService) {}
 
   addTask(task: Task) {
     const globalTask: Task[] = JSON.parse(
@@ -22,11 +23,20 @@ export class TaskService {
       });
       task.id = max + 1;
     }
+    const userId = this.userService.getUserId();
+    if (userId) {
+      task.userId = userId;
+    }
     globalTask.push(task);
+
+    console.log(globalTask);
     localStorage.setItem('tasks', JSON.stringify(globalTask));
   }
 
-  readTask() {}
+  readTask(): Task[] {
+    
+    return [];
+  }
 
   createCategory(categoryName: string) {
     const categories: Category[] = JSON.parse(
