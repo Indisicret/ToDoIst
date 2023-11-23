@@ -5,8 +5,6 @@ import { User } from '../config/types';
   providedIn: 'root',
 })
 export class UserService {
-  userId: number | null = null;
-
   constructor() {}
 
   authorization(login: string, password: string): boolean {
@@ -20,7 +18,7 @@ export class UserService {
       return false;
     } else {
       if (userAuth.password === password) {
-        this.userId = userAuth.id ?? null;
+        localStorage.setItem('userId', `${userAuth.id}`);
         return true;
       } else {
         alert('Неверный пароль');
@@ -48,11 +46,15 @@ export class UserService {
           }
         });
         user.id = max + 1;
-        this.userId = user.id;
+        localStorage.setItem('userId', `${user.id}`);
       }
       users.push(user);
       localStorage.setItem('usersTodoIst', JSON.stringify(users));
       return true;
     }
+  }
+
+  getUserId(): number | null {
+    return Number(localStorage.getItem('userId')) ?? 0;
   }
 }
