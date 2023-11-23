@@ -33,9 +33,15 @@ export class TaskService {
     localStorage.setItem('tasks', JSON.stringify(globalTask));
   }
 
-  readTask(): Task[] {
-    
-    return [];
+  getTask(): Task[] {
+    const globalTasks: Task[] = JSON.parse(
+      localStorage.getItem('tasks') ?? '[]'
+    );
+    const userId = this.userService.getUserId();
+    const userTasks: Task[] = globalTasks.filter(
+      (item) => item.userId === userId
+    );
+    return userTasks;
   }
 
   createCategory(categoryName: string) {
