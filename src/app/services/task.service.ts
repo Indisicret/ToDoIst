@@ -67,6 +67,17 @@ export class TaskService {
     localStorage.setItem('categories', JSON.stringify(categories));
   }
 
+  deleteCategory(id: number){
+    localStorage.removeItem('categories');
+    const categories: Category[] = JSON.parse(localStorage.getItem('categories') ?? '[]');
+    const index = categories.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      categories.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(categories));
+    }
+  }
+  
+
   editTask() {}
 
   deleteTask(id: number) {
