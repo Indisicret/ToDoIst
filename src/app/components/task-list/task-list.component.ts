@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { Column, Task } from '../../config/types';
-import { Button, ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
+import { AddTaskComponent } from '../add-task/add-task.component';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, DynamicDialogModule],
+  imports: [CommonModule, TableModule, ButtonModule, DynamicDialogModule, EditTaskComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   providers: [DialogService, TaskService],
@@ -39,7 +40,17 @@ export class TaskListComponent {
         width: '500px',
       })
       .onClose.subscribe(() => {
-          this.tasks = this.taskService.getTask();
+        this.tasks = this.taskService.getTask();
       });
+  }
+
+  openEditModal(id:number) {
+    console.log(id)
+    this.dialogService.open(
+      EditTaskComponent,{header: 'Редактирование задачи',
+      width: '500px',
+
+      }
+    )
   }
 }

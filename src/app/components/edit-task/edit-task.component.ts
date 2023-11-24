@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     CommonModule,
   ],
   template: `<p>edit-task works!</p>`,
-  styleUrl: './edit-task.component.css',
+  styleUrl: './edit-task.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditTaskComponent { }
