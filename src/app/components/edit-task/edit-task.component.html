@@ -1,0 +1,55 @@
+<div class="edit-task-container">
+    <form [formGroup]="editTaskForm">
+      <div class="form-control">
+        <div class="form-label">Название:</div>
+        <input
+          pInputText
+          formControlName="name"
+          type="text"
+          placeholder="Название"
+        />
+      </div>
+      <div class="drop-container">
+        <div class="form-control">
+          <div class="form-label">Приоритет:</div>
+          <p-dropdown
+            formControlName="priority"
+            [options]="optionsPriority"
+            placeholder="Приоретет"
+          ></p-dropdown>
+        </div>
+  
+        <div class="form-control">
+          <div class="form-label">Категория:</div>
+          <p-dropdown
+            formControlName="category"
+            [options]="optionsCategory"
+            placeholder="Категория"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div class="form-control">
+        <div class="form-label">Описание:</div>
+        <textarea
+          rows="5"
+          formControlName="description"
+          cols="30"
+          pInputTextarea
+          placeholder="Описание"
+        >
+        </textarea>
+      </div>
+      <div class="form-control">
+        <div class="form-label">Срок выполнения</div>
+        <p-calendar
+          formControlName="deadLineDate"
+          [showIcon]="true"
+          dateFormat="dd.mm.yy"
+          [firstDayOfWeek]="1"
+          
+        ></p-calendar>
+      </div>
+      <p-button label="Добавить" (onClick)="saveTask()"></p-button>
+    </form>
+  </div>
+  
