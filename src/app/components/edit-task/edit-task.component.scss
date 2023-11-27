@@ -1,3 +1,29 @@
 :host {
   display: block;
 }
+input {
+  width: 100%;
+  &.ng-inalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+}
+
+textarea, .p-calendar{
+  width: 100%;
+}
+
+.drop-container{
+  display: flex;
+  .form-control:first-child{
+    margin-right: 15px;
+  }
+}
+.form-control{
+  margin-bottom: 12px;
+  .form-label{
+    margin-bottom: 4px;
+  }
+}
