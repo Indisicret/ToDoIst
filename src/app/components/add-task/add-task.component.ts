@@ -13,7 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddTaskForm, Task } from '../../config/types';
 import { CalendarModule } from 'primeng/calendar';
 import { TaskService } from '../../services/task.service';
-import {LOCALE_ID} from '@angular/core'
+import { LOCALE_ID } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-add-task',
@@ -26,14 +26,15 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
     DropdownModule,
     InputTextModule,
     CalendarModule,
-  
   ],
   templateUrl: './add-task.component.html',
-  providers: [TaskService,
-  {
-    provide: LOCALE_ID,
-    useValue:'ru'
-  }],
+  providers: [
+    TaskService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'ru',
+    },
+  ],
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
@@ -46,10 +47,12 @@ export class AddTaskComponent {
   optionsCategory = [
     { label: 'Дом', value: 'Home' },
     { label: 'Работа', value: 'Work' },
-    
   ];
 
-  constructor(private taskService: TaskService,private dialogRef: DynamicDialogRef) {
+  constructor(
+    private taskService: TaskService,
+    private dialogRef: DynamicDialogRef
+  ) {
     this.addTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(null, [
         Validators.required,
@@ -68,8 +71,6 @@ export class AddTaskComponent {
   saveTask() {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
     this.taskService.addTask(task);
-    this.dialogRef.close();
-
+    this.dialogRef.close(true);
   }
-  
 }

@@ -8,6 +8,12 @@ import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import {
+  ConfirmEventType,
+  ConfirmationService,
+  MessageService,
+} from 'primeng/api';
 
 @Component({
   standalone: true,
@@ -18,10 +24,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     DynamicDialogModule,
     EditTaskComponent,
     ConfirmDialogModule,
+    ToastModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
-  providers: [DialogService, TaskService],
+  providers: [DialogService, TaskService, ConfirmationService, MessageService],
 })
 export class TaskListComponent {
   tasks: Task[] = [];
@@ -36,7 +43,9 @@ export class TaskListComponent {
   ];
   constructor(
     private dialogService: DialogService,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private confimationService: ConfirmationService,
+    private messageServis: MessageService
   ) {
     this.tasks = this.taskService.getTask();
   }
@@ -47,14 +56,18 @@ export class TaskListComponent {
         header: 'Добавить задачу',
         width: '500px',
       })
-      .onClose.subscribe(() => {
-        this.tasks = this.taskService.getTask();
+      .onClose.subscribe((result) => {
+        if (result){
+          this.tasks = this.taskService.getTask();
+          this.messageServis.add({
+            severity: 'success',
+            summary: 'Выполнено',
+            detail: 'Задача добавлена', 
+          });
+        }
+        
       });
   }
-  deleteTask(task: Task) {
-    this.taskService.deleteTask(task.id ?? 0);
-  }
-
   openEditModal(task: Task) {
     this.dialogService
       .open(EditTaskComponent, {
@@ -64,8 +77,36 @@ export class TaskListComponent {
           task,
         },
       })
-      .onClose.subscribe(() => {
-        this.tasks = this.taskService.getTask();
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.tasks = this.taskService.getTask();
+          this.messageServis.add({
+            severity: 'success',
+            summary: 'Выполнено',
+            detail: 'Задача изменена',
+          });
+        }
       });
+  }
+
+  clickDeleteIcon(task: Task) {
+    this.confimationService.confirm({
+      message: 'Вы уверены, что хотите удалить эту задачу',
+      header: 'Удаление задачи',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.deleteTask(task);
+        this.tasks=this.taskService.getTask()
+        this.messageServis.add({
+          severity: 'success',
+          summary: 'Выполнено',
+          detail: 'Задача удалена',
+        });
+      },
+    });
+  }
+
+  private deleteTask(task: Task) {
+    this.taskService.deleteTask(task.id ?? 0);
   }
 }

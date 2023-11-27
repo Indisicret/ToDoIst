@@ -66,7 +66,7 @@ export class EditTaskComponent {
       category: new FormControl<string | null>(this.task.category),
       deadLineDate: new FormControl<Date | string | null>(
         this.task.deadLineDate
-      ),
+      ), 
       description: new FormControl<string | null>(
         this.task.description,
         Validators.maxLength(100)
@@ -84,7 +84,7 @@ export class EditTaskComponent {
       id: this.task.id,
     };
     this.taskService.editTask(newTask);
-    this.dialogRef.close()
+    this.dialogRef.close(true)
     
   }
 }

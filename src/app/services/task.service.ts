@@ -92,6 +92,7 @@ export class TaskService {
     if (index !== -1) {
       allTasks.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(allTasks));
+      
     }
   }
 }
