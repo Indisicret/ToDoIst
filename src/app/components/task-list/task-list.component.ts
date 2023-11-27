@@ -10,7 +10,13 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, DynamicDialogModule, EditTaskComponent],
+  imports: [
+    CommonModule,
+    TableModule,
+    ButtonModule,
+    DynamicDialogModule,
+    EditTaskComponent,
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   providers: [DialogService, TaskService],
@@ -44,13 +50,15 @@ export class TaskListComponent {
       });
   }
 
-  openEditModal(id:number) {
-    console.log(id)
-    this.dialogService.open(
-      EditTaskComponent,{header: 'Редактирование задачи',
+  openEditModal(task: Task) {
+    this.dialogService.open(EditTaskComponent, {
+      header: 'Редактирование задачи',
       width: '500px',
-
-      }
-    )
+      data: {
+        task,
+      },
+    }).onClose.subscribe(() => {
+      this.tasks = this.taskService.getTask();
+    });;
   }
 }
