@@ -67,26 +67,32 @@ export class TaskService {
     localStorage.setItem('categories', JSON.stringify(categories));
   }
 
-  deleteCategory(id: number){
+  deleteCategory(id: number) {
     localStorage.removeItem('categories');
-    const categories: Category[] = JSON.parse(localStorage.getItem('categories') ?? '[]');
+    const categories: Category[] = JSON.parse(
+      localStorage.getItem('categories') ?? '[]'
+    );
     const index = categories.findIndex((item) => item.id === id);
     if (index !== -1) {
       categories.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(categories));
     }
   }
-  
 
-  editTask() {}
+  editTask(newTask: Task) {
+    const allTasks: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
+    const index = allTasks.findIndex((item) => item.id === newTask.id);
+    allTasks.splice(index, 1, newTask);
+    localStorage.setItem('tasks', JSON.stringify(allTasks));
+  }
 
   deleteTask(id: number) {
     localStorage.removeItem('tasks');
-    const allTask: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
-    const index = allTask.findIndex((item) => item.id === id);
+    const allTasks: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
+    const index = allTasks.findIndex((item) => item.id === id);
     if (index !== -1) {
-      allTask.splice(index, 1);
-      localStorage.setItem('tasks', JSON.stringify(allTask));
+      allTasks.splice(index, 1);
+      localStorage.setItem('tasks', JSON.stringify(allTasks));
     }
   }
 }
