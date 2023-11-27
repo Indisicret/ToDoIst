@@ -87,7 +87,6 @@ export class TaskService {
   }
 
   deleteTask(id: number) {
-    localStorage.removeItem('tasks');
     const allTasks: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
     const index = allTasks.findIndex((item) => item.id === id);
     if (index !== -1) {

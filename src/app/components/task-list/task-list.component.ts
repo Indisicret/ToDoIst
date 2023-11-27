@@ -7,6 +7,7 @@ import { Column, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   standalone: true,
@@ -16,6 +17,7 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
     ButtonModule,
     DynamicDialogModule,
     EditTaskComponent,
+    ConfirmDialogModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -49,16 +51,21 @@ export class TaskListComponent {
         this.tasks = this.taskService.getTask();
       });
   }
+  deleteTask(task: Task) {
+    this.taskService.deleteTask(task.id ?? 0);
+  }
 
   openEditModal(task: Task) {
-    this.dialogService.open(EditTaskComponent, {
-      header: 'Редактирование задачи',
-      width: '500px',
-      data: {
-        task,
-      },
-    }).onClose.subscribe(() => {
-      this.tasks = this.taskService.getTask();
-    });;
+    this.dialogService
+      .open(EditTaskComponent, {
+        header: 'Редактирование задачи',
+        width: '500px',
+        data: {
+          task,
+        },
+      })
+      .onClose.subscribe(() => {
+        this.tasks = this.taskService.getTask();
+      });
   }
 }
