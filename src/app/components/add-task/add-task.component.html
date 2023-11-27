@@ -49,6 +49,6 @@
         
       ></p-calendar>
     </div>
-    <p-button label="Добавить" (onClick)="saveTask()"></p-button>
+    <p-button label="Добавить" [disabled]="addTaskForm.invalid"(onClick)="saveTask()"></p-button>
   </form>
 </div>
