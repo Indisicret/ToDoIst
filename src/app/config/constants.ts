@@ -5,12 +5,12 @@ export const PRIORITIES = [
   { label: 'Высокий', value: 'high' },
 ];
 export const CATEGORIES = [
-  { label: 'Дом', value: 'Home' },
-  { label: 'Работа', value: 'Work' },
+  { label: 'Дом', value: 'home' },
+  { label: 'Работа', value: 'work' },
 ];
 
 export const COLUMNS = [
-  { field: 'id', header: '№' },
+  { field: 'id', header: '№' }, 
   { field: 'name', header: 'Название' },
   { field: 'description', header: 'Описание' },
   { field: 'deadLineDate', header: 'Срок выполнения' },

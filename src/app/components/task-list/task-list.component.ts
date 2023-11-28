@@ -16,7 +16,7 @@ import { Column, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { getPriority } from '../../config/methods';
+import { getCategory, getPriority } from '../../config/methods';
 
 @Component({
   standalone: true,
@@ -77,11 +77,6 @@ export class TaskListComponent {
         }
       });
   }
-  // ngOnInit(){
-  //   this.formGroup = FormGroup({
-  //     status:new FormControl<string | null>(null)
-  //   })
-  // }
 
   clickDeleteIcon(task: Task) {
     this.confimationService.confirm({
@@ -104,9 +99,9 @@ export class TaskListComponent {
     const tasks = this.taskService.getTask();
 
     tasks.forEach((item)=>{
-      item.priority = getPriority(item.priority)
+      item.priority = getPriority(item.priority);
+      item.category = getCategory(item.category);
     })
-
-    this.tasks = tasks;
+     this.tasks = tasks;
   }
 }
