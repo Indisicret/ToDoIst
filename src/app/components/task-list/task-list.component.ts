@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import {
-  ConfirmationService,
-  MessageService
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -12,11 +8,12 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { COLUMNS, MESSAGES } from '../../config/constants';
+import { getCategory, getPriority } from '../../config/methods';
 import { Column, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { getCategory, getPriority } from '../../config/methods';
+import cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   standalone: true,
@@ -35,10 +32,11 @@ import { getCategory, getPriority } from '../../config/methods';
   providers: [DialogService, TaskService, ConfirmationService, MessageService],
 })
 export class TaskListComponent {
-  tasks: Task[] = [];
-  formGroup: FormGroup | undefined;
-
+  tasksTable: Task[] = [];
   cols: Column[] = COLUMNS;
+
+  private tasks: Task[] = [];
+
   constructor(
     private dialogService: DialogService,
     private taskService: TaskService,
@@ -67,7 +65,7 @@ export class TaskListComponent {
         header: 'Редактирование задачи',
         width: '500px',
         data: {
-          task,
+          task: this.tasks.find(item=>item.id===task.id),
         },
       })
       .onClose.subscribe((result) => {
@@ -95,13 +93,14 @@ export class TaskListComponent {
     this.taskService.deleteTask(task.id ?? 0);
   }
 
-  private getTasks(){
+  private getTasks() {
     const tasks = this.taskService.getTask();
+    this.tasks = cloneDeep(tasks);
 
-    tasks.forEach((item)=>{
+    tasks.forEach((item) => {
       item.priority = getPriority(item.priority);
       item.category = getCategory(item.category);
-    })
-     this.tasks = tasks;
+    });
+    this.tasksTable = tasks;
   }
 }
