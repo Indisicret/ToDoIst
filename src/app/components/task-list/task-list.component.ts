@@ -16,6 +16,7 @@ import { Column, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { getPriority } from '../../config/methods';
 
 @Component({
   standalone: true,
@@ -44,7 +45,7 @@ export class TaskListComponent {
     private confimationService: ConfirmationService,
     private messageServis: MessageService
   ) {
-    this.tasks = this.taskService.getTask();
+    this.getTasks();
   }
 
   addTask() {
@@ -55,7 +56,7 @@ export class TaskListComponent {
       })
       .onClose.subscribe((result) => {
         if (result) {
-          this.tasks = this.taskService.getTask();
+          this.getTasks();
           this.messageServis.add(MESSAGES.add);
         }
       });
@@ -71,7 +72,7 @@ export class TaskListComponent {
       })
       .onClose.subscribe((result) => {
         if (result) {
-          this.tasks = this.taskService.getTask();
+          this.getTasks();
           this.messageServis.add(MESSAGES.edit);
         }
       });
@@ -89,7 +90,7 @@ export class TaskListComponent {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.deleteTask(task);
-        this.tasks = this.taskService.getTask();
+        this.getTasks();
         this.messageServis.add(MESSAGES.delete);
       },
     });
@@ -97,5 +98,15 @@ export class TaskListComponent {
 
   private deleteTask(task: Task) {
     this.taskService.deleteTask(task.id ?? 0);
+  }
+
+  private getTasks(){
+    const tasks = this.taskService.getTask();
+
+    tasks.forEach((item)=>{
+      item.priority = getPriority(item.priority)
+    })
+
+    this.tasks = tasks;
   }
 }

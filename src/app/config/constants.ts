@@ -1,4 +1,3 @@
-import { Message } from 'primeng/api';
 
 export const PRIORITIES = [
   { label: 'Низкий', value: 'low' },
