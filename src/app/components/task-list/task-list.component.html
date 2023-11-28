@@ -8,6 +8,7 @@
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns">{{ col.header }}</th>
+        <th>Статус</th>
         <th></th>
         <th></th>
       </tr>
@@ -15,12 +16,16 @@
     <ng-template pTemplate="body" let-task let-columns="columns">
       <tr>
         <td *ngFor="let col of columns">{{ task[col.field] }}</td>
+        <td>
+          <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+        </td>
         <td (click)="openEditModal(task)">
           <span class="pi pi-pencil"></span>
         </td>
         <td (click)="clickDeleteIcon(task)">
           <span class="pi pi-trash"></span>
         </td>
+       
       </tr>
     </ng-template>
   </p-table>

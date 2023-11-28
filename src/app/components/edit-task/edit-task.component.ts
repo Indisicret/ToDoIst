@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
 import { AddTaskForm, Task } from '../../config/types';
+import { CATEGORIES, PRIORITIES } from '../../config/constants';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -39,16 +40,8 @@ import { AddTaskForm, Task } from '../../config/types';
 })
 export class EditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
-  optionsPriority = [
-    { label: 'Низкий', value: 'low' },
-    { label: 'Средний', value: 'mid' },
-    { label: 'Высокий', value: 'high' },
-  ];
-  optionsCategory = [
-    { label: 'Дом', value: 'Home' },
-    { label: 'Работа', value: 'Work' },
-  ];
-
+  optionsPriority = PRIORITIES;
+  optionsCategory = CATEGORIES;
   private task: Task;
 
   constructor(
@@ -66,7 +59,7 @@ export class EditTaskComponent {
       category: new FormControl<string | null>(this.task.category),
       deadLineDate: new FormControl<Date | string | null>(
         this.task.deadLineDate
-      ), 
+      ),
       description: new FormControl<string | null>(
         this.task.description,
         Validators.maxLength(100)
@@ -84,7 +77,6 @@ export class EditTaskComponent {
       id: this.task.id,
     };
     this.taskService.editTask(newTask);
-    this.dialogRef.close(true)
-    
+    this.dialogRef.close(true);
   }
 }

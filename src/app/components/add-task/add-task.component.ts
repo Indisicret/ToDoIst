@@ -15,6 +15,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { TaskService } from '../../services/task.service';
 import { LOCALE_ID } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CATEGORIES, PRIORITIES } from '../../config/constants';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -39,15 +40,9 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class AddTaskComponent {
   addTaskForm: FormGroup<AddTaskForm>;
-  optionsPriority = [
-    { label: 'Низкий', value: 'low' },
-    { label: 'Средний', value: 'mid' },
-    { label: 'Высокий', value: 'high' },
-  ];
-  optionsCategory = [
-    { label: 'Дом', value: 'Home' },
-    { label: 'Работа', value: 'Work' },
-  ];
+  
+  optionsPriority = PRIORITIES;
+  optionsCategory = CATEGORIES;
 
   constructor(
     private taskService: TaskService,
