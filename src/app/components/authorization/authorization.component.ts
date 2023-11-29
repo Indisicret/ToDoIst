@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
 import {
   FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { AuthorizationForm } from '../../config/types';
-import { InputTextModule } from 'primeng/inputtext';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { AuthorizationForm } from '../../config/types';
 import { UserService } from '../../services/user.service';
 
 @Component({

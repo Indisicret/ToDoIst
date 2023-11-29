@@ -27,6 +27,7 @@ import { CATEGORIES, PRIORITIES } from '../../config/constants';
     DropdownModule,
     InputTextModule,
     CalendarModule,
+    
   ],
   templateUrl: './add-task.component.html',
   providers: [

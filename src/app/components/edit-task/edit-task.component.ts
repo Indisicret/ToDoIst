@@ -54,7 +54,7 @@ export class EditTaskComponent {
     this.editTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(this.task.name, [
         Validators.required,
-        Validators.maxLength(20),
+        Validators.maxLength(40),
       ]),
       category: new FormControl<string | null>(this.task.category),
       deadLineDate: new FormControl<Date | string | null>(
@@ -62,7 +62,7 @@ export class EditTaskComponent {
       ),
       description: new FormControl<string | null>(
         this.task.description,
-        Validators.maxLength(100)
+        Validators.maxLength(300)
       ),
       priority: new FormControl<string | null>(this.task.priority, [
         Validators.required,
