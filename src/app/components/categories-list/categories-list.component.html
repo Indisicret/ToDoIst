@@ -1,0 +1,10 @@
+<h1>Категории задач</h1>
+
+<p-button (click)="addCategory()" label="Добавить категорию"></p-button>
+<div class="table-container">
+  <p-table
+    dataKey="id"
+    editMode="row"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  ></p-table>
+</div>
