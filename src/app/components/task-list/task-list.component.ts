@@ -14,6 +14,8 @@ import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import cloneDeep from 'lodash/cloneDeep';
+import { Router, RouterLink } from '@angular/router';
+
 
 @Component({
   standalone: true,
@@ -26,6 +28,9 @@ import cloneDeep from 'lodash/cloneDeep';
     ConfirmDialogModule,
     ToastModule,
     CheckboxModule,
+    RouterLink,
+    
+    
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -41,7 +46,8 @@ export class TaskListComponent {
     private dialogService: DialogService,
     private taskService: TaskService,
     private confimationService: ConfirmationService,
-    private messageServis: MessageService
+    private messageServis: MessageService,
+    private router: Router
   ) {
     this.getTasks();
   }
@@ -89,6 +95,10 @@ export class TaskListComponent {
     });
   }
 
+  openCategories(){
+    this.router.navigate(['/categories']);
+  }
+
   private deleteTask(task: Task) {
     this.taskService.deleteTask(task.id ?? 0);
   }
@@ -103,4 +113,5 @@ export class TaskListComponent {
     });
     this.tasksTable = tasks;
   }
+  
 }

@@ -10,7 +10,7 @@ export const CATEGORIES = [
 ];
 
 export const COLUMNS = [
-  { field: 'id', header: '№' }, 
+  { field: 'id', header: 'id' }, 
   { field: 'name', header: 'Название' },
   { field: 'description', header: 'Описание' },
   { field: 'deadLineDate', header: 'Срок выполнения' },
