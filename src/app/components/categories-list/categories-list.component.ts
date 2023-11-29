@@ -1,7 +1,11 @@
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { Category } from "../../config/types";
-import { TableModule } from "primeng/table";
+import { Router, RouterLink } from "@angular/router";
 import { ButtonModule } from "primeng/button";
+import { TableModule } from "primeng/table";
+import { Category } from "../../config/types";
+import { InputTextModule } from "primeng/inputtext";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @Component({
@@ -9,6 +13,11 @@ import { ButtonModule } from "primeng/button";
     imports: [
       TableModule,
       ButtonModule,
+      RouterLink,
+      CommonModule,
+      InputTextModule,
+      ReactiveFormsModule,
+      FormsModule
     ],
     templateUrl: './categories-list.component.html',
     styleUrl: './categories-list.component.scss',
@@ -16,7 +25,32 @@ import { ButtonModule } from "primeng/button";
   })
 
   export class CategoriesListComponent {
-  
-    addCategory() {}
+
+    categoriesTable:Category[] = [
+      {
+        id:1,
+        name: 'test1'
+      },
+      {
+        id:2,
+        name: 'test2'
+      }
+    ];
+
+    
+    constructor(
+      private router: Router
+      ){}
+
+
+    addCategory() {
+      
+    }
+
+
+
+    openTasks(){
+      this.router.navigate(['/tasks']);
+    }
    
   }

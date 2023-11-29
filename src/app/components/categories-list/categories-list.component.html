@@ -3,8 +3,37 @@
 <p-button (click)="addCategory()" label="Добавить категорию"></p-button>
 <div class="table-container">
   <p-table
+    [value]="categoriesTable"
     dataKey="id"
     editMode="row"
     [tableStyle]="{ 'min-width': '50rem' }"
-  ></p-table>
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 20%">id</th>
+        <th style="width: 80%">Name</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category let-editing="editing">
+      <tr [pEditableRow]="category">
+        <td>{{ category.id }}</td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="category.name" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ category.name }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <span *ngIf="!editing" class="pi pi-pencil" pInitEditableRow></span>
+          <span *ngIf="editing" class="pi pi-check" pSaveEditableRow></span> 
+          <span *ngIf="editing" class="pi pi-times" pCancelEditableRow></span> 
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
+<div class="tasks-link" (click)="openTasks()">Задачи</div>
