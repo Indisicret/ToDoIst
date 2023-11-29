@@ -1,56 +1,52 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
-import { ButtonModule } from "primeng/button";
-import { TableModule } from "primeng/table";
-import { Category } from "../../config/types";
-import { InputTextModule } from "primeng/inputtext";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { Category } from '../../config/types';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    standalone: true,
-    imports: [
-      TableModule,
-      ButtonModule,
-      RouterLink,
-      CommonModule,
-      InputTextModule,
-      ReactiveFormsModule,
-      FormsModule
-    ],
-    templateUrl: './categories-list.component.html',
-    styleUrl: './categories-list.component.scss',
-    providers: [],
-  })
+  standalone: true,
+  imports: [
+    TableModule,
+    ButtonModule,
+    RouterLink,
+    CommonModule,
+    InputTextModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
+  templateUrl: './categories-list.component.html',
+  styleUrl: './categories-list.component.scss',
+  providers: [],
+})
+export class CategoriesListComponent {
+  categoriesTable: Category[] = [
+    {
+      id: 1,
+      name: 'test1',
+    },
+    {
+      id: 2,
+      name: 'test2',
+    },
+  ];
 
-  export class CategoriesListComponent {
+  constructor(private router: Router) {}
 
-    categoriesTable:Category[] = [
-      {
-        id:1,
-        name: 'test1'
-      },
-      {
-        id:2,
-        name: 'test2'
-      }
-    ];
+  addCategory() {}
 
-    
-    constructor(
-      private router: Router
-      ){}
-
-
-    addCategory() {
-      
-    }
-
-
-
-    openTasks(){
-      this.router.navigate(['/tasks']);
-    }
-   
+  saveChangesCategory(category: Category) {
+    console.log('сохранить ', category);
   }
+
+  cancelChangesCategory() {
+    console.log('отменить');
+  }
+
+  openTasks() {
+    this.router.navigate(['/tasks']);
+  }
+}

@@ -12,6 +12,7 @@
       <tr>
         <th style="width: 20%">id</th>
         <th style="width: 80%">Name</th>
+        <th></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-category let-editing="editing">
@@ -29,8 +30,10 @@
         </td>
         <td>
           <span *ngIf="!editing" class="pi pi-pencil" pInitEditableRow></span>
-          <span *ngIf="editing" class="pi pi-check" pSaveEditableRow></span> 
-          <span *ngIf="editing" class="pi pi-times" pCancelEditableRow></span> 
+          <div *ngIf="editing" class="icons-block">
+            <span class="pi pi-check" pSaveEditableRow (click)="saveChangesCategory(category)"></span>
+            <span class="pi pi-times" pCancelEditableRow (click)="cancelChangesCategory()"></span>
+          </div>
         </td>
       </tr>
     </ng-template>
