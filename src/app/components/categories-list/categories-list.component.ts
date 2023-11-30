@@ -76,11 +76,13 @@ export class CategoriesListComponent {
   }
 
   saveChangesCategory(category: Category) {
-    console.log('сохранить ', category);
+    // console.log('сохранить ', category);
+    this.categoryService.editCategory(category)
   }
 
   cancelChangesCategory() {
-    console.log('отменить');
+    this.categoriesTable = this.categoryService.getCategories();
+    
   }
 
   openTasks() {

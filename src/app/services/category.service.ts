@@ -43,6 +43,14 @@ export class CategoryService {
     return userCategories;
   }
 
+  editCategory(newCategory:Category){
+    const allCategories: Category[] = JSON.parse(localStorage.getItem('categories') ?? '[]');
+    const index = allCategories.findIndex((item) => item.id === newCategory.id);
+    allCategories.splice(index, 1, newCategory);
+    localStorage.setItem('categories', JSON.stringify(allCategories));
+
+  }
+
   deleteCategory(id: number) {
     // localStorage.removeItem('categories');
     const categories: Category[] = JSON.parse(
