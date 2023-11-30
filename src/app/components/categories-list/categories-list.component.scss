@@ -6,6 +6,13 @@
   cursor: pointer;
   font-weight: 600;
 }
+.category-input{
+  display: flex;
+  margin-bottom: 20px;
+  .category-form{
+    margin-right: 12px;
+  }
+}
 .table-container {
   .icons-block {
     display: flex;

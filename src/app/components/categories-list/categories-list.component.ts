@@ -3,9 +3,15 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { Category } from '../../config/types';
+import { AddCategoryForm, Category } from '../../config/types';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -23,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [],
 })
 export class CategoriesListComponent {
+  addCategoryform: FormGroup<AddCategoryForm>;
   categoriesTable: Category[] = [
     {
       id: 1,
@@ -34,9 +41,23 @@ export class CategoriesListComponent {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.addCategoryform = new FormGroup<AddCategoryForm>({
+      name: new FormControl<string | null>(null, [Validators.required]),
+    });
+  }
 
-  addCategory() {}
+  addCategory() {
+    const newCategory = this.addCategoryform.getRawValue();
+
+    this.categoriesTable.push({
+      name: newCategory.name ?? '',
+      id: this.categoriesTable.length + 1,
+    });
+    this.addCategoryform = new FormGroup<AddCategoryForm>({
+      name: new FormControl<string | null>(null, [Validators.required]),
+    });
+  }
 
   saveChangesCategory(category: Category) {
     console.log('сохранить ', category);

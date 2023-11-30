@@ -1,5 +1,4 @@
 import { FormControl } from '@angular/forms';
-import { type } from 'os';
 
 export type AuthorizationForm = {
   login: FormControl<string | null>;
@@ -18,6 +17,10 @@ export type AddTaskForm = {
   description: FormControl<string | null>;
   priority: FormControl<string | null>;
 };
+
+export type AddCategoryForm ={
+  name:FormControl<string | null>;
+}
 
 export type User = {
   login: string;

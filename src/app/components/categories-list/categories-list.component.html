@@ -1,6 +1,15 @@
 <h1>Категории задач</h1>
-
-<p-button (click)="addCategory()" label="Добавить категорию"></p-button>
+<div class="category-input">
+  <div class="category-form" [formGroup]="addCategoryform">
+    <input
+      pInputText
+      formControlName="name"
+      type="text"
+      placeholder="Категория"
+    />
+  </div>
+  <p-button [disabled]="addCategoryform.invalid" (click)="addCategory()" label="Добавить категорию" ></p-button>
+</div>
 <div class="table-container">
   <p-table
     [value]="categoriesTable"
@@ -10,7 +19,7 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 20%">id</th>
+        <th style="width: 10%">id</th>
         <th style="width: 80%">Name</th>
         <th></th>
       </tr>
@@ -31,8 +40,16 @@
         <td>
           <span *ngIf="!editing" class="pi pi-pencil" pInitEditableRow></span>
           <div *ngIf="editing" class="icons-block">
-            <span class="pi pi-check" pSaveEditableRow (click)="saveChangesCategory(category)"></span>
-            <span class="pi pi-times" pCancelEditableRow (click)="cancelChangesCategory()"></span>
+            <span
+              class="pi pi-check"
+              pSaveEditableRow
+              (click)="saveChangesCategory(category)"
+            ></span>
+            <span
+              class="pi pi-times"
+              pCancelEditableRow
+              (click)="cancelChangesCategory()"
+            ></span>
           </div>
         </td>
       </tr>
