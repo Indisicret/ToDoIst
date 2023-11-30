@@ -34,7 +34,7 @@ export class CategoryService {
 
   getCategories(): Category[] {
     const globalCategories: Category[] = JSON.parse(
-      localStorage.getItem('category') ?? '[]'
+      localStorage.getItem('categories') ?? '[]'
     );
     const userId = this.userService.getUserId();
     const userCategories: Category[] = globalCategories.filter(

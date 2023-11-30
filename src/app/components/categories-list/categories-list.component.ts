@@ -12,6 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   standalone: true,
@@ -26,27 +27,27 @@ import {
   ],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.scss',
-  providers: [],
+  providers: [CategoryService],
 })
 export class CategoriesListComponent {
   addCategoryform: FormGroup<AddCategoryForm>;
-  categoriesTable: Category[] = [
-   
-  ];
+  categoriesTable: Category[] = [];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private categoryService: CategoryService
+  ) {
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
     });
+
+    this.categoriesTable = this.categoryService.getCategories();
   }
 
   addCategory() {
     const newCategory = this.addCategoryform.getRawValue();
-
-    // this.categoriesTable.push({
-    //   name: newCategory.name ?? '',
-    //   id: this.categoriesTable.length + 1,
-    // });
+    this.categoryService.createCategory(newCategory.name ?? '');
+    this.categoriesTable = this.categoryService.getCategories();
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
     });
