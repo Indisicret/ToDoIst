@@ -31,14 +31,7 @@ import {
 export class CategoriesListComponent {
   addCategoryform: FormGroup<AddCategoryForm>;
   categoriesTable: Category[] = [
-    {
-      id: 1,
-      name: 'test1',
-    },
-    {
-      id: 2,
-      name: 'test2',
-    },
+   
   ];
 
   constructor(private router: Router) {
@@ -50,10 +43,10 @@ export class CategoriesListComponent {
   addCategory() {
     const newCategory = this.addCategoryform.getRawValue();
 
-    this.categoriesTable.push({
-      name: newCategory.name ?? '',
-      id: this.categoriesTable.length + 1,
-    });
+    // this.categoriesTable.push({
+    //   name: newCategory.name ?? '',
+    //   id: this.categoriesTable.length + 1,
+    // });
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
     });

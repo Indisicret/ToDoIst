@@ -47,4 +47,5 @@ export type Column = {
 export type Category ={
   name: string;
   id: number;
+  userId: number;
 }
