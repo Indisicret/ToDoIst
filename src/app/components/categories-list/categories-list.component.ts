@@ -13,6 +13,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
+import { MESSAGES, MESSAGESCATEGORIES } from '../../config/constants';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   standalone: true,
@@ -24,10 +28,13 @@ import { CategoryService } from '../../services/category.service';
     InputTextModule,
     ReactiveFormsModule,
     FormsModule,
+    ConfirmDialogModule,
+    ToastModule,
+
   ],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.scss',
-  providers: [CategoryService],
+  providers: [CategoryService,ConfirmationService, MessageService,],
 })
 export class CategoriesListComponent {
   addCategoryform: FormGroup<AddCategoryForm>;
@@ -35,7 +42,9 @@ export class CategoriesListComponent {
 
   constructor(
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private confimationService: ConfirmationService,
+    private messageServis: MessageService,
   ) {
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
@@ -50,6 +59,19 @@ export class CategoriesListComponent {
     this.categoriesTable = this.categoryService.getCategories();
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
+    });
+  }
+  clickDeleteIcon(id: number) {
+    console.log(id)
+    this.confimationService.confirm({
+      message: 'Вы уверены, что хотите удалить эту категорию?',
+      header: 'Удаление категории',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.categoryService.deleteCategory(id)
+        this.categoriesTable = this.categoryService.getCategories();
+        this.messageServis.add(MESSAGESCATEGORIES.delete);
+      },
     });
   }
 

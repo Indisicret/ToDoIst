@@ -18,6 +18,24 @@ export const COLUMNS = [
   { field: 'priority', header: 'Приоритет' },
 ];
 
+export const MESSAGESCATEGORIES = {
+  add: {
+    severity: 'success',
+    summary: 'Выполнено',
+    detail: 'Категория добавлена',
+  },
+  edit: {
+    severity: 'success',
+    summary: 'Выполнено',
+    detail: 'Категория изменена',
+  },
+  delete: {
+    severity: 'success',
+    summary: 'Выполнено',
+    detail: 'Категория удалена',
+  },
+};
+
 export const MESSAGES = {
   add: {
     severity: 'success',
@@ -34,4 +52,4 @@ export const MESSAGES = {
     summary: 'Выполнено',
     detail: 'Задача удалена',
   },
-};
+}

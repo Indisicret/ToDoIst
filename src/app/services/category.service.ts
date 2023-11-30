@@ -51,7 +51,7 @@ export class CategoryService {
     const index = categories.findIndex((item) => item.id === id);
     if (index !== -1) {
       categories.splice(index, 1);
-      localStorage.setItem('tasks', JSON.stringify(categories));
+      localStorage.setItem('categories', JSON.stringify(categories));
     }
   }
 }
