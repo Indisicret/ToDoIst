@@ -7,14 +7,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { TaskService } from '../../services/task.service';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
-import { AddTaskForm, Task } from '../../config/types';
-import { CATEGORIES, PRIORITIES } from '../../config/constants';
+import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PRIORITIES } from '../../config/constants';
+import { AddTaskForm, Category, Task } from '../../config/types';
+import { TaskService } from '../../services/task.service';
+import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -41,22 +42,24 @@ import { CATEGORIES, PRIORITIES } from '../../config/constants';
 export class EditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
-  optionsCategory = CATEGORIES;
+  optionsCategory:Category[] = [];
   private task: Task;
 
   constructor(
     private taskService: TaskService,
     private dialogRef: DynamicDialogRef,
-    private config: DynamicDialogConfig
+    private config: DynamicDialogConfig,
+    private categoryService: CategoryService,
   ) {
     this.task = this.config.data.task;
+    this.optionsCategory= this.categoryService.getCategories();
 
     this.editTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(this.task.name, [
         Validators.required,
         Validators.maxLength(40),
       ]),
-      category: new FormControl<string | null>(this.task.category),
+      category: new FormControl<number | null>(this.task.category as number),
       deadLineDate: new FormControl<Date | string | null>(
         this.task.deadLineDate
       ),

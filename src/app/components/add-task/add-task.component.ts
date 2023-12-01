@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,15 +7,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { AddTaskForm, Task } from '../../config/types';
-import { CalendarModule } from 'primeng/calendar';
+import { PRIORITIES } from '../../config/constants';
+import { AddTaskForm, Category, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
-import { LOCALE_ID } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CATEGORIES, PRIORITIES } from '../../config/constants';
+import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -43,18 +43,20 @@ export class AddTaskComponent {
   addTaskForm: FormGroup<AddTaskForm>;
   
   optionsPriority = PRIORITIES;
-  optionsCategory = CATEGORIES;
+  optionsCategory:Category[] = [];
 
   constructor(
     private taskService: TaskService,
-    private dialogRef: DynamicDialogRef
+    private dialogRef: DynamicDialogRef,
+    private categoryService: CategoryService,
   ) {
+    this.optionsCategory= this.categoryService.getCategories();
     this.addTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(null, [
         Validators.required,
         Validators.maxLength(20),
       ]),
-      category: new FormControl<string | null>(null),
+      category: new FormControl<number | null>(null),
       deadLineDate: new FormControl<Date | string | null>(null),
       description: new FormControl<string | null>(
         null,
@@ -68,5 +70,6 @@ export class AddTaskComponent {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
     this.taskService.addTask(task);
     this.dialogRef.close(true);
+    console.log(task)
   }
 }
