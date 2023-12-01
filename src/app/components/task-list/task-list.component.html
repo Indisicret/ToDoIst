@@ -1,9 +1,9 @@
 <h1>Задачи</h1>
 <p-toast></p-toast>
 <p-confirmDialog acceptLabel="Удалить" rejectLabel="Отмена"></p-confirmDialog>
+<div class="p-button-container">
 <p-button (click)="addTask()" label="Добавить задачу"></p-button>
-<div class="categories-link" (click)="openCategories()">
-  Категории 
+<p-button (click)="openCategories()" label="Категории"></p-button>
 </div>
 <div class="table-container">
   <p-table [columns]="cols" [value]="tasksTable" editMode="row" [tableStyle]="{}">

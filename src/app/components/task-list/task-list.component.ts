@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -8,13 +10,12 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { COLUMNS, MESSAGES } from '../../config/constants';
-import { getCategory, getPriority } from '../../config/methods';
+import { getCategoryName, getPriority } from '../../config/methods';
 import { Column, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import cloneDeep from 'lodash/cloneDeep';
-import { Router, RouterLink } from '@angular/router';
+import { CategoryService } from '../../services/category.service';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class TaskListComponent {
     private taskService: TaskService,
     private confimationService: ConfirmationService,
     private messageServis: MessageService,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService,
   ) {
     this.getTasks();
   }
@@ -103,13 +105,15 @@ export class TaskListComponent {
     this.taskService.deleteTask(task.id ?? 0);
   }
 
+
   private getTasks() {
     const tasks = this.taskService.getTask();
     this.tasks = cloneDeep(tasks);
+    const categories= this.categoryService.getCategories()
 
     tasks.forEach((item) => {
       item.priority = getPriority(item.priority);
-      item.category = getCategory(item.category);
+      item.category = getCategoryName(item.category as number,categories );
     });
     this.tasksTable = tasks;
   }

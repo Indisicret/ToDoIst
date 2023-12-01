@@ -5,11 +5,19 @@
       pInputText
       formControlName="name"
       type="text"
-      placeholder="Категория"
+      placeholder="Введите"
     />
   </div>
-  <p-button [disabled]="addCategoryform.invalid" (click)="addCategory()" label="Добавить категорию" ></p-button>
+  <div class="p-button-container">
+    <p-button
+      [disabled]="addCategoryform.invalid"
+      (click)="addCategory()"
+      label="Добавить категорию"
+    ></p-button>
+    <p-button (click)="openTasks()">Задачи</p-button>
+  </div>
 </div>
+
 <div class="table-container">
   <p-table
     [value]="categoriesTable"
@@ -21,6 +29,7 @@
       <tr>
         <th style="width: 10%">id</th>
         <th style="width: 80%">Name</th>
+        <th></th>
         <th></th>
       </tr>
     </ng-template>
@@ -49,12 +58,10 @@
               class="pi pi-times"
               pCancelEditableRow
               (click)="cancelChangesCategory()"
-              
             ></span>
-            
           </div>
         </td>
-      
+
         <td (click)="clickDeleteIcon(category.id)">
           <span class="pi pi-trash"></span>
         </td>
@@ -62,6 +69,6 @@
     </ng-template>
   </p-table>
 </div>
-<div class="tasks-link" (click)="openTasks()">Задачи</div>
+
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>
