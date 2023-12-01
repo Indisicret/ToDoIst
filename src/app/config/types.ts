@@ -12,7 +12,7 @@ export type RegistrationForm = {
 };
 export type AddTaskForm = {
   name: FormControl<string | null>;
-  category: FormControl<string | null>;
+  category: FormControl<number | null>;
   deadLineDate: FormControl<Date | string | null>;
   description: FormControl<string | null>;
   priority: FormControl<string | null>;
@@ -33,7 +33,7 @@ export type User = {
 export type Task = {
   id?: number;
   name: string;
-  category: string;
+  category: string | number;
   deadLineDate: string;
   description: string;
   priority: string;

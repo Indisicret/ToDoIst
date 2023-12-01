@@ -4,10 +4,6 @@ export const PRIORITIES = [
   { label: 'Средний', value: 'mid' },
   { label: 'Высокий', value: 'high' },
 ];
-export const CATEGORIES = [
-  { label: 'Дом', value: 'home' },
-  { label: 'Работа', value: 'work' },
-];
 
 export const COLUMNS = [
   { field: 'id', header: 'id' }, 
