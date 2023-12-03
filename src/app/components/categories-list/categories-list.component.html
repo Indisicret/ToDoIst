@@ -1,7 +1,9 @@
+
+  <div class = "page-container">
 <h1>Категории задач</h1>
-<div class="category-input">
+<div class="category-panel">
   <div class="category-form" [formGroup]="addCategoryform">
-    <input
+    <input class="category-input"
       pInputText
       formControlName="name"
       type="text"
@@ -72,3 +74,4 @@
 
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>
+</div>
