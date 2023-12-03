@@ -1,11 +1,12 @@
 .table-container{
     margin-top: 20px;
+    width: 100%;
 }
 .categories-link{
     color:#1D4ED8;
     position: absolute;
-    right: 30px;
-    top:30px;
+    right: 20%;
+    top:20%;
     cursor: pointer;
     font-weight: 600;
 }
@@ -13,3 +14,28 @@
     display: flex;
     justify-content: space-between;
 }
+@media screen and (max-width: 1200px) {
+    .page-container {
+      max-width: 970px;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .page-container {
+      max-width: 750px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .page-container {
+      max-width: none;
+      
+  
+      
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .page-container {
+      font-size: 1.2rem;
+      
+    }
+  }
