@@ -1,27 +1,29 @@
 .page-container {
-  background-color: rgb(184, 222, 255);
-  max-width: 12000px;
   height: 100%;
   margin: 0px auto;
-  padding: 0px 30px;
- 
-}
-.table-container {
-  background-color: rgb(99, 158, 210);
-
-  margin: 0px auto;
-  padding: 0px 30px;
+  padding: 0px 0%;
+  .category-panel {
+    display: flex;
+    padding-bottom: 12px;
+    .category-form {
+      margin-right: 12px;
+    }
+    .p-button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+  .pi {
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 1200px) {
   .page-container {
     max-width: 970px;
     .category-panel {
-      display: flex;
       margin-bottom: 20px;
-      .category-form {
-        margin-right: 12px;
-      }
     }
   }
 }
@@ -34,36 +36,24 @@
 @media screen and (max-width: 767px) {
   .page-container {
     max-width: 480px;
-
     .category-panel {
       flex-wrap: wrap;
+      .category-input {
+        margin-bottom: 20px;
 
-      
-      .category-form{
-        width: 15%;
-       }
-    }
-  }
-}
-@media screen and (max-width: 480px) {
-  .page-container {
-    max-width: none;
-    .p-button-container {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      .category-input{
         .p-inputtext {
           margin: 0;
           width: 100%;
+        }
       }
-
-      }
-
     }
   }
 }
-
+// @media screen and (max-width: 480px) {
+//   .page-container {
+//     max-width: none;
+//   }
+// }
 
 .table-container {
   .icons-block {
