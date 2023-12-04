@@ -2,7 +2,7 @@
 <p-toast></p-toast>
 <p-confirmDialog acceptLabel="Удалить" rejectLabel="Отмена"></p-confirmDialog>
 <p-button label="Выход"></p-button>
-<div *ngIf="visebleSearch">
+<div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
     <input type="number" pInputText placeholder="Поиск по id" />
     <input

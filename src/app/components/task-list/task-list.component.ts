@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -23,6 +23,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { initial } from 'lodash';
 
 @Component({
   standalone: true,
@@ -48,7 +49,7 @@ export class TaskListComponent {
   searchForm: FormGroup<SearchForm>;
   tasksTable: Task[] = [];
   cols: Column[] = COLUMNS;
-  visebleSearch= false;
+  visebleSearch = signal(false);
 
   private tasks: Task[] = [];
 
@@ -73,7 +74,7 @@ export class TaskListComponent {
     });
   }
   openSearch() {
-    this.visebleSearch = true;
+    this.visebleSearch.set(true)
   }
 
   addTask() {
