@@ -18,9 +18,9 @@ export type AddTaskForm = {
   priority: FormControl<string | null>;
 };
 
-export type AddCategoryForm ={
-  name:FormControl<string | null>;
-}
+export type AddCategoryForm = {
+  name: FormControl<string | null>;
+};
 
 export type User = {
   login: string;
@@ -38,14 +38,24 @@ export type Task = {
   description: string;
   priority: string;
   userId: number;
+  done: boolean;
 };
 export type Column = {
   field: string;
   header: string;
 };
 
-export type Category ={
+export type Category = {
   name: string;
   id: number;
   userId: number;
-}
+};
+export type SearchForm = {
+  name: FormControl<string | null>;
+  category: FormControl<number | null>;
+  deadLineDate: FormControl<Date | string | null>;
+  description: FormControl<string | null>;
+  priority: FormControl<string | null>;
+  done: FormControl<boolean | null>;
+  id: FormControl<number | null>;
+};

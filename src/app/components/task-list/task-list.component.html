@@ -1,13 +1,62 @@
-
 <h1>Задачи</h1>
 <p-toast></p-toast>
 <p-confirmDialog acceptLabel="Удалить" rejectLabel="Отмена"></p-confirmDialog>
+<p-button label="Выход"></p-button>
+<div *ngIf="visebleSearch">
+  <form [formGroup]="searchForm">
+    <input type="number" pInputText placeholder="Поиск по id" />
+    <input
+      type="text"
+      pInputText
+      formControlName="name"
+      placeholder="Поиск по имени"
+    />
+    <input
+      type="text"
+      pInputText
+      formControlName="description"
+      placeholder="Поиск по описанию"
+    />
+    <input
+      type="date"
+      pInputText
+      formControlName="deadLineDate"
+      placeholder="Поиск по дате"
+    />
+    <input
+      type="text"
+      pInputText
+      formControlName="category"
+      placeholder="Поиск по категории"
+    />
+    <input
+      type="text"
+      pInputText
+      formControlName="priority"
+      type="текст"
+      placeholder="Поиск по приоритету"
+    />
+    <input
+      type="text"
+      pInputText
+      formControlName="done"
+      type="text"
+      placeholder="Поиск по статусу"
+    />
+  </form>
+</div>
 <div class="p-button-container">
-<p-button (click)="addTask()" label="Добавить задачу"></p-button>
-<p-button (click)="openCategories()" label="Категории"></p-button>
+  <p-button (click)="addTask()" label="Добавить задачу"></p-button>
+  <p-button (click)="openCategories()" label="Категории"></p-button>
+  <i class="pi pi-search" (click)="openSearch()" style="font-size: 2rem"></i>
 </div>
 <div cstyle="overflow-x :auto ;">
-  <p-table [columns]="cols" [value]="tasksTable" editMode="row" [tableStyle]="{}">
+  <p-table
+    [columns]="cols"
+    [value]="tasksTable"
+    editMode="row"
+    [tableStyle]="{}"
+  >
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
@@ -23,7 +72,7 @@
       <tr>
         <td *ngFor="let col of columns">{{ task[col.field] }}</td>
         <td>
-          <p-checkbox [binary]="true" inputId="binary"></p-checkbox>
+          <p-checkbox [binary]="true"></p-checkbox>
         </td>
         <td (click)="openEditModal(task)">
           <span class="pi pi-pencil"></span>

@@ -11,12 +11,18 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { COLUMNS, MESSAGES } from '../../config/constants';
 import { getCategoryName, getPriority } from '../../config/methods';
-import { Column, Task } from '../../config/types';
+import { Column, SearchForm, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { CategoryService } from '../../services/category.service';
-
+import { InputText, InputTextModule } from 'primeng/inputtext';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -30,16 +36,19 @@ import { CategoryService } from '../../services/category.service';
     ToastModule,
     CheckboxModule,
     RouterLink,
-    
-    
+    InputTextModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   providers: [DialogService, TaskService, ConfirmationService, MessageService],
 })
 export class TaskListComponent {
+  searchForm: FormGroup<SearchForm>;
   tasksTable: Task[] = [];
   cols: Column[] = COLUMNS;
+  visebleSearch= false;
 
   private tasks: Task[] = [];
 
@@ -49,9 +58,22 @@ export class TaskListComponent {
     private confimationService: ConfirmationService,
     private messageServis: MessageService,
     private router: Router,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
     this.getTasks();
+
+    this.searchForm = new FormGroup<SearchForm>({
+      name: new FormControl<string | null>(null),
+      category: new FormControl<number | null>(null),
+      deadLineDate: new FormControl<Date | string | null>(null),
+      description: new FormControl<string | null>(null),
+      priority: new FormControl<string | null>(null),
+      done: new FormControl<boolean | null>(null),
+      id: new FormControl<number | null>(null),
+    });
+  }
+  openSearch() {
+    this.visebleSearch = true;
   }
 
   addTask() {
@@ -73,7 +95,7 @@ export class TaskListComponent {
         header: 'Редактирование задачи',
         width: '500px',
         data: {
-          task: this.tasks.find(item=>item.id===task.id),
+          task: this.tasks.find((item) => item.id === task.id),
         },
       })
       .onClose.subscribe((result) => {
@@ -97,7 +119,7 @@ export class TaskListComponent {
     });
   }
 
-  openCategories(){
+  openCategories() {
     this.router.navigate(['/categories']);
   }
 
@@ -105,17 +127,15 @@ export class TaskListComponent {
     this.taskService.deleteTask(task.id ?? 0);
   }
 
-
   private getTasks() {
     const tasks = this.taskService.getTask();
     this.tasks = cloneDeep(tasks);
-    const categories= this.categoryService.getCategories()
+    const categories = this.categoryService.getCategories();
 
     tasks.forEach((item) => {
       item.priority = getPriority(item.priority);
-      item.category = getCategoryName(item.category as number,categories );
+      item.category = getCategoryName(item.category as number, categories);
     });
     this.tasksTable = tasks;
   }
-  
 }
