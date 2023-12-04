@@ -74,7 +74,7 @@ export class TaskListComponent {
     });
   }
   openSearch() {
-    this.visebleSearch.set(true)
+    this.visebleSearch.set(!this.visebleSearch())
   }
 
   addTask() {
