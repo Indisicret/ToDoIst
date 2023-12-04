@@ -1,7 +1,21 @@
 <h1>Задачи</h1>
 <p-toast></p-toast>
 <p-confirmDialog acceptLabel="Удалить" rejectLabel="Отмена"></p-confirmDialog>
-<p-button label="Выход"></p-button>
+<div class="exit">
+  <p-button icon="pi-sign-out" label="Выход"></p-button>
+</div>
+
+<div class="button-container">
+  <div class="button-search-add">
+    <p-button (click)="addTask()" label="Добавить задачу"></p-button>
+    <p-button
+      icon="pi pi-search"
+      (click)="openSearch()"
+      severity="success"
+    ></p-button>
+  </div>
+  <p-button (click)="openCategories()" label="Категории"></p-button>
+</div>
 <div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
     <input type="number" pInputText placeholder="Поиск по id" />
@@ -44,11 +58,6 @@
       placeholder="Поиск по статусу"
     />
   </form>
-</div>
-<div class="p-button-container">
-  <p-button (click)="addTask()" label="Добавить задачу"></p-button>
-  <p-button (click)="openCategories()" label="Категории"></p-button>
-  <i class="pi pi-search" (click)="openSearch()" style="font-size: 2rem"></i>
 </div>
 <div cstyle="overflow-x :auto ;">
   <p-table
