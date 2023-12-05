@@ -108,17 +108,7 @@ export class TaskListComponent {
         }
       });
   }
-  clickExitAccount() {
-    this.confimationService.confirm({
-      message: 'Вы уверены, что хотите выйти ?',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.userService.unlog();
-        this.messageServis.add(MESSAGESEXIT);
-        this.router.navigate(['/authorization']);
-      },
-    });
-  }
+ 
 
   clickDeleteIcon(task: Task) {
     this.confimationService.confirm({

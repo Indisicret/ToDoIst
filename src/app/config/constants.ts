@@ -51,7 +51,7 @@ export const MESSAGES = {
 }
 export const MESSAGESEXIT = {
     severity: 'success',
-    summary: 'Выполнено',
+    summary: 'Успешно',
     detail: 'Выход выполнен',
   
 }

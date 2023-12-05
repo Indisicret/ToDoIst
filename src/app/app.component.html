@@ -1,1 +1,11 @@
+<p-toast></p-toast>
+<p-confirmDialog acceptLabel="Выйти" rejectLabel="Отмена"></p-confirmDialog>
+<div class="exit" *ngIf="userService.getUserId()">
+  <p-button
+    (click)="clickExitAccount()"
+    icon="pi-sign-out"
+    label="Выход"
+  ></p-button>
+</div>
+
 <router-outlet></router-outlet>
