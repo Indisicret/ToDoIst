@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -7,24 +13,16 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { COLUMNS, MESSAGES, MESSAGESEXIT } from '../../config/constants';
+import { COLUMNS, MESSAGES } from '../../config/constants';
 import { getCategoryName, getPriority } from '../../config/methods';
 import { Column, SearchForm, Task } from '../../config/types';
+import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
-import { CategoryService } from '../../services/category.service';
-import { InputText, InputTextModule } from 'primeng/inputtext';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { initial } from 'lodash';
-import { UserService } from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -61,7 +59,6 @@ export class TaskListComponent {
     private messageServis: MessageService,
     private router: Router,
     private categoryService: CategoryService,
-    private userService: UserService
   ) {
     this.getTasks();
 

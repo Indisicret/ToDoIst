@@ -26,7 +26,7 @@
           [options]="optionsCategory"
           placeholder="Категория"
           optionLabel="name"
-            optionValue="id"
+          optionValue="id"
         ></p-dropdown>
       </div>
     </div>
@@ -48,9 +48,12 @@
         [showIcon]="true"
         dateFormat="dd.mm.yy"
         [firstDayOfWeek]="1"
-        
       ></p-calendar>
     </div>
-    <p-button label="Добавить" [disabled]="addTaskForm.invalid"(onClick)="saveTask()"></p-button>
+    <p-button
+      label="Добавить"
+      [disabled]="addTaskForm.invalid"
+      (onClick)="saveTask()"
+    ></p-button>
   </form>
 </div>

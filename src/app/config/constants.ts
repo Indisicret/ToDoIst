@@ -1,4 +1,3 @@
-
 export const PRIORITIES = [
   { label: 'Низкий', value: 'low' },
   { label: 'Средний', value: 'mid' },
@@ -6,7 +5,7 @@ export const PRIORITIES = [
 ];
 
 export const COLUMNS = [
-  { field: 'id', header: 'id' }, 
+  { field: 'id', header: 'id' },
   { field: 'name', header: 'Название' },
   { field: 'description', header: 'Описание' },
   { field: 'deadLineDate', header: 'Срок выполнения' },
@@ -48,10 +47,9 @@ export const MESSAGES = {
     summary: 'Выполнено',
     detail: 'Задача удалена',
   },
-}
+};
 export const MESSAGESEXIT = {
-    severity: 'success',
-    summary: 'Успешно',
-    detail: 'Выход выполнен',
-  
-}
+  severity: 'success',
+  summary: 'Успешно',
+  detail: 'Выход выполнен',
+};

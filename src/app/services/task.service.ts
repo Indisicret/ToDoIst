@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Category, Task, User } from '../config/types';
+import { Task } from '../config/types';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -57,7 +57,6 @@ export class TaskService {
     if (index !== -1) {
       allTasks.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(allTasks));
-      
     }
   }
 }

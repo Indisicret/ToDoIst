@@ -14,8 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PRIORITIES } from '../../config/constants';
 import { AddTaskForm, Category, Task } from '../../config/types';
-import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
+import { TaskService } from '../../services/task.service';
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -27,7 +27,6 @@ import { CategoryService } from '../../services/category.service';
     DropdownModule,
     InputTextModule,
     CalendarModule,
-    
   ],
   templateUrl: './add-task.component.html',
   providers: [
@@ -41,16 +40,16 @@ import { CategoryService } from '../../services/category.service';
 })
 export class AddTaskComponent {
   addTaskForm: FormGroup<AddTaskForm>;
-  
+
   optionsPriority = PRIORITIES;
-  optionsCategory:Category[] = [];
+  optionsCategory: Category[] = [];
 
   constructor(
     private taskService: TaskService,
     private dialogRef: DynamicDialogRef,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
-    this.optionsCategory= this.categoryService.getCategories();
+    this.optionsCategory = this.categoryService.getCategories();
     this.addTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(null, [
         Validators.required,
@@ -70,6 +69,6 @@ export class AddTaskComponent {
     const task = this.addTaskForm.getRawValue() as unknown as Task;
     this.taskService.addTask(task);
     this.dialogRef.close(true);
-    console.log(task)
+    console.log(task);
   }
 }

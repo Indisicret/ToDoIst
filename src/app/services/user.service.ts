@@ -59,7 +59,6 @@ export class UserService {
   }
 
   unlog() {
-    localStorage.removeItem("userId");
+    localStorage.removeItem('userId');
   }
-  
 }

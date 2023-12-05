@@ -13,7 +13,12 @@
     </div>
     <div class="form-control">
       <div>Пароль:</div>
-      <input pInputText type="password" formControlName="password" placeholder="Пароль" />
+      <input
+        pInputText
+        type="password"
+        formControlName="password"
+        placeholder="Пароль"
+      />
     </div>
     <div class="form-control">
       <div>Имя:</div>
@@ -28,13 +33,12 @@
         placeholder="Пол"
       ></p-dropdown>
     </div>
-    
+
     <div class="buttons-block">
-      <p-button [disabled]="regForm.invalid" (onClick)="regClick()">Зарегистрироваться</p-button>
+      <p-button [disabled]="regForm.invalid" (onClick)="regClick()"
+        >Зарегистрироваться</p-button
+      >
       <p-button (onClick)="authClick()">Авторизация</p-button>
-
     </div>
-
-  
   </form>
 </div>

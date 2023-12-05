@@ -8,13 +8,12 @@ import { AccountsGuard } from './guards/accounts.guard';
 export const routes: Routes = [
   {
     path: '',
-    component : TaskListComponent,
-    canActivate: [AccountsGuard]
+    component: TaskListComponent,
+    canActivate: [AccountsGuard],
   },
   {
     path: 'authorization',
     component: AuthorizationComponent,
-    
   },
   {
     path: 'registration',
@@ -22,11 +21,11 @@ export const routes: Routes = [
   },
   {
     path: 'tasks',
-    component : TaskListComponent,
-    canActivate: [AccountsGuard]
+    component: TaskListComponent,
+    canActivate: [AccountsGuard],
   },
   {
-    path: 'categories', 
-    component : CategoriesListComponent
+    path: 'categories',
+    component: CategoriesListComponent,
   },
 ];
