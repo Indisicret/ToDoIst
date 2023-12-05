@@ -58,7 +58,7 @@ export class TaskListComponent {
     private confimationService: ConfirmationService,
     private messageServis: MessageService,
     private router: Router,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
     this.getTasks();
 
@@ -72,6 +72,7 @@ export class TaskListComponent {
       id: new FormControl<number | null>(null),
     });
   }
+
   openSearch() {
     this.visebleSearch.set(!this.visebleSearch());
   }
@@ -84,7 +85,7 @@ export class TaskListComponent {
       })
       .onClose.subscribe((result) => {
         if (result) {
-          this.getTasks();
+          this.taskService.reloadTasks();
           this.messageServis.add(MESSAGES.add);
         }
       });
@@ -100,12 +101,11 @@ export class TaskListComponent {
       })
       .onClose.subscribe((result) => {
         if (result) {
-          this.getTasks();
+          this.taskService.reloadTasks();
           this.messageServis.add(MESSAGES.edit);
         }
       });
   }
- 
 
   clickDeleteIcon(task: Task) {
     this.confimationService.confirm({
@@ -114,7 +114,6 @@ export class TaskListComponent {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.deleteTask(task);
-        this.getTasks();
         this.messageServis.add(MESSAGES.delete);
       },
     });
@@ -129,14 +128,16 @@ export class TaskListComponent {
   }
 
   private getTasks() {
-    const tasks = this.taskService.getTask();
-    this.tasks = cloneDeep(tasks);
-    const categories = this.categoryService.getCategories();
+    this.taskService.tasksUser$.subscribe((values) => {
+      const tasks = values;
+      this.tasks = cloneDeep(tasks);
+      const categories = this.categoryService.getCategories();
 
-    tasks.forEach((item) => {
-      item.priority = getPriority(item.priority);
-      item.category = getCategoryName(item.category as number, categories);
+      tasks.forEach((item) => {
+        item.priority = getPriority(item.priority);
+        item.category = getCategoryName(item.category as number, categories);
+      });
+      this.tasksTable = tasks;
     });
-    this.tasksTable = tasks;
   }
 }

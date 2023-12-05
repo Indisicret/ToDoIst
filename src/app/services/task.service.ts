@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../config/types';
 import { UserService } from './user.service';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  constructor(private userService: UserService) {}
+  tasksUser$ = new BehaviorSubject<Task[]>([]);
+  constructor(private userService: UserService) {
+    this.getTask();
+  }
 
   addTask(task: Task) {
     const globalTask: Task[] = JSON.parse(
@@ -33,17 +36,6 @@ export class TaskService {
     localStorage.setItem('tasks', JSON.stringify(globalTask));
   }
 
-  getTask(): Task[] {
-    const globalTasks: Task[] = JSON.parse(
-      localStorage.getItem('tasks') ?? '[]'
-    );
-    const userId = this.userService.getUserId();
-    const userTasks: Task[] = globalTasks.filter(
-      (item) => item.userId === userId
-    );
-    return userTasks;
-  }
-
   editTask(newTask: Task) {
     const allTasks: Task[] = JSON.parse(localStorage.getItem('tasks') ?? '[]');
     const index = allTasks.findIndex((item) => item.id === newTask.id);
@@ -58,5 +50,21 @@ export class TaskService {
       allTasks.splice(index, 1);
       localStorage.setItem('tasks', JSON.stringify(allTasks));
     }
+    this.getTask();
+  }
+
+  reloadTasks(): void {
+    this.getTask();
+  }
+
+  private getTask() {
+    const globalTasks: Task[] = JSON.parse(
+      localStorage.getItem('tasks') ?? '[]'
+    );
+    const userId = this.userService.getUserId();
+    const userTasks: Task[] = globalTasks.filter(
+      (item) => item.userId === userId
+    );
+    this.tasksUser$.next(userTasks);
   }
 }
