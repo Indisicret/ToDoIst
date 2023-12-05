@@ -49,3 +49,9 @@ export const MESSAGES = {
     detail: 'Задача удалена',
   },
 }
+export const MESSAGESEXIT = {
+    severity: 'success',
+    summary: 'Выполнено',
+    detail: 'Выход выполнен',
+  
+}

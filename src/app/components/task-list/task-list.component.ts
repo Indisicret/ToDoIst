@@ -9,7 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { COLUMNS, MESSAGES } from '../../config/constants';
+import { COLUMNS, MESSAGES, MESSAGESEXIT } from '../../config/constants';
 import { getCategoryName, getPriority } from '../../config/methods';
 import { Column, SearchForm, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
@@ -24,6 +24,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { initial } from 'lodash';
+import { UserService } from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -59,7 +60,8 @@ export class TaskListComponent {
     private confimationService: ConfirmationService,
     private messageServis: MessageService,
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private userService: UserService
   ) {
     this.getTasks();
 
@@ -74,7 +76,7 @@ export class TaskListComponent {
     });
   }
   openSearch() {
-    this.visebleSearch.set(!this.visebleSearch())
+    this.visebleSearch.set(!this.visebleSearch());
   }
 
   addTask() {
@@ -105,6 +107,17 @@ export class TaskListComponent {
           this.messageServis.add(MESSAGES.edit);
         }
       });
+  }
+  clickExitAccount() {
+    this.confimationService.confirm({
+      message: 'Вы уверены, что хотите выйти ?',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.userService.unlog();
+        this.messageServis.add(MESSAGESEXIT);
+        this.router.navigate(['/authorization']);
+      },
+    });
   }
 
   clickDeleteIcon(task: Task) {

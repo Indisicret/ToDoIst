@@ -57,4 +57,9 @@ export class UserService {
   getUserId(): number | null {
     return Number(localStorage.getItem('userId')) ?? 0;
   }
+
+  unlog() {
+    localStorage.removeItem("userId");
+  }
+  
 }
