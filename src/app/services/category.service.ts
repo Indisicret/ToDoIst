@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Category, Task, User } from '../config/types';
 import { UserService } from './user.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private userService: UserService) {}
+  categoriesUser$ = new BehaviorSubject<Category[]>([]);
+
+  constructor(private userService: UserService) {
+    this.getCategories();
+  }
 
   createCategory(categoryName: string) {
     const categories: Category[] = JSON.parse(
@@ -30,17 +35,11 @@ export class CategoryService {
     }
     categories.push(newCategory);
     localStorage.setItem('categories', JSON.stringify(categories));
+    this.reloadCategories();
   }
 
-  getCategories(): Category[] {
-    const globalCategories: Category[] = JSON.parse(
-      localStorage.getItem('categories') ?? '[]'
-    );
-    const userId = this.userService.getUserId();
-    const userCategories: Category[] = globalCategories.filter(
-      (item) => item.userId === userId
-    );
-    return userCategories;
+  reloadCategories() {
+    this.getCategories();
   }
 
   editCategory(newCategory: Category) {
@@ -50,6 +49,7 @@ export class CategoryService {
     const index = allCategories.findIndex((item) => item.id === newCategory.id);
     allCategories.splice(index, 1, newCategory);
     localStorage.setItem('categories', JSON.stringify(allCategories));
+    this.reloadCategories();
   }
 
   deleteCategory(id: number) {
@@ -60,6 +60,19 @@ export class CategoryService {
     if (index !== -1) {
       categories.splice(index, 1);
       localStorage.setItem('categories', JSON.stringify(categories));
+      this.reloadCategories();
     }
+  }
+
+  getCategories(): Category[] {
+    const globalCategories: Category[] = JSON.parse(
+      localStorage.getItem('categories') ?? '[]'
+    );
+    const userId = this.userService.getUserId();
+    const userCategories: Category[] = globalCategories.filter(
+      (item) => item.userId === userId
+    );
+    this.categoriesUser$.next(userCategories);
+    return userCategories;
   }
 }
