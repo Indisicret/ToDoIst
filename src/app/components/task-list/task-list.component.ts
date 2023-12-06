@@ -21,7 +21,6 @@ import { getCategoryName, getPriority } from '../../config/methods';
 import { Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
-import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { Observable, map } from 'rxjs';
 
@@ -89,26 +88,26 @@ export class TaskListComponent {
     this.visebleSearch.set(!this.visebleSearch());
   }
 
-  addTask() {
-    this.dialogService
-      .open(AddTaskComponent, {
-        header: 'Добавить задачу',
-        width: '500px',
-      })
-      .onClose.subscribe((result) => {
-        if (result) {
-          this.taskService.reloadTasks();
-          this.messageServis.add(MESSAGES.add);
-        }
-      });
-  }
-  openEditModal(task: Task) {
+  // addTask() {
+  //   this.dialogService
+  //     .open(EditTaskComponent, {
+  //       header: 'Добавить задачу',
+  //       width: '500px',
+  //     })
+  //     .onClose.subscribe((result) => {
+  //       if (result) {
+  //         this.taskService.reloadTasks();
+  //         this.messageServis.add(MESSAGES.add);
+  //       }
+  //     });
+  // }
+  openEditModal(task?: Task) {
     this.dialogService
       .open(EditTaskComponent, {
         header: 'Редактирование задачи',
         width: '500px',
         data: {
-          task: this.tasks.find((item) => item.id === task.id),
+          task: task ?? null,
         },
       })
       .onClose.subscribe((result) => {

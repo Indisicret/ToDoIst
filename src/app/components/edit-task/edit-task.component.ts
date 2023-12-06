@@ -42,44 +42,51 @@ import { CategoryService } from '../../services/category.service';
 export class EditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
-  optionsCategory:Category[] = [];
-  private task: Task;
+  optionsCategory: Category[] = [];
+  private task: Task | null;
 
   constructor(
     private taskService: TaskService,
     private dialogRef: DynamicDialogRef,
     private config: DynamicDialogConfig,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
     this.task = this.config.data.task;
-    this.optionsCategory= this.categoryService.getCategories();
+    this.optionsCategory = this.categoryService.getCategories();
 
     this.editTaskForm = new FormGroup<AddTaskForm>({
-      name: new FormControl<string | null>(this.task.name, [
+      name: new FormControl<string | null>(this.task?.name ?? null, [
         Validators.required,
         Validators.maxLength(40),
       ]),
-      category: new FormControl<number | null>(this.task.category as number),
+      category: new FormControl<number | null>(
+        (this.task?.category as number) ?? null
+      ),
       deadLineDate: new FormControl<Date | string | null>(
-        this.task.deadLineDate
+        this.task?.deadLineDate ?? null
       ),
       description: new FormControl<string | null>(
-        this.task.description,
+        this.task?.description ?? null,
         Validators.maxLength(300)
       ),
-      priority: new FormControl<string | null>(this.task.priority, [
+      priority: new FormControl<string | null>(this.task?.priority ?? null, [
         Validators.required,
       ]),
     });
   }
 
   saveEditTask() {
-    const newTask: Task = {
-      ...(this.editTaskForm.getRawValue() as Task),
-      userId: this.task.userId,
-      id: this.task.id,
-    };
-    this.taskService.editTask(newTask);
+    if (this.task) {
+      const newTask: Task = {
+        ...(this.editTaskForm.getRawValue() as Task),
+        userId: this.task.userId,
+        id: this.task.id,
+      };
+      this.taskService.editTask(newTask);
+    } else {
+      const task = this.editTaskForm.getRawValue() as unknown as Task;
+      this.taskService.addTask(task);
+    }
     this.dialogRef.close(true);
   }
 }
