@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,6 +23,7 @@ import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { Observable, map } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -43,10 +44,23 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   providers: [DialogService, TaskService, ConfirmationService, MessageService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent {
   searchForm: FormGroup<SearchForm>;
-  tasksTable: Task[] = [];
+  tasksTable$: Observable<Task[]> = this.taskService.tasksUser$.pipe(
+    map((values) => {
+      const tasks = values;
+      this.tasks = cloneDeep(tasks);
+      const categories = this.categoryService.getCategories();
+
+      tasks.forEach((item) => {
+        item.priority = getPriority(item.priority);
+        item.category = getCategoryName(item.category as number, categories);
+      });
+      return tasks;
+    })
+  );
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
 
@@ -60,8 +74,6 @@ export class TaskListComponent {
     private router: Router,
     private categoryService: CategoryService
   ) {
-    this.getTasks();
-
     this.searchForm = new FormGroup<SearchForm>({
       name: new FormControl<string | null>(null),
       category: new FormControl<number | null>(null),
@@ -125,19 +137,5 @@ export class TaskListComponent {
 
   private deleteTask(task: Task) {
     this.taskService.deleteTask(task.id ?? 0);
-  }
-
-  private getTasks() {
-    this.taskService.tasksUser$.subscribe((values) => {
-      const tasks = values;
-      this.tasks = cloneDeep(tasks);
-      const categories = this.categoryService.getCategories();
-
-      tasks.forEach((item) => {
-        item.priority = getPriority(item.priority);
-        item.category = getCategoryName(item.category as number, categories);
-      });
-      this.tasksTable = tasks;
-    });
   }
 }

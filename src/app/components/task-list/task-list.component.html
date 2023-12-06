@@ -59,7 +59,7 @@
 <div cstyle="overflow-x :auto ;">
   <p-table
     [columns]="cols"
-    [value]="tasksTable"
+    [value]="(tasksTable$ | async) || []"
     editMode="row"
     [tableStyle]="{}"
   >

@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class TaskService {
+  
   tasksUser$ = new BehaviorSubject<Task[]>([]);
+
   constructor(private userService: UserService) {
     this.getTask();
   }
