@@ -12,7 +12,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { PRIORITIES } from '../../config/constants';
+import { MESSAGES, PRIORITIES } from '../../config/constants';
 import { AddTaskForm, Category, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
@@ -83,10 +83,12 @@ export class AddEditTaskComponent {
         id: this.task.id,
       };
       this.taskService.editTask(newTask);
+      this.dialogRef.close(MESSAGES.edit);
     } else {
       const task = this.editTaskForm.getRawValue() as unknown as Task;
       this.taskService.addTask(task);
+      this.dialogRef.close(MESSAGES.add);
     }
-    this.dialogRef.close(true);
+    
   }
 }

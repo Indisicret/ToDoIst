@@ -33,7 +33,6 @@ import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
     ButtonModule,
     DynamicDialogModule,
     AddEditTaskComponent,
-
     ConfirmDialogModule,
     ToastModule,
     CheckboxModule,
@@ -102,7 +101,7 @@ export class TaskListComponent {
       .onClose.subscribe((result) => {
         if (result) {
           this.taskService.reloadTasks();
-          this.messageServis.add(MESSAGES.edit);
+          this.messageServis.add(result);
         }
       });
   }
