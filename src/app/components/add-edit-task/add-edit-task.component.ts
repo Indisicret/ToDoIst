@@ -28,7 +28,7 @@ import { CategoryService } from '../../services/category.service';
     InputTextModule,
     CalendarModule,
   ],
-  templateUrl: './edit-task.component.html',
+  templateUrl: './add-edit-task.component.html',
   providers: [
     TaskService,
     {
@@ -36,10 +36,10 @@ import { CategoryService } from '../../services/category.service';
       useValue: 'ru',
     },
   ],
-  styleUrl: './edit-task.component.scss',
+  styleUrl: './add-edit-task.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditTaskComponent {
+export class AddEditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
   optionsCategory: Category[] = [];

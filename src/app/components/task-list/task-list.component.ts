@@ -21,8 +21,9 @@ import { getCategoryName, getPriority } from '../../config/methods';
 import { Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
+
 import { Observable, map } from 'rxjs';
+import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 
 @Component({
   standalone: true,
@@ -31,7 +32,8 @@ import { Observable, map } from 'rxjs';
     TableModule,
     ButtonModule,
     DynamicDialogModule,
-    EditTaskComponent,
+    AddEditTaskComponent,
+
     ConfirmDialogModule,
     ToastModule,
     CheckboxModule,
@@ -88,26 +90,13 @@ export class TaskListComponent {
     this.visebleSearch.set(!this.visebleSearch());
   }
 
-  // addTask() {
-  //   this.dialogService
-  //     .open(EditTaskComponent, {
-  //       header: 'Добавить задачу',
-  //       width: '500px',
-  //     })
-  //     .onClose.subscribe((result) => {
-  //       if (result) {
-  //         this.taskService.reloadTasks();
-  //         this.messageServis.add(MESSAGES.add);
-  //       }
-  //     });
-  // }
   openEditModal(task?: Task) {
     this.dialogService
-      .open(EditTaskComponent, {
-        header: 'Редактирование задачи',
+      .open(AddEditTaskComponent, {
+        header: task ? 'Редактирование задачи' : 'Добавить задачу',
         width: '500px',
         data: {
-          task: task ?? null,
+          task: task ? this.tasks.find((item) => item.id === task.id) : null,
         },
       })
       .onClose.subscribe((result) => {
