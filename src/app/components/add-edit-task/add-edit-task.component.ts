@@ -16,6 +16,7 @@ import { MESSAGES, PRIORITIES } from '../../config/constants';
 import { AddTaskForm, Category, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -42,7 +43,8 @@ import { CategoryService } from '../../services/category.service';
 export class AddEditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
-  optionsCategory: Category[] = [];
+  optionsCategory$: Observable<Category[]> = this.categoryService.categoriesUser$;
+
   private task: Task | null;
 
   constructor(
@@ -52,7 +54,6 @@ export class AddEditTaskComponent {
     private categoryService: CategoryService
   ) {
     this.task = this.config.data.task;
-    this.optionsCategory = this.categoryService.getCategories();
 
     this.editTaskForm = new FormGroup<AddTaskForm>({
       name: new FormControl<string | null>(this.task?.name ?? null, [

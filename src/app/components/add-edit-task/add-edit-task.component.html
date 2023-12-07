@@ -22,12 +22,12 @@
         <div class="form-control">
           <div class="form-label">Категория:</div>
           <p-dropdown
-            formControlName="category"
-            [options]="optionsCategory"
-            placeholder="Категория"
-            optionLabel="name"
-            optionValue="id"
-          ></p-dropdown>
+          formControlName="category"
+          [options]="(optionsCategory$ | async) || []"
+          placeholder="Категория"
+          optionLabel="name"
+          optionValue="id"
+        ></p-dropdown>
           
         </div>
       </div>
