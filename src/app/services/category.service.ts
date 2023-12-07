@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Category, Task, User } from '../config/types';
-import { UserService } from './user.service';
 import { BehaviorSubject } from 'rxjs';
+import { Category } from '../config/types';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +61,9 @@ export class CategoryService {
       categories.splice(index, 1);
       localStorage.setItem('categories', JSON.stringify(categories));
       this.reloadCategories();
+      
     }
+    
   }
 
   getCategories(): Category[] {

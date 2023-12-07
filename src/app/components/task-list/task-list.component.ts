@@ -16,14 +16,15 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { COLUMNS, MESSAGES } from '../../config/constants';
+import { COLUMNS, MESSAGES, PRIORITIES, STATUS } from '../../config/constants';
 import { getCategoryName, getPriority } from '../../config/methods';
-import { Column, SearchForm, Task } from '../../config/types';
+import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   standalone: true,
@@ -40,6 +41,7 @@ import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
+    DropdownModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -48,6 +50,10 @@ import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 })
 export class TaskListComponent {
   searchForm: FormGroup<SearchForm>;
+  optionsPriority = PRIORITIES;
+  optionsStatus = STATUS;
+  optionsCategory$: Observable<Category[]> = this.categoryService.categoriesUser$;
+
   tasksTable$: Observable<Task[]> = this.taskService.tasksUser$.pipe(
     map((values) => {
       const tasks = values;
@@ -74,6 +80,7 @@ export class TaskListComponent {
     private router: Router,
     private categoryService: CategoryService
   ) {
+   
     this.searchForm = new FormGroup<SearchForm>({
       name: new FormControl<string | null>(null),
       category: new FormControl<number | null>(null),

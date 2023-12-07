@@ -12,6 +12,11 @@ export const COLUMNS = [
   { field: 'category', header: 'Категория' },
   { field: 'priority', header: 'Приоритет' },
 ];
+export const STATUS =[
+  { label: 'Выполнено', value: 'true' },
+  { label: 'Не выполнено', value: 'false' },
+  { label: 'Все', value: null },
+];
 
 export const MESSAGESCATEGORIES = {
   add: {
