@@ -16,24 +16,18 @@
 <div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
     <input type="number" pInputText placeholder="id" />
-    <input
-      type="text"
-      pInputText
-      formControlName="name"
-      placeholder="Имя"
-    />
+    <input type="text" pInputText formControlName="name" placeholder="Имя" />
     <input
       type="text"
       pInputText
       formControlName="description"
       placeholder="Описание"
     />
-    <p-dropdown
-      formControlName="done"
-      [options]="optionsStatus"
-      placeholder="Статус"
-    ></p-dropdown>
-
+    <p-calendar
+      formControlName="deadLineDate"
+      dateFormat="dd.mm.yy"
+      placeholder="Дата выполнения"
+    ></p-calendar>
     <p-dropdown
       formControlName="category"
       [options]="(optionsCategory$ | async) || []"
@@ -41,14 +35,16 @@
       optionLabel="name"
       optionValue="id"
     ></p-dropdown>
-
     <p-dropdown
       formControlName="priority"
       [options]="optionsPriority"
       placeholder="Приоретет"
     ></p-dropdown>
-
-    
+    <p-dropdown
+      formControlName="done"
+      [options]="optionsStatus"
+      placeholder="Статус"
+    ></p-dropdown>
   </form>
 </div>
 <div cstyle="overflow-x :auto ;">

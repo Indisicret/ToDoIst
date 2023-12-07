@@ -13,8 +13,8 @@ export const COLUMNS = [
   { field: 'priority', header: 'Приоритет' },
 ];
 export const STATUS =[
-  { label: 'Выполнено', value: 'true' },
-  { label: 'Не выполнено', value: 'false' },
+  { label: 'Выполнено', value: true },
+  { label: 'Не выполнено', value: false },
   { label: 'Все', value: null },
 ];
 

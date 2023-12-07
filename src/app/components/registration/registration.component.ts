@@ -57,6 +57,6 @@ export class RegistrationComponent {
   }
   authClick() {
     this.router.navigate(['/authorization']);
-    //открыть авторизауию
+    
   }
 }

@@ -22,9 +22,13 @@ import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 
-import { Observable, map, tap } from 'rxjs';
-import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { BehaviorSubject, Observable, debounceTime, map } from 'rxjs';
+import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
+import { CalendarModule } from 'primeng/calendar';
+
+
+
 
 @Component({
   standalone: true,
@@ -42,6 +46,8 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    CalendarModule,
+    
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -52,21 +58,10 @@ export class TaskListComponent {
   searchForm: FormGroup<SearchForm>;
   optionsPriority = PRIORITIES;
   optionsStatus = STATUS;
-  optionsCategory$: Observable<Category[]> = this.categoryService.categoriesUser$;
+  optionsCategory$: Observable<Category[]> =
+    this.categoryService.categoriesUser$;
 
-  tasksTable$: Observable<Task[]> = this.taskService.tasksUser$.pipe(
-    map((values) => {
-      const tasks = values;
-      this.tasks = cloneDeep(tasks);
-      const categories = this.categoryService.getCategories();
-
-      tasks.forEach((item) => {
-        item.priority = getPriority(item.priority);
-        item.category = getCategoryName(item.category as number, categories);
-      });
-      return tasks;
-    })
-  );
+  tasksTable$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
 
@@ -80,7 +75,19 @@ export class TaskListComponent {
     private router: Router,
     private categoryService: CategoryService
   ) {
-   
+    this.taskService.tasksUser$.subscribe((values) => {
+      console.log(values);
+      const tasks = values;
+      this.tasks = cloneDeep(tasks);
+      const categories = this.categoryService.getCategories();
+
+      tasks.forEach((item) => {
+        item.priority = getPriority(item.priority);
+        item.category = getCategoryName(item.category as number, categories);
+      });
+      this.tasksTable$.next(tasks);
+    });
+
     this.searchForm = new FormGroup<SearchForm>({
       name: new FormControl<string | null>(null),
       category: new FormControl<number | null>(null),
@@ -90,8 +97,28 @@ export class TaskListComponent {
       done: new FormControl<boolean | null>(null),
       id: new FormControl<number | null>(null),
     });
+
+    this.searchForm.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((formValues) => {
+        if (formValues.priority) {
+          const taskSearch = this.tasks.filter(
+            (item) => item.priority === formValues.priority
+          );
+          const categories = this.categoryService.getCategories();
+
+          taskSearch.forEach((item) => {
+            item.priority = getPriority(item.priority);
+            item.category = getCategoryName(item.category as number, categories);
+          });
+        
+
+          this.tasksTable$.next(taskSearch);
+        }
+      });
   }
 
+  
   openSearch() {
     this.visebleSearch.set(!this.visebleSearch());
   }
