@@ -104,6 +104,10 @@ export class TaskListComponent {
         if (formValues.priority) {
           const taskSearch = this.tasks.filter(
             (item) => item.priority === formValues.priority
+          );}
+        if(formValues.category){
+          const taskSearch =this.tasks.filter(
+            (item)=>item.category === formValues.category
           );
           const categories = this.categoryService.getCategories();
 
@@ -111,8 +115,6 @@ export class TaskListComponent {
             item.priority = getPriority(item.priority);
             item.category = getCategoryName(item.category as number, categories);
           });
-        
-
           this.tasksTable$.next(taskSearch);
         }
       });
