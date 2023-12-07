@@ -59,7 +59,9 @@ export class CategoriesListComponent {
     this.categoryService.createCategory(newCategory.name ?? '');
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
+      
     });
+    this.messageServis.add(MESSAGESCATEGORIES.add);
   }
 
   clickDeleteIcon(id: number) {
@@ -71,11 +73,14 @@ export class CategoriesListComponent {
         this.categoryService.deleteCategory(id);
         this.messageServis.add(MESSAGESCATEGORIES.delete);
       },
+      
     });
+    
   }
 
   saveChangesCategory(category: Category) {
     this.categoryService.editCategory(category);
+    this.messageServis.add(MESSAGESCATEGORIES.edit);
   }
 
   cancelChangesCategory() {
