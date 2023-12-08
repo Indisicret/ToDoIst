@@ -126,21 +126,35 @@ export class TaskListComponent {
           });
           this.tasksTable$.next(taskSearch);
         }
-        if(formValues.id){const taskSearch = this.tasks.filter(
-          (item) => item.id === formValues.id
-        );
-        const categories = this.categoryService.getCategories();
-        taskSearch.forEach((item) => {
-          item.priority = getPriority(item.priority);
-          item.category = getCategoryName(
-            item.category as number,
-            categories
+        if (formValues.id) {
+          const taskSearch = this.tasks.filter(
+            (item) => item.id === formValues.id
           );
-        });
-        this.tasksTable$.next(taskSearch);
-      }
+          const categories = this.categoryService.getCategories();
+          taskSearch.forEach((item) => {
+            item.priority = getPriority(item.priority);
+            item.category = getCategoryName(
+              item.category as number,
+              categories
+            );
+          });
+          this.tasksTable$.next(taskSearch);
+        }
+        if (formValues.name) {
+          const taskSearch = this.tasks.filter(
+            (item) => formValues.name && item.name.includes(formValues.name)
+          );
+          const categories = this.categoryService.getCategories();
+          taskSearch.forEach((item) => {
+            item.priority = getPriority(item.priority);
+            item.category = getCategoryName(
+              item.category as number,
+              categories
+            );
+          });
+          this.tasksTable$.next(taskSearch);
+        }
       });
-      
   }
 
   openSearch() {
