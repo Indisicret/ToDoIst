@@ -26,9 +26,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { BehaviorSubject, Observable, debounceTime, map } from 'rxjs';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 import { CalendarModule } from 'primeng/calendar';
-
-
-
+import { values } from 'lodash';
 
 @Component({
   standalone: true,
@@ -47,7 +45,6 @@ import { CalendarModule } from 'primeng/calendar';
     ReactiveFormsModule,
     DropdownModule,
     CalendarModule,
-    
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -64,7 +61,7 @@ export class TaskListComponent {
   tasksTable$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
-
+  date: Date = new Date();
   private tasks: Task[] = [];
 
   constructor(
@@ -104,23 +101,48 @@ export class TaskListComponent {
         if (formValues.priority) {
           const taskSearch = this.tasks.filter(
             (item) => item.priority === formValues.priority
-          );}
-        if(formValues.category){
-          const taskSearch =this.tasks.filter(
-            (item)=>item.category === formValues.category
           );
           const categories = this.categoryService.getCategories();
-
           taskSearch.forEach((item) => {
             item.priority = getPriority(item.priority);
-            item.category = getCategoryName(item.category as number, categories);
+            item.category = getCategoryName(
+              item.category as number,
+              categories
+            );
           });
           this.tasksTable$.next(taskSearch);
         }
+        if (formValues.category) {
+          const taskSearch = this.tasks.filter(
+            (item) => item.category === formValues.category
+          );
+          const categories = this.categoryService.getCategories();
+          taskSearch.forEach((item) => {
+            item.priority = getPriority(item.priority);
+            item.category = getCategoryName(
+              item.category as number,
+              categories
+            );
+          });
+          this.tasksTable$.next(taskSearch);
+        }
+        if(formValues.id){const taskSearch = this.tasks.filter(
+          (item) => item.id === formValues.id
+        );
+        const categories = this.categoryService.getCategories();
+        taskSearch.forEach((item) => {
+          item.priority = getPriority(item.priority);
+          item.category = getCategoryName(
+            item.category as number,
+            categories
+          );
+        });
+        this.tasksTable$.next(taskSearch);
+      }
       });
+      
   }
 
-  
   openSearch() {
     this.visebleSearch.set(!this.visebleSearch());
   }
