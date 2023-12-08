@@ -1,4 +1,4 @@
-<p>{{date|date:'dd.mm.yyyy HH:mm:ss'}}</p>
+<p>{{ date | date : "dd.mm.yyyy HH:mm:ss" }}</p>
 <p-toast></p-toast>
 <h1>Задачи</h1>
 
@@ -16,8 +16,16 @@
 </div>
 <div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
-    <input type="number" pInputText  formControlName="id"placeholder="id" />
-    <input type="text" pInputText formControlName="name" placeholder="Имя" />
+    <input 
+    type="number" 
+      pInputText 
+      formControlName="id" 
+      placeholder="id" />
+    <input 
+      type="text" 
+      pInputText 
+      formControlName="name" 
+      placeholder="Имя" />
     <input
       type="text"
       pInputText

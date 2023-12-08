@@ -154,6 +154,20 @@ export class TaskListComponent {
           });
           this.tasksTable$.next(taskSearch);
         }
+        if (formValues.description) {
+          const taskSearch = this.tasks.filter(
+            (item) => formValues.description && item.description.includes(formValues.description)
+          );
+          const categories = this.categoryService.getCategories();
+          taskSearch.forEach((item) => {
+            item.priority = getPriority(item.priority);
+            item.category = getCategoryName(
+              item.category as number,
+              categories
+            );
+          });
+          this.tasksTable$.next(taskSearch);
+        }
       });
   }
 
