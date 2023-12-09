@@ -21,12 +21,11 @@ import { getCategoryName, getPriority } from '../../config/methods';
 import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
-
 import { DropdownModule } from 'primeng/dropdown';
 import { BehaviorSubject, Observable, debounceTime, map } from 'rxjs';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 import { CalendarModule } from 'primeng/calendar';
-import { values } from 'lodash';
+
 
 @Component({
   standalone: true,
@@ -98,41 +97,32 @@ export class TaskListComponent {
     this.searchForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((formValues) => {
-        const categories = this.categoryService.getCategories();
-        let taskSearch:Task[] = [];
-        if (formValues.priority) {
-          taskSearch = this.tasks.filter(
-            (item) => item.priority === formValues.priority
-          );
-         
-        }
-        if (formValues.category) {
-          taskSearch = this.tasks.filter(
-            (item) => item.category === formValues.category
-          );
-        }
-        if (formValues.id) {
-          taskSearch = this.tasks.filter(
-            (item) => item.id === formValues.id
-          );
-        }
-        if (formValues.name) {
-          taskSearch = this.tasks.filter(
-            (item) => formValues.name && item.name.includes(formValues.name)
+        let taskSearch: Task[] = this.tasks;
+        Object.keys(formValues).forEach((key: string) => {
+          if (formValues[key as keyof SearchForm]) {
+            if (key === 'name' || key === 'description') {
+              taskSearch = taskSearch.filter((item) =>
+                item[key]
+                  .toUpperCase()
+                  .includes((formValues[key] as string).toUpperCase())
               );
-        }
-        if (formValues.description) {
-          taskSearch = this.tasks.filter(
-            (item) => formValues.description && item.description.includes(formValues.description)
-              );}
-        taskSearch.forEach((item) => {
-          item.priority = getPriority(item.priority);
-          item.category = getCategoryName(
-            item.category as number,
-            categories
-          );
+            } else {
+              taskSearch = taskSearch.filter(
+                (item) =>
+                  item[key as keyof SearchForm] ===
+                  formValues[key as keyof SearchForm]
+              );
+            }
+          }
         });
-        this.tasksTable$.next(taskSearch);
+
+        const categories = this.categoryService.getCategories();
+        const taskSearchTable = cloneDeep(taskSearch);
+        taskSearchTable.forEach((item) => {
+          item.priority = getPriority(item.priority);
+          item.category = getCategoryName(item.category as number, categories);
+        });
+        this.tasksTable$.next(taskSearchTable);
       });
   }
 
