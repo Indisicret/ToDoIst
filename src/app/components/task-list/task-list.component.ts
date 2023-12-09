@@ -98,76 +98,41 @@ export class TaskListComponent {
     this.searchForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe((formValues) => {
+        const categories = this.categoryService.getCategories();
+        let taskSearch:Task[] = [];
         if (formValues.priority) {
-          const taskSearch = this.tasks.filter(
+          taskSearch = this.tasks.filter(
             (item) => item.priority === formValues.priority
           );
-          const categories = this.categoryService.getCategories();
-          taskSearch.forEach((item) => {
-            item.priority = getPriority(item.priority);
-            item.category = getCategoryName(
-              item.category as number,
-              categories
-            );
-          });
-          this.tasksTable$.next(taskSearch);
+         
         }
         if (formValues.category) {
-          const taskSearch = this.tasks.filter(
+          taskSearch = this.tasks.filter(
             (item) => item.category === formValues.category
           );
-          const categories = this.categoryService.getCategories();
-          taskSearch.forEach((item) => {
-            item.priority = getPriority(item.priority);
-            item.category = getCategoryName(
-              item.category as number,
-              categories
-            );
-          });
-          this.tasksTable$.next(taskSearch);
         }
         if (formValues.id) {
-          const taskSearch = this.tasks.filter(
+          taskSearch = this.tasks.filter(
             (item) => item.id === formValues.id
           );
-          const categories = this.categoryService.getCategories();
-          taskSearch.forEach((item) => {
-            item.priority = getPriority(item.priority);
-            item.category = getCategoryName(
-              item.category as number,
-              categories
-            );
-          });
-          this.tasksTable$.next(taskSearch);
         }
         if (formValues.name) {
-          const taskSearch = this.tasks.filter(
+          taskSearch = this.tasks.filter(
             (item) => formValues.name && item.name.includes(formValues.name)
-          );
-          const categories = this.categoryService.getCategories();
-          taskSearch.forEach((item) => {
-            item.priority = getPriority(item.priority);
-            item.category = getCategoryName(
-              item.category as number,
-              categories
-            );
-          });
-          this.tasksTable$.next(taskSearch);
+              );
         }
         if (formValues.description) {
-          const taskSearch = this.tasks.filter(
+          taskSearch = this.tasks.filter(
             (item) => formValues.description && item.description.includes(formValues.description)
+              );}
+        taskSearch.forEach((item) => {
+          item.priority = getPriority(item.priority);
+          item.category = getCategoryName(
+            item.category as number,
+            categories
           );
-          const categories = this.categoryService.getCategories();
-          taskSearch.forEach((item) => {
-            item.priority = getPriority(item.priority);
-            item.category = getCategoryName(
-              item.category as number,
-              categories
-            );
-          });
-          this.tasksTable$.next(taskSearch);
-        }
+        });
+        this.tasksTable$.next(taskSearch);
       });
   }
 
