@@ -1,6 +1,6 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PRIORITIES } from './constants';
-import { Category, SearchForm } from './types';
+import { AddTaskForm, Category, SearchForm, Task } from './types';
 
 export const getPriority = (code: string): string => {
   const label = PRIORITIES.find((item) => item.value === code)?.label;
@@ -23,3 +23,24 @@ export const generateFormSearch = (): FormGroup<SearchForm> => {
     id: new FormControl<number | null>(null),
   });
 };
+export const generateEditTaskForm = (task?:Task): FormGroup<AddTaskForm> => {
+  return new FormGroup<AddTaskForm>({
+    name: new FormControl<string | null>(task?.name ?? null, [
+      Validators.required,
+      Validators.maxLength(40),
+    ]),
+    category: new FormControl<number | null>(
+      (task?.category as number) ?? null
+    ),
+    deadLineDate: new FormControl<Date | string | null>(
+      task?.deadLineDate ?? null
+    ),
+    description: new FormControl<string | null>(
+      task?.description ?? null,
+      Validators.maxLength(300)
+    ),
+    priority: new FormControl<string | null>(task?.priority ?? null, [
+      Validators.required,
+    ]),
+  });
+}

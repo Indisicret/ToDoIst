@@ -6,7 +6,6 @@ import {
   signal,
 } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,

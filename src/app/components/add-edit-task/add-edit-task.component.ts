@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, LOCALE_ID } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -17,6 +11,7 @@ import { AddTaskForm, Category, Task } from '../../config/types';
 import { TaskService } from '../../services/task.service';
 import { CategoryService } from '../../services/category.service';
 import { Observable } from 'rxjs';
+import { generateEditTaskForm } from '../../config/methods';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -43,7 +38,8 @@ import { Observable } from 'rxjs';
 export class AddEditTaskComponent {
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
-  optionsCategory$: Observable<Category[]> = this.categoryService.categoriesUser$;
+  optionsCategory$: Observable<Category[]> =
+    this.categoryService.categoriesUser$;
 
   private task: Task | null;
 
@@ -54,26 +50,7 @@ export class AddEditTaskComponent {
     private categoryService: CategoryService
   ) {
     this.task = this.config.data.task;
-
-    this.editTaskForm = new FormGroup<AddTaskForm>({
-      name: new FormControl<string | null>(this.task?.name ?? null, [
-        Validators.required,
-        Validators.maxLength(40),
-      ]),
-      category: new FormControl<number | null>(
-        (this.task?.category as number) ?? null
-      ),
-      deadLineDate: new FormControl<Date | string | null>(
-        this.task?.deadLineDate ?? null
-      ),
-      description: new FormControl<string | null>(
-        this.task?.description ?? null,
-        Validators.maxLength(300)
-      ),
-      priority: new FormControl<string | null>(this.task?.priority ?? null, [
-        Validators.required,
-      ]),
-    });
+    this.editTaskForm = generateEditTaskForm(this.task ?? undefined);
   }
 
   saveEditTask() {
@@ -90,6 +67,5 @@ export class AddEditTaskComponent {
       this.taskService.addTask(task);
       this.dialogRef.close(MESSAGES.add);
     }
-    
   }
 }
