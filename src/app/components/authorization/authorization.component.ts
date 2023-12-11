@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthorizationForm } from '../../config/types';
 import { UserService } from '../../services/user.service';
+import { generateAuthorForm } from '../../config/methods';
 
 @Component({
   standalone: true,
@@ -30,16 +31,7 @@ export class AuthorizationComponent {
   authorForm: FormGroup<AuthorizationForm>;
 
   constructor(private userService: UserService, private router: Router) {
-    this.authorForm = new FormGroup<AuthorizationForm>({
-      login: new FormControl<string | null>(null, [
-        Validators.email,
-        Validators.required,
-      ]),
-      password: new FormControl<string | null>(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-    });
+    this.authorForm = generateAuthorForm()
   }
 
   authClick() {

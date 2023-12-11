@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PRIORITIES } from './constants';
-import { AddTaskForm, Category, SearchForm, Task } from './types';
+import { AddTaskForm, AuthorizationForm, Category, RegistrationForm, SearchForm, Task } from './types';
 
 export const getPriority = (code: string): string => {
   const label = PRIORITIES.find((item) => item.value === code)?.label;
@@ -12,6 +12,29 @@ export const getCategoryName = (categoryId: number, categories: Category[]) => {
   return category?.name ?? '';
 };
 
+export const generateAuthorForm = ():FormGroup<AuthorizationForm> => {
+  return new FormGroup<AuthorizationForm>({
+    login: new FormControl<string | null>(null, [
+      Validators.email,
+      Validators.required,
+    ]),
+    password: new FormControl<string | null>(null, [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });}
+
+export const generateRegForm = () : FormGroup<RegistrationForm> => {
+  return new FormGroup<RegistrationForm>({
+    login: new FormControl<string | null>(null, [
+      Validators.email,
+      Validators.required,
+    ]),
+    password: new FormControl<string | null>(null, [Validators.required]),
+    name: new FormControl<string | null>(null, [Validators.required]),
+    gender: new FormControl<string | null>(null, [Validators.required]),
+  });
+}
 export const generateFormSearch = (): FormGroup<SearchForm> => {
   return new FormGroup<SearchForm>({
     name: new FormControl<string | null>(null),
@@ -23,6 +46,7 @@ export const generateFormSearch = (): FormGroup<SearchForm> => {
     id: new FormControl<number | null>(null),
   });
 };
+
 export const generateEditTaskForm = (task?:Task): FormGroup<AddTaskForm> => {
   return new FormGroup<AddTaskForm>({
     name: new FormControl<string | null>(task?.name ?? null, [

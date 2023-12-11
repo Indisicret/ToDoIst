@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { RegistrationForm, User } from '../../config/types';
 import { UserService } from '../../services/user.service';
+import { generateRegForm } from '../../config/methods';
 
 @Component({
   standalone: true,
@@ -36,15 +37,7 @@ export class RegistrationComponent {
   ];
 
   constructor(private userService: UserService, private router: Router) {
-    this.regForm = new FormGroup<RegistrationForm>({
-      login: new FormControl<string | null>(null, [
-        Validators.email,
-        Validators.required,
-      ]),
-      password: new FormControl<string | null>(null, [Validators.required]),
-      name: new FormControl<string | null>(null, [Validators.required]),
-      gender: new FormControl<string | null>(null, [Validators.required]),
-    });
+    this.regForm = generateRegForm( )
   }
 
   regClick() {
