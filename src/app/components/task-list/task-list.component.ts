@@ -31,7 +31,7 @@ import {
   takeUntil,
 } from 'rxjs';
 import { COLUMNS, MESSAGES, PRIORITIES, STATUS } from '../../config/constants';
-import { getCategoryName, getPriority } from '../../config/methods';
+import { generateFormSearch, getCategoryName, getPriority } from '../../config/methods';
 import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
@@ -75,6 +75,7 @@ export class TaskListComponent implements OnDestroy {
 
   private tasks: Task[] = [];
   private destroy$: Subject<void> = new Subject<void>();
+  private categories: Category[] = [];
 
   constructor(
     private dialogService: DialogService,
@@ -84,61 +85,23 @@ export class TaskListComponent implements OnDestroy {
     private router: Router,
     private categoryService: CategoryService
   ) {
+    this.categories = this.categoryService.getCategories();
     this.taskService.tasksUser$
       .pipe(takeUntil(this.destroy$))
       .subscribe((values) => {
-        console.log(values);
         const tasks = values;
         this.tasks = cloneDeep(tasks);
-        const categories = this.categoryService.getCategories();
-
         tasks.forEach((item) => {
           item.priority = getPriority(item.priority);
-          item.category = getCategoryName(item.category as number, categories);
+          item.category = getCategoryName(
+            item.category as number,
+            this.categories
+          );
         });
         this.tasksTable$.next(tasks);
       });
-
-    this.searchForm = new FormGroup<SearchForm>({
-      name: new FormControl<string | null>(null),
-      category: new FormControl<number | null>(null),
-      deadLineDate: new FormControl<Date | string | null>(null),
-      description: new FormControl<string | null>(null),
-      priority: new FormControl<string | null>(null),
-      done: new FormControl<boolean | null>(null),
-      id: new FormControl<number | null>(null),
-    });
-
-    this.searchForm.valueChanges
-      .pipe(debounceTime(500), takeUntil(this.destroy$))
-      .subscribe((formValues) => {
-        let taskSearch: Task[] = this.tasks;
-        Object.keys(formValues).forEach((key: string) => {
-          if (formValues[key as keyof SearchForm]) {
-            if (key === 'name' || key === 'description') {
-              taskSearch = taskSearch.filter((item) =>
-                item[key]
-                  .toUpperCase()
-                  .includes((formValues[key] as string).toUpperCase())
-              );
-            } else {
-              taskSearch = taskSearch.filter(
-                (item) =>
-                  item[key as keyof SearchForm] ===
-                  formValues[key as keyof SearchForm]
-              );
-            }
-          }
-        });
-
-        const categories = this.categoryService.getCategories();
-        const taskSearchTable = cloneDeep(taskSearch);
-        taskSearchTable.forEach((item) => {
-          item.priority = getPriority(item.priority);
-          item.category = getCategoryName(item.category as number, categories);
-        });
-        this.tasksTable$.next(taskSearchTable);
-      });
+    this.searchForm = generateFormSearch();
+    this.formSearchChanges();
   }
 
   ngOnDestroy() {
@@ -186,5 +149,39 @@ export class TaskListComponent implements OnDestroy {
 
   private deleteTask(task: Task) {
     this.taskService.deleteTask(task.id ?? 0);
+  }
+
+  private formSearchChanges() {
+    this.searchForm.valueChanges
+      .pipe(debounceTime(500), takeUntil(this.destroy$))
+      .subscribe((formValues) => {
+        let taskSearch: Task[] = this.tasks;
+        Object.keys(formValues).forEach((key: string) => {
+          if (formValues[key as keyof SearchForm]) {
+            if (key === 'name' || key === 'description') {
+              taskSearch = taskSearch.filter((item) =>
+                item[key]
+                  .toUpperCase()
+                  .includes((formValues[key] as string).toUpperCase())
+              );
+            } else {
+              taskSearch = taskSearch.filter(
+                (item) =>
+                  item[key as keyof SearchForm] ===
+                  formValues[key as keyof SearchForm]
+              );
+            }
+          }
+        });
+        const taskSearchTable = cloneDeep(taskSearch);
+        taskSearchTable.forEach((item) => {
+          item.priority = getPriority(item.priority);
+          item.category = getCategoryName(
+            item.category as number,
+            this.categories
+          );
+        });
+        this.tasksTable$.next(taskSearchTable);
+      });
   }
 }
