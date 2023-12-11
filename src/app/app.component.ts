@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { MESSAGESEXIT } from './config/constants';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UserService } from './services/user.service';
 import { ToastModule } from 'primeng/toast';
@@ -20,9 +20,25 @@ export class AppComponent {
   constructor(
     private confimationService: ConfirmationService,
     private messageServis: MessageService,
+    private config: PrimeNGConfig,
     private router: Router,
     protected userService: UserService
+    
   ) {}
+  ngOnInit(){
+    this.config.setTranslation({
+      firstDayOfWeek: 1,
+      dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+      monthNames: ['Январь', 'Февраль' , 'Март' , 'Апрель' , 'Май' , 'Июнь' , 'Июль' , 'Август' , 'Сентябрь','Октябрь','Ноябрь','Декабрь' ],
+      monthNamesShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек' ],
+      dayNamesShort: ['Воск','Пон' , 'Вт' , 'Ср' , 'Четв' , 'Пят' , 'Суб'],
+      dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+      weekHeader: 'Неделя',
+      today: 'Сегодня',
+      dateFormat: 'mm.dd.y',
+      
+      clear:'Очистить' })
+  }
 
   clickExitAccount() {
     this.confimationService.confirm({

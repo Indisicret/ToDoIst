@@ -1,4 +1,4 @@
-<p>{{ date | date : "dd.mm.yyyy HH:mm:ss" }}</p>
+
 <p-toast></p-toast>
 <h1>Задачи</h1>
 
@@ -34,8 +34,13 @@
     />
     <p-calendar
       formControlName="deadLineDate"
-      dateFormat="dd.mm.yy"
       placeholder="Дата выполнения"
+      [showClear]="true"
+      [(ngModel)]="rangeDates"
+      selectionMode="range"
+      [readonlyInput]="true"
+
+      
     ></p-calendar>
     <p-dropdown
       formControlName="category"
@@ -43,16 +48,20 @@
       placeholder="Категория"
       optionLabel="name"
       optionValue="id"
+      [showClear]="true"
+
     ></p-dropdown>
     <p-dropdown
       formControlName="priority"
       [options]="optionsPriority"
       placeholder="Приоретет"
+      [showClear]="true"
     ></p-dropdown>
     <p-dropdown
       formControlName="done"
       [options]="optionsStatus"
       placeholder="Статус"
+      
     ></p-dropdown>
   </form>
 </div>

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -51,6 +51,8 @@ import { CalendarModule } from 'primeng/calendar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent {
+  rangeDates: Date[] | undefined;
+  showClear: boolean | undefined
   searchForm: FormGroup<SearchForm>;
   optionsPriority = PRIORITIES;
   optionsStatus = STATUS;
@@ -64,6 +66,7 @@ export class TaskListComponent {
   private tasks: Task[] = [];
 
   constructor(
+    private config: PrimeNGConfig,
     private dialogService: DialogService,
     private taskService: TaskService,
     private confimationService: ConfirmationService,
