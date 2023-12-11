@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,24 +13,29 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
-import { ConfirmationService, MessageService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  debounceTime,
+  takeUntil,
+} from 'rxjs';
 import { COLUMNS, MESSAGES, PRIORITIES, STATUS } from '../../config/constants';
 import { getCategoryName, getPriority } from '../../config/methods';
 import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
-import { DropdownModule } from 'primeng/dropdown';
-import { BehaviorSubject, Observable, debounceTime, map } from 'rxjs';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
-import { CalendarModule } from 'primeng/calendar';
-
 
 @Component({
   standalone: true,
@@ -50,23 +60,23 @@ import { CalendarModule } from 'primeng/calendar';
   providers: [DialogService, TaskService, ConfirmationService, MessageService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnDestroy {
   rangeDates: Date[] | undefined;
-  showClear: boolean | undefined
+  showClear: boolean | undefined;
   searchForm: FormGroup<SearchForm>;
   optionsPriority = PRIORITIES;
   optionsStatus = STATUS;
   optionsCategory$: Observable<Category[]> =
     this.categoryService.categoriesUser$;
-
   tasksTable$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
   date: Date = new Date();
+
   private tasks: Task[] = [];
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
-    private config: PrimeNGConfig,
     private dialogService: DialogService,
     private taskService: TaskService,
     private confimationService: ConfirmationService,
@@ -74,18 +84,20 @@ export class TaskListComponent {
     private router: Router,
     private categoryService: CategoryService
   ) {
-    this.taskService.tasksUser$.subscribe((values) => {
-      console.log(values);
-      const tasks = values;
-      this.tasks = cloneDeep(tasks);
-      const categories = this.categoryService.getCategories();
+    this.taskService.tasksUser$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((values) => {
+        console.log(values);
+        const tasks = values;
+        this.tasks = cloneDeep(tasks);
+        const categories = this.categoryService.getCategories();
 
-      tasks.forEach((item) => {
-        item.priority = getPriority(item.priority);
-        item.category = getCategoryName(item.category as number, categories);
+        tasks.forEach((item) => {
+          item.priority = getPriority(item.priority);
+          item.category = getCategoryName(item.category as number, categories);
+        });
+        this.tasksTable$.next(tasks);
       });
-      this.tasksTable$.next(tasks);
-    });
 
     this.searchForm = new FormGroup<SearchForm>({
       name: new FormControl<string | null>(null),
@@ -98,7 +110,7 @@ export class TaskListComponent {
     });
 
     this.searchForm.valueChanges
-      .pipe(debounceTime(500))
+      .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe((formValues) => {
         let taskSearch: Task[] = this.tasks;
         Object.keys(formValues).forEach((key: string) => {
@@ -129,6 +141,11 @@ export class TaskListComponent {
       });
   }
 
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   openSearch() {
     this.visebleSearch.set(!this.visebleSearch());
   }
@@ -142,7 +159,8 @@ export class TaskListComponent {
           task: task ? this.tasks.find((item) => item.id === task.id) : null,
         },
       })
-      .onClose.subscribe((result) => {
+      .onClose.pipe(takeUntil(this.destroy$))
+      .subscribe((result) => {
         if (result) {
           this.taskService.reloadTasks();
           this.messageServis.add(result);
