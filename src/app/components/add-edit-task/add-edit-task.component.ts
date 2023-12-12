@@ -6,12 +6,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { MESSAGES, PRIORITIES } from '../../config/constants';
-import { AddTaskForm, Category, Task } from '../../config/types';
-import { TaskService } from '../../services/task.service';
-import { CategoryService } from '../../services/category.service';
 import { Observable } from 'rxjs';
+import { MESSAGES, PRIORITIES } from '../../config/constants';
 import { generateEditTaskForm } from '../../config/methods';
+import { AddTaskForm, Category, Task } from '../../config/types';
+import { CategoryService } from '../../services/category.service';
+import { TaskService } from '../../services/task.service';
 @Component({
   selector: 'app-edit-task',
   standalone: true,

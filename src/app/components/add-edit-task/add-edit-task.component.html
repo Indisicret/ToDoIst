@@ -1,6 +1,15 @@
 <div class="edit-task-container">
     <form [formGroup]="editTaskForm">
       <div class="form-control">
+        <div class="form-label">Срок выполнения</div>
+        <p-calendar
+        formControlName="deadLineDate"
+        placeholder="Дата выполнения"
+        [showClear]="true"
+        dateFormat="dd.mm.yy"
+        ></p-calendar>
+      </div>
+      <div class="form-control">
         <div class="form-label">Название:</div>
         <input
           pInputText
@@ -41,16 +50,6 @@
           placeholder="Описание"
         >
         </textarea>
-      </div>
-      <div class="form-control">
-        <div class="form-label">Срок выполнения</div>
-        <p-calendar
-          formControlName="deadLineDate"
-          [showIcon]="true"
-          dateFormat="dd.mm.yy"
-          [firstDayOfWeek]="1"
-          
-        ></p-calendar>
       </div>
       <p-button label="Сохранить" [disabled]="editTaskForm.invalid" (onClick)="saveEditTask()"></p-button>
     </form>

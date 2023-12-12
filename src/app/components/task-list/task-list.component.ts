@@ -70,7 +70,6 @@ export class TaskListComponent implements OnDestroy {
   tasksTable$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
-  date: Date = new Date();
 
   private tasks: Task[] = [];
   private destroy$: Subject<void> = new Subject<void>();
