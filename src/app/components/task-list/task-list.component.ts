@@ -60,10 +60,9 @@ import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent implements OnDestroy {
-  rangeDates: Date[] | undefined;
-  showClear: boolean | undefined;
   searchForm: FormGroup<SearchForm>;
   optionsPriority = PRIORITIES;
+
   optionsStatus = STATUS;
   optionsCategory$: Observable<Category[]> =
     this.categoryService.categoriesUser$;
