@@ -5,11 +5,7 @@ import {
   OnDestroy,
   signal,
 } from '@angular/core';
-import {
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -30,11 +26,16 @@ import {
   takeUntil,
 } from 'rxjs';
 import { COLUMNS, MESSAGES, PRIORITIES, STATUS } from '../../config/constants';
-import { generateFormSearch, getCategoryName, getPriority } from '../../config/methods';
+import {
+  generateFormSearch,
+  getCategoryName,
+  getPriority,
+} from '../../config/methods';
 import { Category, Column, SearchForm, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
+import e from 'express';
 
 @Component({
   standalone: true,
@@ -160,6 +161,12 @@ export class TaskListComponent implements OnDestroy {
                 item[key]
                   .toUpperCase()
                   .includes((formValues[key] as string).toUpperCase())
+              );
+            } else if (key === 'deadLineDate') {
+              taskSearch = taskSearch.filter(
+                (item) =>
+                  new Date(item[key]).getTime() ===
+                  new Date(formValues[key] as string).getTime()
               );
             } else {
               taskSearch = taskSearch.filter(
