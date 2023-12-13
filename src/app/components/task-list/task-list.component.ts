@@ -177,18 +177,18 @@ export class TaskListComponent implements OnDestroy {
         let taskSearch: Task[] = this.tasks;
         this.forms = [];
         Object.keys(formValues).forEach((key: string) => {
-          if (formValues[key as keyof SearchForm]) {
+          if (formValues[key as keyof SearchForm] || formValues[key as keyof SearchForm]===false) {
             if (key === 'name' || key === 'description') {
               taskSearch = taskSearch.filter((item) =>
                 item[key]
                   .toUpperCase()
                   .includes((formValues[key] as string).toUpperCase())
               );
-            } else if (key === 'deadLineDate') {
-              taskSearch = taskSearch.filter(
-                (item) =>
-                  new Date(item[key]).getTime() ===
-                  new Date(formValues[key] as string).getTime()
+            }
+             else if (key === 'deadLineDate') {
+              taskSearch = taskSearch.filter((item) =>
+                  new Date(item.deadLineDate).getTime() ===
+                  new Date(formValues.deadLineDate as string).getTime()
               );
             } else {
               taskSearch = taskSearch.filter(
@@ -198,6 +198,7 @@ export class TaskListComponent implements OnDestroy {
               );
             }
           }
+        
         });
         const taskSearchTable = cloneDeep(taskSearch);
         taskSearchTable.forEach((item) => {
