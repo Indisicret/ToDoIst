@@ -16,7 +16,12 @@
 <div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
     <input type="number" pInputText formControlName="id" placeholder="id" />
-    <input type="text" pInputText formControlName="name" placeholder="Имя" />
+    <input
+      type="text"
+      pInputText
+      formControlName="name"
+      placeholder="Название"
+    />
     <input
       type="text"
       pInputText
@@ -68,17 +73,26 @@
         <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-task let-columns="columns">
+    <ng-template
+      pTemplate="body"
+      let-task
+      let-index="rowIndex"
+      let-columns="columns"
+    >
       <tr>
         <td *ngFor="let col of columns">
           {{
             col.field === "deadLineDate"
-              ? (task[col.field] | date:'dd.MM.YYYY')
+              ? (task[col.field] | date : "dd.MM.YYYY")
               : task[col.field]
           }}
         </td>
-        <td>
-          <p-checkbox [binary]="true"></p-checkbox>
+        <td [formGroup]="forms[index]">
+          <p-checkbox
+            [binary]="true"
+            formControlName="done"
+            (onChange)="taskStatusChange(index)"
+          ></p-checkbox>
         </td>
         <td (click)="openEditModal(task)">
           <span class="pi pi-pencil"></span>

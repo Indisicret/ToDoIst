@@ -59,3 +59,7 @@ export type SearchForm = {
   done: FormControl<boolean | null>;
   id: FormControl<number | null>;
 };
+
+export type TaskForm = {
+  done: FormControl<boolean | null>;
+};

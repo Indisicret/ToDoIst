@@ -5,7 +5,12 @@ import {
   OnDestroy,
   signal,
 } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -31,7 +36,13 @@ import {
   getCategoryName,
   getPriority,
 } from '../../config/methods';
-import { Category, Column, SearchForm, Task } from '../../config/types';
+import {
+  Category,
+  Column,
+  SearchForm,
+  Task,
+  TaskForm,
+} from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
@@ -70,6 +81,7 @@ export class TaskListComponent implements OnDestroy {
   tasksTable$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   cols: Column[] = COLUMNS;
   visebleSearch = signal(false);
+  forms: FormGroup<TaskForm>[] = [];
 
   private tasks: Task[] = [];
   private destroy$: Subject<void> = new Subject<void>();
@@ -87,6 +99,7 @@ export class TaskListComponent implements OnDestroy {
     this.taskService.tasksUser$
       .pipe(takeUntil(this.destroy$))
       .subscribe((values) => {
+        this.forms = [];
         const tasks = values;
         this.tasks = cloneDeep(tasks);
         tasks.forEach((item) => {
@@ -94,6 +107,9 @@ export class TaskListComponent implements OnDestroy {
           item.category = getCategoryName(
             item.category as number,
             this.categories
+          );
+          this.forms.push(
+            new FormGroup<TaskForm>({ done: new FormControl(item.done) })
           );
         });
         this.tasksTable$.next(tasks);
@@ -145,6 +161,11 @@ export class TaskListComponent implements OnDestroy {
     this.router.navigate(['/categories']);
   }
 
+  taskStatusChange(index: number) {
+    this.tasks[index].done = !this.tasks[index].done;
+    this.taskService.editTask(this.tasks[index]);
+  }
+
   private deleteTask(task: Task) {
     this.taskService.deleteTask(task.id ?? 0);
   }
@@ -154,6 +175,7 @@ export class TaskListComponent implements OnDestroy {
       .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe((formValues) => {
         let taskSearch: Task[] = this.tasks;
+        this.forms = [];
         Object.keys(formValues).forEach((key: string) => {
           if (formValues[key as keyof SearchForm]) {
             if (key === 'name' || key === 'description') {
@@ -183,6 +205,9 @@ export class TaskListComponent implements OnDestroy {
           item.category = getCategoryName(
             item.category as number,
             this.categories
+          );
+          this.forms.push(
+            new FormGroup<TaskForm>({ done: new FormControl(item.done) })
           );
         });
         this.tasksTable$.next(taskSearchTable);

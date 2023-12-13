@@ -59,11 +59,13 @@ export class AddEditTaskComponent {
         ...(this.editTaskForm.getRawValue() as Task),
         userId: this.task.userId,
         id: this.task.id,
+        done: this.task.done,
       };
       this.taskService.editTask(newTask);
       this.dialogRef.close(MESSAGES.edit);
     } else {
       const task = this.editTaskForm.getRawValue() as unknown as Task;
+      task.done = false;
       this.taskService.addTask(task);
       this.dialogRef.close(MESSAGES.add);
     }
