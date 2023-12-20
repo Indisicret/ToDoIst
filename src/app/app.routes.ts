@@ -4,6 +4,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 import { AccountsGuard } from './guards/accounts.guard';
+import { NotFoundComponent } from './not.found/not.found.component';
 
 export const routes: Routes = [
   {
@@ -27,5 +28,9 @@ export const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesListComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
