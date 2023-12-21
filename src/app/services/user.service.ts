@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../config/types';
+import { User, UserCreate } from '../config/types';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class UserService {
     }
   }
 
-  registration(user: User): boolean {
+  registration(user: UserCreate): boolean {
     const users: User[] = JSON.parse(
       localStorage.getItem('usersTodoIst') ?? '[]'
     );
@@ -36,19 +36,20 @@ export class UserService {
       alert('такой пользователь уже зарегистрирован');
       return false;
     } else {
+      const newUser: User = { ...user, id: 0 };
       if (users.length === 0) {
-        user.id = 1;
+        newUser.id = 1;
       } else {
         let max = 0;
         users.forEach((item) => {
-          if (item.id && max < item.id) {
+          if (max < item.id) {
             max = item.id;
           }
         });
-        user.id = max + 1;
-        localStorage.setItem('userId', `${user.id}`);
+        newUser.id = max + 1;
+        localStorage.setItem('userId', String(newUser.id));
       }
-      users.push(user);
+      users.push(newUser);
       localStorage.setItem('usersTodoIst', JSON.stringify(users));
       return true;
     }

@@ -1,19 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { RegistrationForm, User } from '../../config/types';
-import { UserService } from '../../services/user.service';
 import { generateRegForm } from '../../config/methods';
+import { RegistrationForm, UserCreate } from '../../config/types';
+import { UserService } from '../../services/user.service';
 
 @Component({
   standalone: true,
@@ -29,8 +27,11 @@ import { generateRegForm } from '../../config/methods';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
+
 export class RegistrationComponent {
+
   regForm: FormGroup<RegistrationForm>;
+
   optionsGender = [
     { label: 'Мужской', value: 'man' },
     { label: 'Женский', value: 'woman' },
@@ -42,14 +43,14 @@ export class RegistrationComponent {
 
   regClick() {
     const result = this.userService.registration(
-      this.regForm.getRawValue() as User
+      this.regForm.getRawValue() as UserCreate
     );
     if (result) {
       this.router.navigate(['/tasks']);
     }
   }
+
   authClick() {
     this.router.navigate(['/authorization']);
-    
   }
 }

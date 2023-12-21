@@ -22,12 +22,19 @@ export type AddCategoryForm = {
   name: FormControl<string | null>;
 };
 
+export type UserCreate = {
+  login: string;
+  password: string;
+  name: string;
+  gender: string;
+};
+
 export type User = {
   login: string;
   password: string;
   name: string;
   gender: string;
-  id?: number;
+  id: number;
 };
 
 export type Task = {
