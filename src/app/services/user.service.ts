@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User, UserCreate } from '../config/types';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+
+  userId$: Subject<number> = new Subject();
+
   constructor() {}
 
   authorization(login: string, password: string): boolean {
@@ -19,6 +23,7 @@ export class UserService {
     } else {
       if (userAuth.password === password) {
         localStorage.setItem('userId', `${userAuth.id}`);
+        this.userId$.next(userAuth.id);
         return true;
       } else {
         alert('Неверный пароль');
@@ -48,6 +53,7 @@ export class UserService {
         });
         newUser.id = max + 1;
         localStorage.setItem('userId', String(newUser.id));
+        this.userId$.next(newUser.id);
       }
       users.push(newUser);
       localStorage.setItem('usersTodoIst', JSON.stringify(users));
@@ -56,10 +62,14 @@ export class UserService {
   }
 
   getUserId(): number | null {
-    return Number(localStorage.getItem('userId')) ?? 0;
+    const userId = Number(localStorage.getItem('userId')) ?? 0;
+    this.userId$.next(userId);
+
+    return Number(userId);
   }
 
   unlog() {
+    this.userId$.next(0);
     localStorage.removeItem('userId');
   }
 }

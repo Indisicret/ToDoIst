@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <p-confirmDialog acceptLabel="Выйти" rejectLabel="Отмена"></p-confirmDialog>
-<div class="exit" *ngIf="userService.getUserId()">
+<div class="exit" *ngIf="visibleExit$ | async">
   <p-button
     (click)="clickExitAccount()"
     icon="pi-sign-out"
