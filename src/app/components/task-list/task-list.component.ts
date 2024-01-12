@@ -47,6 +47,7 @@ import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
 import e from 'express';
+import { TaskListLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -74,7 +75,7 @@ import e from 'express';
 export class TaskListComponent implements OnDestroy {
   searchForm: FormGroup<SearchForm>;
   optionsPriority = PRIORITIES;
-
+  taskListLabels = TaskListLabels;
   optionsStatus = STATUS;
   optionsCategory$: Observable<Category[]> =
     this.categoryService.categoriesUser$;

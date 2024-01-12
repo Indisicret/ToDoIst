@@ -1,7 +1,7 @@
 <div class="edit-task-container">
     <form [formGroup]="editTaskForm">
       <div class="form-control">
-        <div class="form-label">Срок выполнения</div>
+        <div class="form-label">{{addEditTaskLabels.deadline}}</div>
         <p-calendar
         formControlName="deadLineDate"
         placeholder="Дата выполнения"
@@ -10,7 +10,7 @@
         ></p-calendar>
       </div>
       <div class="form-control">
-        <div class="form-label">Название:</div>
+        <div class="form-label">{{addEditTaskLabels.Name}}</div>
         <input
           pInputText
           formControlName="name"
@@ -20,7 +20,7 @@
       </div>
       <div class="drop-container">
         <div class="form-control">
-          <div class="form-label">Приоритет:</div>
+          <div class="form-label">{{addEditTaskLabels.priority}}</div>
           <p-dropdown
             formControlName="priority"
             [options]="optionsPriority"
@@ -29,7 +29,7 @@
         </div>
   
         <div class="form-control">
-          <div class="form-label">Категория:</div>
+          <div class="form-label">{{addEditTaskLabels.category}}</div>
           <p-dropdown
           formControlName="category"
           [options]="(optionsCategory$ | async) || []"
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="form-control">
-        <div class="form-label">Описание:</div>
+        <div class="form-label">{{addEditTaskLabels.description}}</div>
         <textarea
           rows="5"
           formControlName="description"

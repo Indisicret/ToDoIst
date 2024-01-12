@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { generateAuthorForm } from '../../config/methods';
 import { AuthorizationForm } from '../../config/types';
 import { UserService } from '../../services/user.service';
-import { generateAuthorForm } from '../../config/methods';
+import { AuthorizationLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -23,12 +22,14 @@ import { generateAuthorForm } from '../../config/methods';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
+
   ],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.scss',
 })
 export class AuthorizationComponent {
   authorForm: FormGroup<AuthorizationForm>;
+  authorizationlLabels = AuthorizationLabels;
 
   constructor(private userService: UserService, private router: Router) {
     this.authorForm = generateAuthorForm()

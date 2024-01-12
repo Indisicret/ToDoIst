@@ -1,47 +1,21 @@
-.table-container {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.exit{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  bottom: 0;
-  overflow:auto;
-}
-.categories-link {
-  color: #1d4ed8;
-  position: absolute;
-  right: 20%;
-  top: 20%;
-  cursor: pointer;
-  font-weight: 600;
-}
 .pi {
   cursor: pointer;
 }
 .button-container {
   display: flex;
   justify-content: space-between;
-  p-button{
-    margin-right: 12px;
+  p-button {
+    margin-right: 1em;
   }
-  margin-bottom: 12px;
-  
+  margin-bottom: 1em;
 }
-.find-input-group{
-
-  input{
-  margin-right: 10px;
+.find-input-group {
+  margin-bottom: 1em;
+  input,
+  p-calendar,
+  p-dropdown {
+    margin-right: 1em;
   }
-  p-calendar{
-    margin-right: 10px;
-  }
-  p-dropdown{
-    margin-right: 10px;
-  }
-
 }
 
 @media screen and (max-width: 480px) {

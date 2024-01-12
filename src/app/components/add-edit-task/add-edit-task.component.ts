@@ -12,6 +12,7 @@ import { generateEditTaskForm } from '../../config/methods';
 import { AddTaskForm, Category, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
+import { AddEditTaskLabels } from './config/constants';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -36,6 +37,7 @@ import { TaskService } from '../../services/task.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddEditTaskComponent {
+  addEditTaskLabels = AddEditTaskLabels;
   editTaskForm: FormGroup<AddTaskForm>;
   optionsPriority = PRIORITIES;
   optionsCategory$: Observable<Category[]> =

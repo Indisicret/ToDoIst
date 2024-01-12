@@ -5,15 +5,15 @@
   height: 100%;
   flex-direction: column;
   .form-control {
-    margin-bottom: 12px;
+    margin-bottom: 1vh;
   }
 
 }
 input {
   &.ng-inalid.ng-touched {
-    border: 1px solid red;
+    border: 0.1vw solid red;
   }
   &.ng-valid.ng-touched {
-    border: 1px solid green;
+    border: 0.1vw solid green;
   }
 }

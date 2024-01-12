@@ -4,10 +4,10 @@
 input {
   width: 100%;
   &.ng-inalid.ng-touched {
-    border: 1px solid red;
+    border: 0.1vw solid red;
   }
   &.ng-valid.ng-touched {
-    border: 1px solid green;
+    border: 0.1vw solid green;
   }
 }
 
@@ -18,12 +18,12 @@ textarea, .p-calendar{
 .drop-container{
   display: flex;
   .form-control:first-child{
-    margin-right: 15px;
+    margin-right: 1vw;
   }
 }
 .form-control{
-  margin-bottom: 12px;
+  margin-bottom: 1vw;
   .form-label{
-    margin-bottom: 4px;
+    margin-bottom: 1vw;
   }
 }

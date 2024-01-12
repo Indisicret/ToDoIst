@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 import { MESSAGESCATEGORIES } from '../../config/constants';
 import { AddCategoryForm, Category } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
+import { CategoriesListLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -39,6 +40,7 @@ import { CategoryService } from '../../services/category.service';
 })
 export class CategoriesListComponent {
   addCategoryform: FormGroup<AddCategoryForm>;
+  categoriesListLabels = CategoriesListLabels;
 
   categoriesTable$: Observable<Category[]> =
     this.categoryService.categoriesUser$;

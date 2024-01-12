@@ -1,8 +1,8 @@
 <div class="authorization">
-  <h1>Авторизация</h1>
+  <h1>{{authorizationlLabels.authorization}}</h1>
   <form [formGroup]="authorForm">
     <div class="form-control">
-      <div>Email:</div>
+      <div>{{authorizationlLabels.eterEmail}}</div>
       <input
         pInputText
         formControlName="login"
@@ -15,13 +15,13 @@
         "
       >
         <small *ngIf="authorForm.get('login')?.errors">
-          Поле email не может быть пустым
+          {{authorizationlLabels.emptyEmail}}
         </small>
-        <small> Введите корректный email </small>
+        <small> {{authorizationlLabels.enterPassword}} </small>
       </div>
     </div>
     <div class="form-control">
-      <div>Пароль:</div>
+      <div>{{authorizationlLabels.password}}</div>
       <input
         pInputText
         formControlName="password"
