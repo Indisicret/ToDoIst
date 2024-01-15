@@ -1,6 +1,6 @@
 export enum RegistrationLabels {
     registration = "Регистрация",
-    eterEmail = "Email:",
+    enterEmail = "Email:",
     enterName = "Имя:",
     enterPassword = "Пароль:",
     gender = "Пол:",

@@ -1,9 +1,9 @@
 <div class="registration">
-  <h1>Регистрация</h1>
+  <h1>{{registrationLabels.registration}}</h1>
 
   <form [formGroup]="regForm">
     <div class="form-control">
-      <div>Email:</div>
+      <div>{{registrationLabels.enterEmail}}</div>
       <input
         pInputText
         formControlName="login"
@@ -12,7 +12,7 @@
       />
     </div>
     <div class="form-control">
-      <div>Пароль:</div>
+      <div>{{registrationLabels.enterPassword}}</div>
       <input
         pInputText
         type="password"
@@ -21,12 +21,12 @@
       />
     </div>
     <div class="form-control">
-      <div>Имя:</div>
+      <div>{{registrationLabels.enterName}}</div>
       <input pInputText formControlName="name" type="text" placeholder="Имя" />
     </div>
 
     <div class="form-control">
-      <div>Пол:</div>
+      <div>{{registrationLabels.gender}}</div>
       <p-dropdown
         formControlName="gender"
         [options]="optionsGender"
@@ -36,9 +36,9 @@
 
     <div class="buttons-block">
       <p-button [disabled]="regForm.invalid" (onClick)="regClick()"
-        >Зарегистрироваться</p-button
+        >{{registrationLabels.register}}</p-button
       >
-      <p-button (onClick)="authClick()">Авторизация</p-button>
+      <p-button (onClick)="authClick()">{{registrationLabels.authorization}}</p-button>
     </div>
   </form>
 </div>
