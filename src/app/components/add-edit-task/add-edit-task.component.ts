@@ -13,6 +13,7 @@ import { AddTaskForm, Category, Task } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskLabels } from './config/constants';
+import { generateNewTask } from './config/methods';
 @Component({
   selector: 'app-edit-task',
   standalone: true,
@@ -57,18 +58,12 @@ export class AddEditTaskComponent {
 
   saveEditTask() {
     if (this.task) {
-      const newTask: Task = {
-        ...(this.editTaskForm.getRawValue() as Task),
-        userId: this.task.userId,
-        id: this.task.id,
-        done: this.task.done,
-      };
+      const newTask = generateNewTask(this.editTaskForm, this.task);
       this.taskService.editTask(newTask);
       this.dialogRef.close(MESSAGES.edit);
     } else {
-      const task = this.editTaskForm.getRawValue() as unknown as Task;
-      task.done = false;
-      this.taskService.addTask(task);
+      const newTask = generateNewTask(this.editTaskForm);
+      this.taskService.addTask(newTask);
       this.dialogRef.close(MESSAGES.add);
     }
   }
