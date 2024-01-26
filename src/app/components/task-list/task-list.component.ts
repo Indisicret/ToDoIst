@@ -46,8 +46,7 @@ import {
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
-import e from 'express';
-import { TaskListLabels } from './config/constants';
+import { ClickDeleteIcon, EditModal, TaskListLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -100,21 +99,25 @@ export class TaskListComponent implements OnDestroy {
     this.taskService.tasksUser$
       .pipe(takeUntil(this.destroy$))
       .subscribe((values) => {
+        this.tasks = values;
         this.forms = [];
-        const tasks = values;
-        this.tasks = cloneDeep(tasks);
-        tasks.forEach((item) => {
-          item.priority = getPriority(item.priority);
-          item.category = getCategoryName(
-            item.category as number,
+
+        const tasks: Task[] = values.map((item) => {
+          const newItem = { ...item };
+          newItem.priority = getPriority(item.priority);
+          newItem.category = getCategoryName(
+            Number(newItem.category),
             this.categories
           );
           this.forms.push(
-            new FormGroup<TaskForm>({ done: new FormControl(item.done) })
+            new FormGroup<TaskForm>({ done: new FormControl(newItem.done) })
           );
+
+          return newItem;
         });
         this.tasksTable$.next(tasks);
       });
+
     this.searchForm = generateFormSearch();
     this.formSearchChanges();
   }
@@ -131,7 +134,7 @@ export class TaskListComponent implements OnDestroy {
   openEditModal(task?: Task) {
     this.dialogService
       .open(AddEditTaskComponent, {
-        header: task ?  EditModal.editTask :  EditModal.addTask,
+        header: task ? EditModal.editTask : EditModal.addTask,
         width: '500px',
         data: {
           task: task ? this.tasks.find((item) => item.id === task.id) : null,
@@ -176,18 +179,21 @@ export class TaskListComponent implements OnDestroy {
       .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe((formValues) => {
         let taskSearch: Task[] = this.tasks;
-        this.forms = [];
+
         Object.keys(formValues).forEach((key: string) => {
-          if (formValues[key as keyof SearchForm] || formValues[key as keyof SearchForm]===false) {
+          if (
+            formValues[key as keyof SearchForm] ||
+            formValues[key as keyof SearchForm] === false
+          ) {
             if (key === 'name' || key === 'description') {
               taskSearch = taskSearch.filter((item) =>
                 item[key]
                   .toUpperCase()
                   .includes((formValues[key] as string).toUpperCase())
               );
-            }
-             else if (key === 'deadLineDate') {
-              taskSearch = taskSearch.filter((item) =>
+            } else if (key === 'deadLineDate') {
+              taskSearch = taskSearch.filter(
+                (item) =>
                   new Date(item.deadLineDate).getTime() ===
                   new Date(formValues.deadLineDate as string).getTime()
               );
@@ -199,13 +205,12 @@ export class TaskListComponent implements OnDestroy {
               );
             }
           }
-        
         });
         const taskSearchTable = cloneDeep(taskSearch);
         taskSearchTable.forEach((item) => {
           item.priority = getPriority(item.priority);
           item.category = getCategoryName(
-            item.category as number,
+            Number(item.category),
             this.categories
           );
           this.forms.push(

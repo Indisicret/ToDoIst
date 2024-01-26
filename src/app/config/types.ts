@@ -38,7 +38,7 @@ export type User = {
 };
 
 export type Task = {
-  id?: number;
+  id: number;
   name: string;
   category: string | number;
   deadLineDate: string;
