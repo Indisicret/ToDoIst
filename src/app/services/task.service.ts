@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Task } from '../config/types';
 import { UserService } from './user.service';
 import { BehaviorSubject } from 'rxjs';
+import { getId } from '../config/methods';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,24 +18,13 @@ export class TaskService {
     const globalTask: Task[] = JSON.parse(
       localStorage.getItem('tasks') ?? '[]'
     );
-    if (globalTask.length === 0) {
-      task.id = 1;
-    } else {
-      let max = 0;
-      globalTask.forEach((item) => {
-        if (item.id && max < item.id) {
-          max = item.id;
-        }
-      });
-      task.id = max + 1;
-    }
+    task.id=getId(globalTask);
     const userId = this.userService.getUserId();
     if (userId) {
       task.userId = userId;
     }
     globalTask.push(task);
 
-    console.log(globalTask);
     localStorage.setItem('tasks', JSON.stringify(globalTask));
   }
 

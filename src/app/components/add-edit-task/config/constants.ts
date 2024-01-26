@@ -1,6 +1,6 @@
 export enum AddEditTaskLabels {
     deadline = 'Срок выполнения',
-    Name ='Название',
+    name ='Название',
     priority = 'Приоритет',
     category ='Категория',
     description ='Описание',

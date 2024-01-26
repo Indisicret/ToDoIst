@@ -178,8 +178,8 @@ export class TaskListComponent implements OnDestroy {
     this.searchForm.valueChanges
       .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe((formValues) => {
-        let taskSearch: Task[] = this.tasks;
-
+        let taskSearch: Task[] = [...this.tasks];
+        this.forms=[];
         Object.keys(formValues).forEach((key: string) => {
           if (
             formValues[key as keyof SearchForm] ||
@@ -206,16 +206,17 @@ export class TaskListComponent implements OnDestroy {
             }
           }
         });
-        const taskSearchTable = cloneDeep(taskSearch);
-        taskSearchTable.forEach((item) => {
-          item.priority = getPriority(item.priority);
-          item.category = getCategoryName(
-            Number(item.category),
+        const taskSearchTable:Task[] = taskSearch.map((item)=>{
+          const newItem = {...item};
+          newItem.priority = getPriority(item.priority);
+          newItem.category = getCategoryName(
+            Number(newItem.category),
             this.categories
           );
           this.forms.push(
-            new FormGroup<TaskForm>({ done: new FormControl(item.done) })
+            new FormGroup<TaskForm>({ done: new FormControl(newItem.done) })
           );
+          return newItem;
         });
         this.tasksTable$.next(taskSearchTable);
       });

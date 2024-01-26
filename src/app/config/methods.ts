@@ -9,24 +9,19 @@ import {
   Task,
 } from './types';
 
-
-
-export const getId = (essenceType:[]):number =>{ 
-  const newEssence;
-  if (essenceType.length === 0) {
-    newEssence.id = 1;
-  } else {
+export const getId = (arrayItems: { id: number }[]): number => {
+  let id = 1;
+  if (arrayItems.length > 0) {
     let max = 0;
-    essenceType.forEach((item) => {
+    arrayItems.forEach((item) => {
       if (max < item.id) {
         max = item.id;
       }
     });
-     newEssence.id = max + 1;
+    id = max + 1;
   }
-  return newEssence.id
+  return id;
 };
-
 
 export const getPriority = (code: string): string => {
   const label = PRIORITIES.find((item) => item.value === code)?.label;
@@ -80,9 +75,7 @@ export const generateEditTaskForm = (task?: Task): FormGroup<AddTaskForm> => {
       Validators.required,
       Validators.maxLength(40),
     ]),
-    category: new FormControl<number | null>(
-      (task?.category as number) ?? null
-    ),
+    category: new FormControl<number | null>(Number(task?.category) ?? null),
     deadLineDate: new FormControl<Date | string | null>(
       task && task.deadLineDate ? new Date(task.deadLineDate) : null
     ),

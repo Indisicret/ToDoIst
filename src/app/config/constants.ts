@@ -3,7 +3,11 @@ export const PRIORITIES = [
   { label: 'Средний', value: 'mid' },
   { label: 'Высокий', value: 'high' },
 ];
-
+export enum AlertLabels {
+  usernf='Пользователь не найден',
+  password='Неверный пароль',
+  userreg='такой пользователь уже зарегистрирован',
+};
 export const COLUMNS = [
   { field: 'id', header: 'id' },
   { field: 'name', header: 'Название' },

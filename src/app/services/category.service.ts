@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Category } from '../config/types';
 import { UserService } from './user.service';
+import { getId } from '../config/methods';
 
 @Injectable({
   providedIn: 'root',
@@ -18,21 +19,10 @@ export class CategoryService {
       localStorage.getItem('categories') ?? '[]'
     );
     const newCategory: Category = {
-      id: 0,
+      id: getId(categories),
       name: categoryName,
       userId: this.userService.getUserId() ?? 0,
     };
-    if (categories.length === 0) {
-      newCategory.id = 1;
-    } else {
-      let max = 0;
-      categories.forEach((item) => {
-        if (max < item.id) {
-          max = item.id;
-        }
-      });
-      newCategory.id = max + 1;
-    }
     categories.push(newCategory);
     localStorage.setItem('categories', JSON.stringify(categories));
     this.reloadCategories();
@@ -61,9 +51,7 @@ export class CategoryService {
       categories.splice(index, 1);
       localStorage.setItem('categories', JSON.stringify(categories));
       this.reloadCategories();
-      
     }
-    
   }
 
   getCategories(): Category[] {
