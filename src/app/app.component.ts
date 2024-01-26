@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { MESSAGESEXIT } from './config/constants';
+import { ClickExitAccountLabel, MESSAGESEXIT, SETTRANSLATION } from './config/constants';
 import { DialogService } from 'primeng/dynamicdialog';
 import {
   ConfirmationService,
@@ -36,58 +36,12 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.config.setTranslation({
-      firstDayOfWeek: 1,
-      dayNames: [
-        'Воскресенье',
-        'Понедельник',
-        'Вторник',
-        'Среда',
-        'Четверг',
-        'Пятница',
-        'Суббота',
-      ],
-      monthNames: [
-        'Январь',
-        'Февраль',
-        'Март',
-        'Апрель',
-        'Май',
-        'Июнь',
-        'Июль',
-        'Август',
-        'Сентябрь',
-        'Октябрь',
-        'Ноябрь',
-        'Декабрь',
-      ],
-      monthNamesShort: [
-        'Янв',
-        'Фев',
-        'Мар',
-        'Апр',
-        'Май',
-        'Июн',
-        'Июл',
-        'Авг',
-        'Сен',
-        'Окт',
-        'Ноя',
-        'Дек',
-      ],
-      dayNamesShort: ['Воск', 'Пон', 'Вт', 'Ср', 'Четв', 'Пят', 'Суб'],
-      dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-      weekHeader: 'Неделя',
-      today: 'Сегодня',
-      dateFormat: 'mm.dd.y',
-
-      clear: 'Очистить',
-    });
+    this.config.setTranslation(SETTRANSLATION);
   }
 
   clickExitAccount() {
     this.confimationService.confirm({
-      message: 'Вы уверены, что хотите выйти ?',
+      message: ClickExitAccountLabel.confirmExit,
       icon: 'pi pi-info-circle',
       accept: () => {
         this.userService.unlog();

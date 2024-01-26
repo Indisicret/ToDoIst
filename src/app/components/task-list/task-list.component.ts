@@ -131,7 +131,7 @@ export class TaskListComponent implements OnDestroy {
   openEditModal(task?: Task) {
     this.dialogService
       .open(AddEditTaskComponent, {
-        header: task ? 'Редактирование задачи' : 'Добавить задачу',
+        header: task ?  EditModal.editTask :  EditModal.addTask,
         width: '500px',
         data: {
           task: task ? this.tasks.find((item) => item.id === task.id) : null,
@@ -148,8 +148,8 @@ export class TaskListComponent implements OnDestroy {
 
   clickDeleteIcon(task: Task) {
     this.confimationService.confirm({
-      message: 'Вы уверены, что хотите удалить эту задачу',
-      header: 'Удаление задачи',
+      message: ClickDeleteIcon.consentToDeletion,
+      header: ClickDeleteIcon.deleteTask,
       icon: 'pi pi-info-circle',
       accept: () => {
         this.deleteTask(task);

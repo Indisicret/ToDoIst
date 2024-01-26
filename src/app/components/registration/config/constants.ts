@@ -6,4 +6,8 @@ export enum RegistrationLabels {
     gender = "Пол:",
     register = "Зарегистрироваться",
     authorization = "Авторизация",
-  }
+  };
+  export const OPTIONSGENDER =[
+    { label: 'Мужской', value: 'man' },
+    { label: 'Женский', value: 'woman' },
+  ];

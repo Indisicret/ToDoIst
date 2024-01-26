@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 import { MESSAGESCATEGORIES } from '../../config/constants';
 import { AddCategoryForm, Category } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
-import { CategoriesListLabels } from './config/constants';
+import { CategoriesListLabels, DeleteIconLables } from './config/constants';
 
 @Component({
   standalone: true,
@@ -68,8 +68,8 @@ export class CategoriesListComponent {
 
   clickDeleteIcon(id: number) {
     this.confimationService.confirm({
-      message: 'Вы уверены, что хотите удалить эту категорию?',
-      header: 'Удаление категории',
+      message: DeleteIconLables.consentToDeletion,
+      header: DeleteIconLables.deleteСategory,
       icon: 'pi pi-info-circle',
       accept: () => {
         this.categoryService.deleteCategory(id);

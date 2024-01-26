@@ -9,6 +9,25 @@ import {
   Task,
 } from './types';
 
+
+
+export const getId = (essenceType:[]):number =>{ 
+  const newEssence;
+  if (essenceType.length === 0) {
+    newEssence.id = 1;
+  } else {
+    let max = 0;
+    essenceType.forEach((item) => {
+      if (max < item.id) {
+        max = item.id;
+      }
+    });
+     newEssence.id = max + 1;
+  }
+  return newEssence.id
+};
+
+
 export const getPriority = (code: string): string => {
   const label = PRIORITIES.find((item) => item.value === code)?.label;
   return label ?? '';
