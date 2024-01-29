@@ -2,7 +2,9 @@ export enum CategoriesListLabels{
     categoriesTasks ='Категории задач',
     tasks = 'Задачи',
     name = 'Name',
-    id = 'id'
+    id = 'id',
+    enter = "Введите",
+    addCategory = "Добавить категорию",
   };
 
 export enum DeleteIconLables { 

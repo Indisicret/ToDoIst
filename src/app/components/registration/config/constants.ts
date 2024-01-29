@@ -1,13 +1,13 @@
 export enum RegistrationLabels {
     registration = "Регистрация",
-    enterEmail = "Email:",
-    enterName = "Имя:",
-    enterPassword = "Пароль:",
+    email = "Email:",
+    name = "Имя:",
+    password = "Пароль:",
     gender = "Пол:",
     register = "Зарегистрироваться",
     authorization = "Авторизация",
   };
-  export const OPTIONSGENDER =[
+  export const OPTIONS_GENDER =[
     { label: 'Мужской', value: 'man' },
     { label: 'Женский', value: 'woman' },
   ];

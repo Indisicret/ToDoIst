@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { ClickExitAccountLabel, MESSAGESEXIT, SETTRANSLATION } from './config/constants';
-import { DialogService } from 'primeng/dynamicdialog';
 import {
   ConfirmationService,
   MessageService,
   PrimeNGConfig,
 } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { UserService } from './services/user.service';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { ClickExitAccountLabel, MESSAGES_EXIT, TRANSLATION } from './config/constants';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -28,24 +28,24 @@ export class AppComponent {
   );
 
   constructor(
-    private confimationService: ConfirmationService,
-    private messageServis: MessageService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private config: PrimeNGConfig,
     private router: Router,
-    public userService: UserService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
-    this.config.setTranslation(SETTRANSLATION);
+    this.config.setTranslation(TRANSLATION);
   }
 
   clickExitAccount() {
-    this.confimationService.confirm({
+    this.confirmationService.confirm({
       message: ClickExitAccountLabel.confirmExit,
       icon: 'pi pi-info-circle',
       accept: () => {
         this.userService.unlog();
-        this.messageServis.add(MESSAGESEXIT);
+        this.messageService.add(MESSAGES_EXIT);
         this.router.navigate(['/authorization']);
       },
     });

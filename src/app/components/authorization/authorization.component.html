@@ -2,12 +2,12 @@
   <h1>{{authorizationlLabels.authorization}}</h1>
   <form [formGroup]="authorForm">
     <div class="form-control">
-      <div>{{authorizationlLabels.eterEmail}}</div>
+      <div>{{authorizationlLabels.enterEmail}}</div>
       <input
         pInputText
         formControlName="login"
         type="text"
-        placeholder="Email"
+        placeholder={{authorizationlLabels.enterEmail}}
       />
       <div
         *ngIf="
@@ -26,16 +26,16 @@
         pInputText
         formControlName="password"
         type="password"
-        placeholder="Пароль"
+        placeholder={{authorizationlLabels.password}}
       />
     </div>
     <p-button
       [ngStyle]="{ 'margin-right': '10px' }"
       type="submit"
       [disabled]="authorForm.invalid"
-      label="Войти"
+      label={{authorizationlLabels.enter}}
       (onClick)="authClick()"
     ></p-button>
-    <p-button (onClick)="regClick()" label="Регистрация"></p-button>
+    <p-button (onClick)="regClick()" label={{authorizationlLabels.registration}}></p-button>
   </form>
 </div>

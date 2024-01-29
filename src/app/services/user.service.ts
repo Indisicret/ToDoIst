@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { getId } from '../config/methods';
 import { User, UserCreate } from '../config/types';
+import { AuthorizationAlert } from '../config/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class UserService {
 
     const userAuth = users.find((item) => item.login === login);
     if (!userAuth) {
-      alert('Пользователь не найден');
+      alert(AuthorizationAlert.userNotFound);
       return false;
     } else {
       if (userAuth.password === password) {
@@ -27,7 +28,7 @@ export class UserService {
         this.userId$.next(userAuth.id);
         return true;
       } else {
-        alert('Неверный пароль');
+        alert(AuthorizationAlert.password);
         return false;
       }
     }
@@ -39,7 +40,7 @@ export class UserService {
     );
     const user1 = users.find((item) => item.login === user.login);
     if (user1) {
-      alert('такой пользователь уже зарегистрирован');
+      alert(AuthorizationAlert.userReg);
       return false;
     } else {
       const newUser: User = { ...user, id: getId(users) };

@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { generateRegForm } from '../../config/methods';
 import { RegistrationForm, UserCreate } from '../../config/types';
 import { UserService } from '../../services/user.service';
-import { OPTIONSGENDER, RegistrationLabels } from './config/constants';
+import { OPTIONS_GENDER, RegistrationLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -35,7 +35,7 @@ export class RegistrationComponent {
   registrationLabels = RegistrationLabels;
   regForm: FormGroup<RegistrationForm>;
 
-  optionsGender = OPTIONSGENDER
+  optionsGender = OPTIONS_GENDER
     
   constructor(private userService: UserService, private router: Router) {
     this.regForm = generateRegForm( )

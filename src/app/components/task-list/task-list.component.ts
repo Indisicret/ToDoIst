@@ -12,7 +12,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import cloneDeep from 'lodash/cloneDeep';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -46,7 +45,7 @@ import {
 import { CategoryService } from '../../services/category.service';
 import { TaskService } from '../../services/task.service';
 import { AddEditTaskComponent } from '../add-edit-task/add-edit-task.component';
-import { ClickDeleteIcon, EditModal, TaskListLabels } from './config/constants';
+import { ClickDeleteIcon, TaskListLabels } from './config/constants';
 
 @Component({
   standalone: true,
@@ -134,7 +133,7 @@ export class TaskListComponent implements OnDestroy {
   openEditModal(task?: Task) {
     this.dialogService
       .open(AddEditTaskComponent, {
-        header: task ? EditModal.editTask : EditModal.addTask,
+        header: task ? TaskListLabels.editTask : TaskListLabels.addTask,
         width: '500px',
         data: {
           task: task ? this.tasks.find((item) => item.id === task.id) : null,
@@ -179,7 +178,7 @@ export class TaskListComponent implements OnDestroy {
       .pipe(debounceTime(500), takeUntil(this.destroy$))
       .subscribe((formValues) => {
         let taskSearch: Task[] = [...this.tasks];
-        this.forms=[];
+        this.forms = [];
         Object.keys(formValues).forEach((key: string) => {
           if (
             formValues[key as keyof SearchForm] ||
@@ -206,8 +205,8 @@ export class TaskListComponent implements OnDestroy {
             }
           }
         });
-        const taskSearchTable:Task[] = taskSearch.map((item)=>{
-          const newItem = {...item};
+        const taskSearchTable: Task[] = taskSearch.map((item) => {
+          const newItem = { ...item };
           newItem.priority = getPriority(item.priority);
           newItem.category = getCategoryName(
             Number(newItem.category),

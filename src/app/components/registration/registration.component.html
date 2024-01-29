@@ -3,26 +3,26 @@
 
   <form [formGroup]="regForm">
     <div class="form-control">
-      <div>{{registrationLabels.enterEmail}}</div>
+      <div>{{registrationLabels.email}}</div>
       <input
         pInputText
         formControlName="login"
         type="text"
-        placeholder="Email"
+        placeholder={{registrationLabels.email}}
       />
     </div>
     <div class="form-control">
-      <div>{{registrationLabels.enterPassword}}</div>
+      <div>{{registrationLabels.password}}</div>
       <input
         pInputText
         type="password"
         formControlName="password"
-        placeholder="Пароль"
+        placeholder={{registrationLabels.password}}
       />
     </div>
     <div class="form-control">
-      <div>{{registrationLabels.enterName}}</div>
-      <input pInputText formControlName="name" type="text" placeholder="Имя" />
+      <div>{{registrationLabels.name}}</div>
+      <input pInputText formControlName="name" type="text" placeholder={{registrationLabels.name}} />
     </div>
 
     <div class="form-control">
@@ -30,7 +30,7 @@
       <p-dropdown
         formControlName="gender"
         [options]="optionsGender"
-        placeholder="Пол"
+        placeholder={{registrationLabels.gender}}
       ></p-dropdown>
     </div>
 

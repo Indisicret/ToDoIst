@@ -1,43 +1,43 @@
 <p-toast></p-toast>
-<h1>{{taskListLabels.tasks}}</h1>
+<h1>{{ taskListLabels.tasks }}</h1>
 
-<p-confirmDialog acceptLabel="Удалить" rejectLabel="Отмена"></p-confirmDialog>
+<p-confirmDialog acceptLabel={{taskListLabels.delete}} rejectLabel={{taskListLabels.cancel}}></p-confirmDialog>
 <div class="button-container">
   <div class="button-search-add">
-    <p-button (click)="openEditModal()" label="Добавить задачу"></p-button>
+    <p-button (click)="openEditModal()" label={{taskListLabels.addTask}}></p-button>
     <p-button
       icon="pi pi-search"
       (click)="openSearch()"
       severity="success"
     ></p-button>
   </div>
-  <p-button (click)="openCategories()" label="Категории"></p-button>
+  <p-button (click)="openCategories()" label={{taskListLabels.Categories}}></p-button>
 </div>
 <div *ngIf="visebleSearch()" class="find-input-group">
   <form [formGroup]="searchForm">
-    <input type="number" pInputText formControlName="id" placeholder="id" />
+    <input type="number" pInputText formControlName="id" placeholder={{taskListLabels.id}} />
     <input
       type="text"
       pInputText
       formControlName="name"
-      placeholder="Название"
+      placeholder={{taskListLabels.name}}
     />
     <input
       type="text"
       pInputText
       formControlName="description"
-      placeholder="Описание"
+      placeholder={{taskListLabels.description}}
     />
     <p-calendar
       formControlName="deadLineDate"
-      placeholder="Дата выполнения"
+      placeholder={{taskListLabels.deadLineDate}}
       [showClear]="true"
       dateFormat="dd.mm.yy"
     ></p-calendar>
     <p-dropdown
       formControlName="category"
       [options]="(optionsCategory$ | async) || []"
-      placeholder="Категория"
+      placeholder={{taskListLabels.category}}
       optionLabel="name"
       optionValue="id"
       [showClear]="true"
@@ -45,13 +45,13 @@
     <p-dropdown
       formControlName="priority"
       [options]="optionsPriority"
-      placeholder="Приоретет"
+      placeholder={{taskListLabels.priority}}
       [showClear]="true"
     ></p-dropdown>
     <p-dropdown
       formControlName="done"
       [options]="optionsStatus"
-      placeholder="Статус"
+      placeholder={{taskListLabels.done}}
     ></p-dropdown>
   </form>
 </div>

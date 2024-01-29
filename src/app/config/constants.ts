@@ -3,11 +3,7 @@ export const PRIORITIES = [
   { label: 'Средний', value: 'mid' },
   { label: 'Высокий', value: 'high' },
 ];
-export enum AlertLabels {
-  usernf='Пользователь не найден',
-  password='Неверный пароль',
-  userreg='такой пользователь уже зарегистрирован',
-};
+
 export const COLUMNS = [
   { field: 'id', header: 'id' },
   { field: 'name', header: 'Название' },
@@ -22,7 +18,7 @@ export const STATUS =[
   { label: 'Все', value: null },
 ];
 
-export const MESSAGESCATEGORIES = {
+export const MESSAGES_CATEGORIES = {
   add: {
     severity: 'success',
     summary: 'Выполнено',
@@ -57,15 +53,13 @@ export const MESSAGES = {
     detail: 'Задача удалена',
   },
 };
-export const MESSAGESEXIT = {
+export const MESSAGES_EXIT = {
   severity: 'success',
   summary: 'Успешно',
   detail: 'Выход выполнен',
 };
-export enum ClickExitAccountLabel{
-  confirmExit = 'Вы уверены, что хотите выйти ?'
-};
-export const SETTRANSLATION = {
+
+export const TRANSLATION = {
   firstDayOfWeek: 1,
   dayNames: [
     'Воскресенье',
@@ -113,3 +107,12 @@ export const SETTRANSLATION = {
   clear: 'Очистить',
   
 }
+export enum AuthorizationAlert {
+  userNotFound ='Пользователь не найден',
+  password = 'Неверный пароль',
+  userReg = 'такой пользователь уже зарегистрирован',
+};
+
+export enum ClickExitAccountLabel{
+  confirmExit = 'Вы уверены, что хотите выйти ?'
+};

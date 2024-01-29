@@ -15,7 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { Observable } from 'rxjs';
-import { MESSAGESCATEGORIES } from '../../config/constants';
+import { MESSAGES_CATEGORIES } from '../../config/constants';
 import { AddCategoryForm, Category } from '../../config/types';
 import { CategoryService } from '../../services/category.service';
 import { CategoriesListLabels, DeleteIconLables } from './config/constants';
@@ -63,7 +63,7 @@ export class CategoriesListComponent {
       name: new FormControl<string | null>(null, [Validators.required]),
       
     });
-    this.messageServis.add(MESSAGESCATEGORIES.add);
+    this.messageServis.add(MESSAGES_CATEGORIES.add);
   }
 
   clickDeleteIcon(id: number) {
@@ -73,7 +73,7 @@ export class CategoriesListComponent {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.categoryService.deleteCategory(id);
-        this.messageServis.add(MESSAGESCATEGORIES.delete);
+        this.messageServis.add(MESSAGES_CATEGORIES.delete);
       },
       
     });
@@ -82,7 +82,7 @@ export class CategoriesListComponent {
 
   saveChangesCategory(category: Category) {
     this.categoryService.editCategory(category);
-    this.messageServis.add(MESSAGESCATEGORIES.edit);
+    this.messageServis.add(MESSAGES_CATEGORIES.edit);
   }
 
   cancelChangesCategory() {

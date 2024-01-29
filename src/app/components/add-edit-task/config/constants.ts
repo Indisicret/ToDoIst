@@ -4,4 +4,6 @@ export enum AddEditTaskLabels {
     priority = 'Приоритет',
     category ='Категория',
     description ='Описание',
+    date = "Дата выполнения",
+    save = "Сохранить",
   }

@@ -4,7 +4,7 @@
         <div class="form-label">{{addEditTaskLabels.deadline}}</div>
         <p-calendar
         formControlName="deadLineDate"
-        placeholder="Дата выполнения"
+        placeholder={{addEditTaskLabels.date}}
         [showClear]="true"
         dateFormat="dd.mm.yy"
         ></p-calendar>
@@ -15,7 +15,7 @@
           pInputText
           formControlName="name"
           type="text"
-          placeholder="Название"
+          placeholder={{addEditTaskLabels.name}}
         />
       </div>
       <div class="drop-container">
@@ -24,7 +24,7 @@
           <p-dropdown
             formControlName="priority"
             [options]="optionsPriority"
-            placeholder="Приоретет"
+            placeholder={{addEditTaskLabels.priority}}
           ></p-dropdown>
         </div>
   
@@ -33,7 +33,7 @@
           <p-dropdown
           formControlName="category"
           [options]="(optionsCategory$ | async) || []"
-          placeholder="Категория"
+          placeholder={{addEditTaskLabels.category}}
           optionLabel="name"
           optionValue="id"
         ></p-dropdown>
@@ -47,11 +47,11 @@
           formControlName="description"
           cols="30"
           pInputTextarea
-          placeholder="Описание"
+          placeholder={{addEditTaskLabels.description}}
         >
         </textarea>
       </div>
-      <p-button label="Сохранить" [disabled]="editTaskForm.invalid" (onClick)="saveEditTask()"></p-button>
+      <p-button label={{addEditTaskLabels.save}} [disabled]="editTaskForm.invalid" (onClick)="saveEditTask()"></p-button>
     </form>
   </div>
   

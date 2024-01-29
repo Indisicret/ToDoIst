@@ -2,21 +2,21 @@
 <p-toast></p-toast>
 <div class="page-container">
   <h1>{{categoriesListLabels.categoriesTasks}}</h1>
-  <div class="category-panel">
-    <div class="category-form" [formGroup]="addCategoryform">
+  <div class = "category-panel">
+    <div class = "category-form" [formGroup]="addCategoryform">
       <input
-        class="category-input"
+        class = "category-input"
         pInputText
         formControlName="name"
         type="text"
-        placeholder="Введите"
+        placeholder={{categoriesListLabels.enter}}
       />
     </div>
     <div class="p-button-container">
       <p-button
         [disabled]="addCategoryform.invalid"
         (click)="addCategory()"
-        label="Добавить категорию"
+        label = {{categoriesListLabels.addCategory}}
       ></p-button>
       <p-button (click)="openTasks()">{{categoriesListLabels.tasks}}</p-button>
     </div>
