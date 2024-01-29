@@ -1,44 +1,51 @@
 <div class="registration">
-  <h1>{{registrationLabels.registration}}</h1>
+  <h1>{{ registrationLabels.registration }}</h1>
 
   <form [formGroup]="regForm">
     <div class="form-control">
-      <div>{{registrationLabels.email}}</div>
+      <div>{{ registrationLabels.email }}</div>
       <input
         pInputText
         formControlName="login"
         type="text"
-        placeholder={{registrationLabels.email}}
+        placeholder="{{ registrationLabels.email }}"
       />
     </div>
     <div class="form-control">
-      <div>{{registrationLabels.password}}</div>
+      <div>{{ registrationLabels.password }}</div>
       <input
         pInputText
         type="password"
         formControlName="password"
-        placeholder={{registrationLabels.password}}
+        placeholder="{{ registrationLabels.password }}"
       />
     </div>
     <div class="form-control">
-      <div>{{registrationLabels.name}}</div>
-      <input pInputText formControlName="name" type="text" placeholder={{registrationLabels.name}} />
+      <div>{{ registrationLabels.name }}</div>
+      <input
+        pInputText
+        formControlName="name"
+        type="text"
+        placeholder="{{ registrationLabels.name }}"
+      />
     </div>
 
     <div class="form-control">
-      <div>{{registrationLabels.gender}}</div>
+      <div>{{ registrationLabels.gender }}</div>
       <p-dropdown
         formControlName="gender"
         [options]="optionsGender"
-        placeholder={{registrationLabels.gender}}
+        placeholder="{{ registrationLabels.gender }}"
       ></p-dropdown>
     </div>
 
     <div class="buttons-block">
-      <p-button [disabled]="regForm.invalid" (onClick)="regClick()"
-        >{{registrationLabels.register}}</p-button
-      >
-      <p-button (onClick)="authClick()">{{registrationLabels.authorization}}</p-button>
+      <p-button [disabled]="regForm.invalid" (onClick)="regClick()">{{
+        registrationLabels.register
+      }}</p-button>
+      <p-button (onClick)="authClick()">{{
+        registrationLabels.authorization
+      }}</p-button>
     </div>
   </form>
 </div>

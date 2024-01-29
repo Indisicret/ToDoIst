@@ -10,7 +10,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
 import { Observable, map } from 'rxjs';
-import { ClickExitAccountLabel, MESSAGES_EXIT, TRANSLATION } from './config/constants';
+import {
+  ClickExitAccountLabel,
+  MESSAGES_EXIT,
+  TRANSLATION,
+  AppLables,
+} from './config/constants';
 import { UserService } from './services/user.service';
 
 @Component({
@@ -22,10 +27,10 @@ import { UserService } from './services/user.service';
   providers: [DialogService, ConfirmationService, MessageService],
 })
 export class AppComponent {
-  
   visibleExit$: Observable<boolean> = this.userService.userId$.pipe(
     map((value) => Boolean(value))
   );
+  appLables = AppLables;
 
   constructor(
     private confirmationService: ConfirmationService,

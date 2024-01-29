@@ -1,57 +1,59 @@
 <div class="edit-task-container">
-    <form [formGroup]="editTaskForm">
-      <div class="form-control">
-        <div class="form-label">{{addEditTaskLabels.deadline}}</div>
-        <p-calendar
+  <form [formGroup]="editTaskForm">
+    <div class="form-control">
+      <div class="form-label">{{ addEditTaskLabels.deadline }}</div>
+      <p-calendar
         formControlName="deadLineDate"
-        placeholder={{addEditTaskLabels.date}}
+        placeholder="{{ addEditTaskLabels.date }}"
         [showClear]="true"
         dateFormat="dd.mm.yy"
-        ></p-calendar>
-      </div>
+      ></p-calendar>
+    </div>
+    <div class="form-control">
+      <div class="form-label">{{ addEditTaskLabels.name }}</div>
+      <input
+        pInputText
+        formControlName="name"
+        type="text"
+        placeholder="{{ addEditTaskLabels.name }}"
+      />
+    </div>
+    <div class="drop-container">
       <div class="form-control">
-        <div class="form-label">{{addEditTaskLabels.name}}</div>
-        <input
-          pInputText
-          formControlName="name"
-          type="text"
-          placeholder={{addEditTaskLabels.name}}
-        />
+        <div class="form-label">{{ addEditTaskLabels.priority }}</div>
+        <p-dropdown
+          formControlName="priority"
+          [options]="optionsPriority"
+          placeholder="{{ addEditTaskLabels.priority }}"
+        ></p-dropdown>
       </div>
-      <div class="drop-container">
-        <div class="form-control">
-          <div class="form-label">{{addEditTaskLabels.priority}}</div>
-          <p-dropdown
-            formControlName="priority"
-            [options]="optionsPriority"
-            placeholder={{addEditTaskLabels.priority}}
-          ></p-dropdown>
-        </div>
-  
-        <div class="form-control">
-          <div class="form-label">{{addEditTaskLabels.category}}</div>
-          <p-dropdown
+
+      <div class="form-control">
+        <div class="form-label">{{ addEditTaskLabels.category }}</div>
+        <p-dropdown
           formControlName="category"
           [options]="(optionsCategory$ | async) || []"
-          placeholder={{addEditTaskLabels.category}}
+          placeholder="{{ addEditTaskLabels.category }}"
           optionLabel="name"
           optionValue="id"
         ></p-dropdown>
-          
-        </div>
       </div>
-      <div class="form-control">
-        <div class="form-label">{{addEditTaskLabels.description}}</div>
-        <textarea
-          rows="5"
-          formControlName="description"
-          cols="30"
-          pInputTextarea
-          placeholder={{addEditTaskLabels.description}}
-        >
-        </textarea>
-      </div>
-      <p-button label={{addEditTaskLabels.save}} [disabled]="editTaskForm.invalid" (onClick)="saveEditTask()"></p-button>
-    </form>
-  </div>
-  
+    </div>
+    <div class="form-control">
+      <div class="form-label">{{ addEditTaskLabels.description }}</div>
+      <textarea
+        rows="5"
+        formControlName="description"
+        cols="30"
+        pInputTextarea
+        placeholder="{{ addEditTaskLabels.description }}"
+      >
+      </textarea>
+    </div>
+    <p-button
+      label="{{ addEditTaskLabels.save }}"
+      [disabled]="editTaskForm.invalid"
+      (onClick)="saveEditTask()"
+    ></p-button>
+  </form>
+</div>

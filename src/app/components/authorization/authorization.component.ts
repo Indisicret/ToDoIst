@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,7 +18,6 @@ import { AuthorizationLabels } from './config/constants';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-
   ],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.scss',
@@ -32,7 +27,7 @@ export class AuthorizationComponent {
   authorizationlLabels = AuthorizationLabels;
 
   constructor(private userService: UserService, private router: Router) {
-    this.authorForm = generateAuthorForm()
+    this.authorForm = generateAuthorForm();
   }
 
   authClick() {

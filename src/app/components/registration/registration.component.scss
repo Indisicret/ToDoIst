@@ -11,17 +11,18 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    p-button{ margin-right: 1vw;}
-    
+    p-button {
+      margin-right: 1vw;
+    }
   }
 }
 
 input {
-    width: 100%;
+  width: 100%;
   &.ng-inalid.ng-touched {
     border: 0.1vw solid red;
   }
   &.ng-valid.ng-touched {
-    border: 0.1vw  solid green;
+    border: 0.1vw solid green;
   }
 }

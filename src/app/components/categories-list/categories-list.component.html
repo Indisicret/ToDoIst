@@ -1,24 +1,25 @@
-
 <p-toast></p-toast>
 <div class="page-container">
-  <h1>{{categoriesListLabels.categoriesTasks}}</h1>
-  <div class = "category-panel">
-    <div class = "category-form" [formGroup]="addCategoryform">
+  <h1>{{ categoriesListLabels.categoriesTasks }}</h1>
+  <div class="category-panel">
+    <div class="category-form" [formGroup]="addCategoryform">
       <input
-        class = "category-input"
+        class="category-input"
         pInputText
         formControlName="name"
         type="text"
-        placeholder={{categoriesListLabels.enter}}
+        placeholder="{{ categoriesListLabels.enter }}"
       />
     </div>
     <div class="p-button-container">
       <p-button
         [disabled]="addCategoryform.invalid"
         (click)="addCategory()"
-        label = {{categoriesListLabels.addCategory}}
+        label="{{ categoriesListLabels.addCategory }}"
       ></p-button>
-      <p-button (click)="openTasks()">{{categoriesListLabels.tasks}}</p-button>
+      <p-button (click)="openTasks()">{{
+        categoriesListLabels.tasks
+      }}</p-button>
     </div>
   </div>
 
@@ -31,8 +32,8 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 10%">{{categoriesListLabels.id}}</th>
-          <th style="width: 80%">{{categoriesListLabels.name}}</th>
+          <th style="width: 10%">{{ categoriesListLabels.id }}</th>
+          <th style="width: 80%">{{ categoriesListLabels.name }}</th>
           <th></th>
           <th></th>
         </tr>

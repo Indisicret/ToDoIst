@@ -12,7 +12,7 @@ export const COLUMNS = [
   { field: 'category', header: 'Категория' },
   { field: 'priority', header: 'Приоритет' },
 ];
-export const STATUS =[
+export const STATUS = [
   { label: 'Выполнено', value: true },
   { label: 'Не выполнено', value: false },
   { label: 'Все', value: null },
@@ -105,14 +105,19 @@ export const TRANSLATION = {
   dateFormat: 'mm.dd.y',
 
   clear: 'Очистить',
-  
-}
+};
 export enum AuthorizationAlert {
-  userNotFound ='Пользователь не найден',
+  userNotFound = 'Пользователь не найден',
   password = 'Неверный пароль',
   userReg = 'такой пользователь уже зарегистрирован',
-};
+}
 
-export enum ClickExitAccountLabel{
-  confirmExit = 'Вы уверены, что хотите выйти ?'
-};
+export enum ClickExitAccountLabel {
+  confirmExit = 'Вы уверены, что хотите выйти ?',
+}
+
+export enum AppLables {
+  goOut = 'Выйти',
+  cancel = 'Отмена',
+  exit = 'Выход',
+}

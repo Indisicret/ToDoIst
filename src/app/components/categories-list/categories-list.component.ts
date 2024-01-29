@@ -61,7 +61,6 @@ export class CategoriesListComponent {
     this.categoryService.createCategory(newCategory.name ?? '');
     this.addCategoryform = new FormGroup<AddCategoryForm>({
       name: new FormControl<string | null>(null, [Validators.required]),
-      
     });
     this.messageServis.add(MESSAGES_CATEGORIES.add);
   }
@@ -75,9 +74,7 @@ export class CategoriesListComponent {
         this.categoryService.deleteCategory(id);
         this.messageServis.add(MESSAGES_CATEGORIES.delete);
       },
-      
     });
-    
   }
 
   saveChangesCategory(category: Category) {

@@ -11,19 +11,20 @@ input {
   }
 }
 
-textarea, .p-calendar{
+textarea,
+.p-calendar {
   width: 100%;
 }
 
-.drop-container{
+.drop-container {
   display: flex;
-  .form-control:first-child{
+  .form-control:first-child {
     margin-right: 1vw;
   }
 }
-.form-control{
+.form-control {
   margin-bottom: 1vw;
-  .form-label{
+  .form-label {
     margin-bottom: 1vw;
   }
 }

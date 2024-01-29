@@ -1,13 +1,13 @@
 <div class="authorization">
-  <h1>{{authorizationlLabels.authorization}}</h1>
+  <h1>{{ authorizationlLabels.authorization }}</h1>
   <form [formGroup]="authorForm">
     <div class="form-control">
-      <div>{{authorizationlLabels.enterEmail}}</div>
+      <div>{{ authorizationlLabels.enterEmail }}</div>
       <input
         pInputText
         formControlName="login"
         type="text"
-        placeholder={{authorizationlLabels.enterEmail}}
+        placeholder="{{ authorizationlLabels.enterEmail }}"
       />
       <div
         *ngIf="
@@ -15,27 +15,30 @@
         "
       >
         <small *ngIf="authorForm.get('login')?.errors">
-          {{authorizationlLabels.emptyEmail}}
+          {{ authorizationlLabels.emptyEmail }}
         </small>
-        <small> {{authorizationlLabels.enterPassword}} </small>
+        <small> {{ authorizationlLabels.enterPassword }} </small>
       </div>
     </div>
     <div class="form-control">
-      <div>{{authorizationlLabels.password}}</div>
+      <div>{{ authorizationlLabels.password }}</div>
       <input
         pInputText
         formControlName="password"
         type="password"
-        placeholder={{authorizationlLabels.password}}
+        placeholder="{{ authorizationlLabels.password }}"
       />
     </div>
     <p-button
       [ngStyle]="{ 'margin-right': '10px' }"
       type="submit"
       [disabled]="authorForm.invalid"
-      label={{authorizationlLabels.enter}}
+      label="{{ authorizationlLabels.enter }}"
       (onClick)="authClick()"
     ></p-button>
-    <p-button (onClick)="regClick()" label={{authorizationlLabels.registration}}></p-button>
+    <p-button
+      (onClick)="regClick()"
+      label="{{ authorizationlLabels.registration }}"
+    ></p-button>
   </form>
 </div>

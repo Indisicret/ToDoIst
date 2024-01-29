@@ -1,10 +1,13 @@
 <p-toast></p-toast>
-<p-confirmDialog acceptLabel="Выйти" rejectLabel="Отмена"></p-confirmDialog>
+<p-confirmDialog
+  acceptLabel="{{ appLables.goOut }}"
+  rejectLabel="{{ appLables.cancel }}"
+></p-confirmDialog>
 <div class="exit" *ngIf="visibleExit$ | async">
   <p-button
     (click)="clickExitAccount()"
     icon="pi-sign-out"
-    label="Выход"
+    label="{{ appLables.exit }}"
   ></p-button>
 </div>
 
